@@ -97,16 +97,17 @@ int	def_path(t_data *data)
 	return (1);
 }
 
-int	check_argv(char **argv, char **envp)
+int	check_argv(int argc, char **argv, char **envp)
 {
 	int	i;
 
 	i = 0;
 	while (argv[i] && argv[i][0] != '\0')
 		i++;
-	if (i <= 5 && ft_strncmp(argv[1], "here_doc", 8) != 0)
-		return (0);
-	if (i <= 6 && ft_strncmp(argv[1], "here_doc", 8) == 0)
+	if (argc < 5 && ft_strncmp(argv[1], "here_doc", 8) != 0)
+		return (printf ("nig"), 0);
+	if (argc < 6 && ft_strncmp(argv[1], "here_doc", 8) == 0)
+		return (printf ("ger"), 0);
 	if (!envp || !envp[0])
 		return (0);
 	return (1);
@@ -136,11 +137,8 @@ void	check_nb_cmd(t_data *data, char **argv)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
-	int		status;
 
-	if (argc != 5)
-		return (0);
-	if (check_argv(argv, envp) == 0)
+	if (check_argv(argc, argv, envp) == 0)
 		return (error(1), 0);
 	data = ft_calloc(sizeof(t_data), 1);
 	check_nb_cmd(data, argv);
@@ -150,16 +148,4 @@ int	main(int argc, char **argv, char **envp)
 	if (check_fd(argv, data) == 0)
 		return (free_struct(data), 0);
 	exec_pipex(argv, data);
-	// execute_child_one(argv, data);
-	// if (data->path)
-	// 	free(data->path);
-	// free_tab(data->args);
-	// execute_child_two(argv, data);
-	// if (data->pid2 > 0)
-	// {
-	// 	close_all(data);
-	// 	waitpid(data->pid1, &status, 0);
-	// 	waitpid(data->pid2, &status, 0);
-	// }
-	// free_struct(data);
 }

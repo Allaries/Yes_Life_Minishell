@@ -33,11 +33,9 @@ typedef struct t_data {
 	int		infd;
 	int		outfd;
 	int		*pid;
-	int		pipefd[2];
+	int		pipefd[2][2];
 }	t_data;
 
-int		execute_child_one(char **argv, t_data *data);
-int		execute_child_two(char **argv, t_data *data);
 void	ft_strcat(char *dest, const char *src);
 int		def_path(t_data *data);
 void	def_arg(char *cmd, t_data *data);
@@ -46,6 +44,7 @@ int		check_fd(char **argv, t_data *data);
 void	free_struct(t_data *data);
 int		close_all(t_data *data);
 void	error(int type);
-exec_pipex(t_data *data, char **argv);
+int		exec_pipex (char **argv, t_data *data);
+int		execute_child(char **argv, t_data *data, int i);
 
 #endif

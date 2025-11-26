@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2025/11/24 21:25:38 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/11/26 18:14:03 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,12 @@ int	abs_path_check(char *cmd, t_data *data)
 {
 	if (cmd[0] == '/')
 	{
-		printf("omg ya un / \n");
 		if (access (data->cmd, F_OK) == 0)
 		{
-			printf("mais c'est un dingz il marche\n");
 			return (1);
 		}
 		else
 		{
-			printf("i sert a rien part contre\n");
 			return (0);
 		}
 	}
@@ -105,9 +102,9 @@ int	check_argv(int argc, char **argv, char **envp)
 	while (argv[i] && argv[i][0] != '\0')
 		i++;
 	if (argc < 5 && ft_strncmp(argv[1], "here_doc", 8) != 0)
-		return (printf ("nig"), 0);
+		return (printf ("not here"), 0);
 	if (argc < 6 && ft_strncmp(argv[1], "here_doc", 8) == 0)
-		return (printf ("ger"), 0);
+		return (printf ("yes here"), 0);
 	if (!envp || !envp[0])
 		return (0);
 	return (1);
@@ -128,10 +125,10 @@ void	check_nb_cmd(t_data *data, char **argv)
 	{
 		while (argv[i])
 			i++;
-		data->nb_of_cmd = i - 3;
+		data->nb_of_cmd = i - 4;
 		data->heredoc = 1;
 	}
-	data->pid = ft_calloc(sizeof (int), data->nb_of_cmd);
+	data->pid = ft_calloc(sizeof (int *) * data->nb_of_cmd, 1);
 }
 
 int	main(int argc, char **argv, char **envp)

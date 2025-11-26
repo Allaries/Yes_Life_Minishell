@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2025/11/24 21:31:28 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/11/26 21:30:48 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	close_all(t_data *data)
 		return (0);
 	if (close(data->infd) == -1)
 		return (0);
+	printf("fini\n");
 	return (1);
 }
 
@@ -37,7 +38,9 @@ int	execute_child(char **argv, t_data *data, int i)
 	pipe(data->pipefd[1]);
 	data->pid[i] = fork();
 	if (data->pid[i] != 0)
+	{
 		return (1);
+	}
 	if (i == 0)
 	{
 		dup2(data->infd, 0);
@@ -82,8 +85,9 @@ int	exec_pipex (char **argv, t_data *data)
 			execute_child(argv, data, i);
 			i++;
 		}
-		if (data->pid[--i] == 0)
+		if (data->pid[i] == 0)
 		{
+			close_all(data);
 			i = 0;
 			while (data->pid[i])
 			{

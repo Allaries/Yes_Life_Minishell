@@ -1,8 +1,8 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
-NAME = pipex
+CFLAGS = -Wall -Werror -Wextra -g3 -g -lreadline
+NAME = minishell
 
-SRC = pipox/pipex.c pipox/childs.c pipox/for_free.c
+SRC = main.c
 SRC_BONUS = bonus/main.c
 OBJ = $(SRC:.c=.o)
 
@@ -18,7 +18,7 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -g3 -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf *.o

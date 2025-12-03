@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/02 19:28:10 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/03 17:58:00 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	check_argv(int argc, char **argv, char **envp)
 	return (1);
 }
 
-void	check_nb_cmd(t_data *data, char **argv)
+void	check_nb_cmd(t_data *data, char **argv, int argc)
 {
 	int	i;
 
@@ -119,7 +119,7 @@ void	check_nb_cmd(t_data *data, char **argv)
 	{
 		while (argv[i])
 			i++;
-		data->nb_of_cmd = i - 2;
+		data->nb_of_cmd = argc - 3;
 	}
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
 	{
@@ -138,7 +138,7 @@ int	main(int argc, char **argv, char **envp)
 	if (check_argv(argc, argv, envp) == 0)
 		return (error(1), 0);
 	data = ft_calloc(sizeof(t_data), 1);
-	check_nb_cmd(data, argv);
+	check_nb_cmd(data, argv, argc);
 	if (!data)
 		return (0);
 	data->envp = envp;

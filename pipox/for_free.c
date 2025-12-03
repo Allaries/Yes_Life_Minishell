@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2025/11/26 16:20:43 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/03 20:39:00 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_fd(char **argv, t_data *data)
 		write(2, "problem during infile open\n", 27);
 		return (0);
 	}
-	data->outfd = open(argv[data->nb_of_cmd + 1], O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	data->outfd = open(argv[data->nb_of_cmd + 2], O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (data->outfd == -1)
 	{
 		close (data->infd);

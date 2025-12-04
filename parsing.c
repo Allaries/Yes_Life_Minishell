@@ -6,11 +6,20 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 18:00:14 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/03 18:06:18 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/04 18:24:13 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+int	len_file(const char **file, int len)
+{
+	len = 0;
+	while (file && (file[len] != NULL))
+		len++;
+	return (len);
+}
 
 t_list	*copy_infile(t_list *node, const char **infile, int len_infile)
 {
@@ -70,18 +79,48 @@ t_list	*copy_outfile(t_list *node, const char **outfile, int len_outfile)
 	return (node);
 }
 
-int	len_file(const char **file, int len)
+t_list	*add_file(t_list *node, const char **infile, const char **outfile)
 {
-	len = 0;
-	while (file && (file[len] != NULL))
-		len++;
-	return (len);
+	int		len_infile;
+	int		len_outfile;
+
+	len_infile = len_file(infile, len_infile);
+	len_outfile = len_file(outfile, len_outfile);
+	if (infile && len_infile)
+		if (!copy_infile(&node, infile, len_infile))
+			return (NULL);
+	else
+		node->infile = NULL;
+	if (outfile && len_outfile)
+		if (copy_outfile(&node, outfile, len_outfile))
+			return (NULL);
+	else
+		node->outfile = NULL;
+	return (node);
 }
 
-t_list	*create_list(char *str_stdint)
+t_list	*create_node(const char **cmd, const char **infile, const char **outfile)
+{
+	t_list	*node;
+
+	node = malloc(sizeof(t_list));
+	if (!node)
+		return (NULL);
+	node->cmd = ft_strdup(cmd);
+	if (!node->cmd)
+	{
+		free(node);
+		return (NULL);
+	}
+	if (!add_file)
+		return (NULL);
+	return (node);
+}
+
+t_list	*send_list(char *str_stdint)
 {
 	t_list	*list;
-	char	*cmd;
+	char	**cmd;
 	char	**infile;
 	char	**outfile;
 
@@ -90,32 +129,6 @@ t_list	*create_list(char *str_stdint)
 	return (list);
 }
 
-t_list	*create_node(const char *cmd, const char **infile, const char **outfile)
-{
-	t_list	*node;
-	int		len_infile;
-	int		len_outfile;
 
-	len_infile = len_file(infile, len_infile);
-	len_outfile = len_file(outfile, len_outfile);
-	node = malloc(sizeof(t_list));
-	if (!node)
-		return NULL;
-	node->cmd = ft_strdup(cmd);
-	if (!node->cmd)
-	{
-		free(node);
-		return (NULL);
-	}
-	if (infile && len_infile)
-		if (!copy_in_out_file(&node, infile, len_infile))
-			return (NULL);
-	else
-		node->infile = NULL;
-	if (outfile && len_outfile)
-		if (copy_in_out_file(&node, outfile, len_outfile))
-			return (NULL);
-	else
-		node->outfile = NULL;
-	return (node);
-}
+
+

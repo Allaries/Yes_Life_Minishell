@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/03 18:22:15 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/04 18:24:36 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ typedef struct t_list
 	struct t_list	*next;
 }	t_list;
 
-t_list	*create_list(char *str_stdint);
+t_list	*send_list(char *str_stdint);
 
 #endif

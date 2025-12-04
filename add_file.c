@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   add_file.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 18:00:14 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/04 18:24:13 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:50:11 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	len_file(const char **file, int len)
 {
@@ -21,7 +20,7 @@ int	len_file(const char **file, int len)
 	return (len);
 }
 
-t_list	*copy_infile(t_list *node, const char **infile, int len_infile)
+t_list	*copy_infile(t_list *node, char **infile, int len_infile)
 {
 	int	i;
 
@@ -50,7 +49,7 @@ t_list	*copy_infile(t_list *node, const char **infile, int len_infile)
 	return (node);
 }
 
-t_list	*copy_outfile(t_list *node, const char **outfile, int len_outfile)
+t_list	*copy_outfile(t_list *node, char **outfile, int len_outfile)
 {
 	int	i;
 
@@ -79,7 +78,7 @@ t_list	*copy_outfile(t_list *node, const char **outfile, int len_outfile)
 	return (node);
 }
 
-t_list	*add_file(t_list *node, const char **infile, const char **outfile)
+t_list	*add_file(t_list *node, char **infile, char **outfile)
 {
 	int		len_infile;
 	int		len_outfile;
@@ -98,37 +97,3 @@ t_list	*add_file(t_list *node, const char **infile, const char **outfile)
 		node->outfile = NULL;
 	return (node);
 }
-
-t_list	*create_node(const char **cmd, const char **infile, const char **outfile)
-{
-	t_list	*node;
-
-	node = malloc(sizeof(t_list));
-	if (!node)
-		return (NULL);
-	node->cmd = ft_strdup(cmd);
-	if (!node->cmd)
-	{
-		free(node);
-		return (NULL);
-	}
-	if (!add_file)
-		return (NULL);
-	return (node);
-}
-
-t_list	*send_list(char *str_stdint)
-{
-	t_list	*list;
-	char	**cmd;
-	char	**infile;
-	char	**outfile;
-
-	list = NULL;
-	printf("processing.. : %s\n", str_stdint);
-	return (list);
-}
-
-
-
-

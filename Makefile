@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 -g -lreadline -lhistory -lncurses
 NAME = minishell
 
-SRC = main.c parsing.c
+SRC = main.c send_list.c add_file
 SRC_BONUS = bonus/main.c
 OBJ = $(SRC:.c=.o)
 

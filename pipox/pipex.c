@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/03 17:58:00 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/05 19:57:02 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,4 +145,5 @@ int	main(int argc, char **argv, char **envp)
 	if (check_fd(argv, data) == 0)
 		return (free_struct(data), 0);
 	exec_pipex(argv, data);
+	free_struct(data);
 }

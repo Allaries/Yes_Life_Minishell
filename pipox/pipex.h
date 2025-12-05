@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:50 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/02 21:31:05 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/05 19:45:09 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ typedef struct t_data {
 	int		infd;
 	int		outfd;
 	int		*pid;
-	int		pipefd[2][2];
+	int		oldpipe[2];
+	int		newpipe[2];
 }	t_data;
 
 void	ft_strcat(char *dest, const char *src);

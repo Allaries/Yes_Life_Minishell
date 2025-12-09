@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/05 20:51:27 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/09 02:11:14 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,12 @@
 
 int	close_all(t_data *data)
 {
-	// if (close(data->oldpipe[0]) == -1)
-	// 	return (0);
-	// if (close(data->oldpipe[1]) == -1)
-	// 	return (0);
-	// if (close(data->newpipe[0]) == -1)
-	// 	return (0);
-	// if (close(data->newpipe[1]) == -1)
-	// 	return (0);
-	if (close(data->outfd) == -1)
-		return (0);
-	if (close(data->infd) == -1)
-		return (0);
+	close(data->oldpipe[0]);
+	close(data->oldpipe[1]);
+	close(data->newpipe[0]);
+	close(data->newpipe[1]);
+	close(data->outfd);
+	close(data->infd);
 	return (1);
 }
 
@@ -37,7 +31,7 @@ void	close_daddy_prime(t_data *data, int i)
 		close (data->infd);
 		close (data->newpipe[1]);
 	}
-	else if (i == data->nb_of_cmd)
+	else if (i == data->nb_of_cmd - 1)
 		close_all(data);
 	else
 	{
@@ -50,8 +44,11 @@ void	dup2_child_hack(t_data *data, int i)
 {
 	if (i == 0)
 	{
-		dup2(data->infd, 0);
-		dup2(data->newpipe[1], 1);
+		if (dup2(data->infd, 0) < 0)
+			printf("nkj\n");
+		
+		if (dup2(data->newpipe[1], 1) < 0)
+			printf("nkj\n");
 	}
 	else if (i == data->nb_of_cmd - 1)
 	{
@@ -67,13 +64,13 @@ void	dup2_child_hack(t_data *data, int i)
 
 int	execute_child(char **argv, t_data *data, int i)
 {
-	def_arg(argv[i + 2], data);
-	def_path(data);
 	data->pid[i] = fork();
 	if (data->pid[i] != 0)
 	{
 		return (1);
 	}
+	def_arg(argv[i + 2], data);
+	def_path(data);
 	if (data->path == NULL)
 	{
 		close_all(data);
@@ -81,7 +78,7 @@ int	execute_child(char **argv, t_data *data, int i)
 		exit(127);
 	}
 	dup2_child_hack(data, i);
-	if (close_all(data) == 0)
+	if (i != 0 && close_all(data) == 0)
 	{
 		fprintf(stderr, "close error at i = %i\n", i);
 		exit(127);
@@ -97,17 +94,17 @@ void	adv_pipe(t_data *data)
 	data->oldpipe[1] = data->newpipe[1];
 }
 
-int	exec_pipex (char **argv, t_data *data)
+int	exec_pipex(char **argv, t_data *data)
 {
 	int	i;
-	int		status;
+	int	status;
 
 	i = 0;
 	if (data->heredoc == 0)
 	{
 		while (i < data->nb_of_cmd)
 		{
-			if (i < data->nb_of_cmd)
+			if (i < data->nb_of_cmd - 1)
 				pipe(data->newpipe);
 			execute_child(argv, data, i);
 			close_daddy_prime(data, i);
@@ -126,6 +123,7 @@ int	exec_pipex (char **argv, t_data *data)
 	}
 	return (1);
 }
+
 
 // int	execute_p_fd[2];child_one(char **argv, t_data *data)
 // {

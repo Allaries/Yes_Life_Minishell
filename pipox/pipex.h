@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:50 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/05 19:45:09 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/08 19:32:18 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		check_fd(char **argv, t_data *data);
 void	free_struct(t_data *data);
 int		close_all(t_data *data);
 void	error(int type);
-int		exec_pipex (char **argv, t_data *data);
+int		exec_pipex(char **argv, t_data *data);
 int		execute_child(char **argv, t_data *data, int i);
 
 #endif

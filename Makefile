@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Wextra
 NAME = pipex
 
 SRC = pipox/pipex.c pipox/childs.c pipox/for_free.c

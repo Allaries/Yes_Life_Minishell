@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   childs.c                                           :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/09 02:11:14 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/11 01:03:39 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,13 @@ void	adv_pipe(t_data *data)
 	data->oldpipe[1] = data->newpipe[1];
 }
 
-int	exec_pipex(char **argv, t_data *data)
+int	exec_no_hered(char **argv, t_data *data)
 {
 	int	i;
 	int	status;
-
+	
 	i = 0;
-	if (data->heredoc == 0)
-	{
-		while (i < data->nb_of_cmd)
+	while (i < data->nb_of_cmd)
 		{
 			if (i < data->nb_of_cmd - 1)
 				pipe(data->newpipe);
@@ -120,6 +118,17 @@ int	exec_pipex(char **argv, t_data *data)
 				i++;
 			}
 		}
+}
+
+int	exec_pipex(char **argv, t_data *data)
+{
+	if (data->heredoc == 0)
+	{
+		exec_no_hered(argv, data);
+	}
+	else if (data->heredoc == 1)
+	{
+		exec_with_hered(argv, data);
 	}
 	return (1);
 }

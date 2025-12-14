@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/11 01:03:39 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/14 03:43:05 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ int	exec_pipex(char **argv, t_data *data)
 	}
 	else if (data->heredoc == 1)
 	{
-		exec_with_hered(argv, data);
+		// exec_with_hered(argv, data);
+		return (1);
 	}
 	return (1);
 }

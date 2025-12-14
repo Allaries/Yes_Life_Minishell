@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:50 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/14 00:52:19 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/11 01:02:09 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct t_data {
 	char	*path;
 	char	**args;
 	char	*cmd;
+	char	*flags;
 	char	**envp;
 	int		infd;
 	int		outfd;

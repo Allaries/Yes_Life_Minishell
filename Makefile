@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra
 NAME = pipex
 
-SRC = pipox/pipex.c pipox/exec.c pipox/for_free.c pipox/child_labor.c
+SRC = pipox/pipex.c pipox/childs.c pipox/for_free.c
 SRC_BONUS = bonus/main.c
 OBJ = $(SRC:.c=.o)
 

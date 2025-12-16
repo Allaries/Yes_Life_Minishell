@@ -5,72 +5,85 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 18:16:46 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/16 03:03:36 by rerichar         ###   ########.fr       */
+/*   Created: 2025/06/17 15:13:36 by smedenec          #+#    #+#             */
+/*   Updated: 2025/12/16 05:58:25 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*join_edgecase(char *base, char *add)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
-
-	i = 0;
-	if (!add)
+	if (!s)
 		return (NULL);
-	if (!*add)
-		return (base);
-	if (!base)
+	while (*s)
 	{
-			base = ft_calloc(ft_strlen(add) + 1, 1);
-		if (!base)
-			return (NULL);
-		i = -1;
-		while (add[++i])
-			base[i] = add[i];
-		return (base);
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
-	return (base);
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (NULL);
 }
 
-char	*ft_strjoin(char *base, char *add)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*joined;
-	int		i;
-	int		j;
+	char	*str;
+	size_t	len;
+	size_t	j;
+	size_t	k;
 
-	if (!add || !*add || !base)
-		return (join_edgecase(base, add));
-	joined = ft_calloc(ft_strlen(base) + ft_strlen(add) + 1, 1);
-	if (!joined)
-		return (NULL);
-	i = 0;
 	j = 0;
-	while (base[i])
-		joined[j++] = base[i++];
-	i = 0;
-	while (add[i])
-		joined[j++] = add[i++];
-	joined[j] = '\0';
-	free(base);
-	return (joined);
+	k = 0;
+	len = ft_strlen(s1) + ft_strlen(s2);
+	str = malloc(sizeof(char) * (len + 1));
+	if (str == NULL)
+		return (NULL);
+	while (s1 && s1[j])
+	{
+		str[j] = s1[j];
+		j++;
+	}
+	while (s2[k])
+	{
+		str[j + k] = s2[k];
+		k++;
+	}
+	str[j + k] = '\0';
+	free(s1);
+	s1 = NULL;
+	return (str);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strdup(const char *s)
 {
 	char	*ptr;
+	size_t	len;
 	size_t	i;
-	size_t	total;
 
-	if (size != 0 && nmemb > SIZE_MAX / size)
-		return (NULL);
-	total = nmemb * size;
-	ptr = malloc(total);
-	if (!ptr)
-		return (NULL);
 	i = 0;
-	while (i < total)
-		ptr[i++] = 0;
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	ptr = malloc(sizeof(char) * (len + 1));
+	if (ptr == NULL)
+		return (NULL);
+	while (i < len)
+	{
+		ptr[i] = s[i];
+		i++;
+	}
+	ptr[i] = '\0';
 	return (ptr);
 }
+
+// size_t	ft_strlen(const char *str)
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (str && str[i])
+// 		i++;
+// 	return (i);
+// }

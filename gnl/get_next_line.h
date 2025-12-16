@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 16:46:31 by rerichar          #+#    #+#             */
-/*   Updated: 2025/06/16 18:42:41 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/16 03:01:05 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # endif
 
 # include <stdio.h>
+// # include "../pipox/pipex.h"
+# include "../libft/libft.h"
 # include <unistd.h>
 # include <sys/types.h>
 # include <fcntl.h>
@@ -25,9 +27,9 @@
 # include <stdlib.h>
 
 char	*get_next_line(int fd);
-int		ft_strlen(char *str);
-void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_strjoin(char *base, char *add);
+// int		ft_strlen(char *str);
+// void	*ft_calloc(size_t nmemb, size_t size);
+// char	*ft_strjoin(char *base, char *add);
 char	*join_edgecase(char *base, char *add);
 char	*invalid_value(int fd, char *buff);
 char	*overwrite(char *buff);

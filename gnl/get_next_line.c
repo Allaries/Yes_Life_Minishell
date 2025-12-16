@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 18:16:46 by rerichar          #+#    #+#             */
-/*   Updated: 2025/06/20 15:33:12 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/16 03:11:05 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*overwrite(char *buff)
@@ -106,19 +107,3 @@ char	*get_next_line(int fd)
 		return (giveline(buff));
 	return (free(buff), buff = NULL, NULL);
 }
-
-// int	main(void)
-// {
-// 	int	fd;
-// 	char	*str;
-
-// 	fd = open("test2.txt", O_RDONLY);
-// 	str  = get_next_line(fd);
-// 	while (str)
-// 	{
-// 		printf("%s", str);
-// 		free (str);
-// 		str = get_next_line(fd);
-// 	}
-// 	close (fd);
-// }

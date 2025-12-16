@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:50 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/08 19:32:18 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/16 02:20:13 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_H
 
 # include "../libft/libft.h"
+# include "../gnl/get_next_line.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>

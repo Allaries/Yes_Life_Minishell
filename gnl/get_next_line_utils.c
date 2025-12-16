@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 18:16:46 by rerichar          #+#    #+#             */
-/*   Updated: 2025/06/20 15:33:12 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/16 03:03:36 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,6 @@ char	*ft_strjoin(char *base, char *add)
 	joined[j] = '\0';
 	free(base);
 	return (joined);
-}
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 
 void	*ft_calloc(size_t nmemb, size_t size)

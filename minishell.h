@@ -6,12 +6,14 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/14 00:44:52 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/16 05:04:41 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include "libft/libft.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -19,17 +21,19 @@
 # include <readline/history.h>
 
 // list
-typedef struct t_list
+typedef struct s_node
 {
 	char			**cmd;
 	char			**infile;
 	char			**outfile;
-	int				*heredoc; // au faite non
-	struct t_list	*next;
-}	t_list;
+	int				*heredoc;
+	struct s_node	*next;
+}	t_node;
 
 // main
-void	*error_free_all(t_list **node);
+// void	*error_free_all(t_list **node);
+void	divise_pipe(char *str_stdint);
+void	parsing(char *str_stdint);
 
 // send_list
 // t_list	*send_list(char *str_stdint);

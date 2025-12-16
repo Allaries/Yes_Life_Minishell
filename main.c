@@ -6,42 +6,36 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/14 03:57:09 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/16 05:06:17 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*error_free_all(t_list **node)
+void	divise_pipe(char *str_stdint)
 {
+	char	**str_split;
 	int	i;
 
-	i = 0;
-	return (NULL);
+	i = -1;
+	str_split = NULL;
+	str_split = ft_split(str_stdint, '|');
+	if (!str_split)
+		return ;
+	while (str_split[++i])
+		printf("%s\n", str_split[i]);
 }
 
-void	one_arg(str_stdint)
-{
-	if (!str_stdint)
-		return ;
-	while ((str_stdint[i] >= 8 && str_stdint[i] <= 13) || str_stdint[i] == 32)
-		i++;
-	if (str_stdint[i] == '"')
-}
 void	parsing(char *str_stdint)
 {
-	int	i;
-
-	i = 0;
-
-
+	divise_pipe(str_stdint);
 }
 
 int	main(void)
 {
 	int		i;
 	char	*str_stdint;
-	t_list	*list;
+	t_node	*list;
 
 	i = 0;
 	while (i++ <= 4)
@@ -66,6 +60,23 @@ int	main(void)
 	}
 	return (0);
 }
+
+// void	*error_free_all(t_list **node)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	return (NULL);
+// }
+
+// void	one_arg(str_stdint)
+// {
+// 	if (!str_stdint)
+// 		return ;
+// 	while ((str_stdint[i] >= 8 && str_stdint[i] <= 13) || str_stdint[i] == 32)
+// 		i++;
+// 	if (str_stdint[i] == '"')
+// }
 
 // void	*free_list(t_list **node)
 // {
@@ -96,5 +107,3 @@ int	main(void)
 // 		len++;
 // 	return (len);
 // }
-
-

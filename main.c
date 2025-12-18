@@ -6,37 +6,74 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/18 08:22:32 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/18 09:58:24 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	separate_word(char *input)
+void	*new_tok(char *name, enum type_tok type)
 {
-	char	**str_split;
-	int	i;
+	t_token	*tok;
 
-	i = -1;
-	str_split = NULL;
-	str_split = ft_split(input, '|');
-	if (!str_split)
+	tok = NULL;
+	tok = malloc(sizeof(t_token));
+	if (!tok)
+		return (NULL);
+	tok->name = name;
+	tok->type = type;
+	tok->next = NULL;
+	return (tok);
+}
+
+int	is_space(char c)
+{
+	return ((c == ' ') || (c >= 8 && c <= 13));
+}
+
+void	browse_word(t_token **tok, char *input, int i)
+{
+	char	*word;
+	int		len;
+	int		y;
+
+	y = 0;
+	len = i;
+	word = NULL;
+	while (!is_space(input[len]))
+		len++;
+	word = malloc(sizeof(char) * len + 1);
+	while (len--)
+		word[y++] = input[i++];
+	word[y] = '\0';
+}
+
+void	iterate_input(char *input)
+{
+	t_token	*list;
+	int		i;
+
+	i = 0;
+	list = NULL;
+	if (!input[0])
 		return ;
-	str_split = remove_space(str_split);
-	while (str_split[++i])
-		printf("%s\n", str_split[i]);
+	while (input[i])
+	{
+		if (!is_space(input[i]))
+			put_word(&list, input, i);
+		i++;
+	}
 }
 
 void	parsing(char *input)
 {
-	divise_word(input);
+	iterate_input(input);
 }
 
 int	main(void)
 {
 	int		i;
 	char	*input;
-	t_node	*list;
 
 	i = 0;
 	while (i++ <= 4)
@@ -48,16 +85,8 @@ int	main(void)
 			return (1);
 		}
 		parsing(input);
-		// list = create_list(input);
-		// if (!list)
-		// {
-		// 	printf("Error, list NULL\n");
-		// 	return (1);
-		// }
-		// send list to exec
-		// if (list)
-		// 	free_list(&list);
 		free(input);
+		input = NULL;
 	}
 	return (0);
 }

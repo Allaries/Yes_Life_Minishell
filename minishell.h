@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/18 08:43:58 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/18 09:17:14 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ enum type_tok {
 
 typedef struct s_token
 {
-	char			*tok;
+	char			*name;
 	enum type_tok	type;
 	struct s_token	*next;
 }	t_token;

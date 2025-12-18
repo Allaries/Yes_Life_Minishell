@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra
 NAME = pipex
 
-SRC = pipox/pipex.c pipox/childs.c pipox/for_free.c
+SRC = pipox/pipex.c pipox/childs.c pipox/for_free.c pipox/heredoc.c
 SRC_BONUS = bonus/main.c
 OBJ = $(SRC:.c=.o)
 
@@ -15,7 +15,7 @@ GNL = $(GNL_DIR)/gnl.a
 all: $(LIBFT) $(GNL) $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(GNL) -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)

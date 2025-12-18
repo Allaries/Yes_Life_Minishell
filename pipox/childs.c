@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/09 02:11:14 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/18 00:23:45 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,8 @@ void	dup2_child_hack(t_data *data, int i)
 {
 	if (i == 0)
 	{
-		if (dup2(data->infd, 0) < 0)
-			printf("nkj\n");
-		
-		if (dup2(data->newpipe[1], 1) < 0)
-			printf("nkj\n");
+		dup2(data->infd, 0);
+		dup2(data->newpipe[1], 1);
 	}
 	else if (i == data->nb_of_cmd - 1)
 	{

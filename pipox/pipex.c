@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/05 19:57:02 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/18 00:31:51 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,9 @@ int	abs_path_check(char *cmd, t_data *data)
 	if (cmd[0] == '/')
 	{
 		if (access (data->cmd, F_OK) == 0)
-		{
 			return (1);
-		}
 		else
-		{
 			return (0);
-		}
 	}
 	return (0);
 }

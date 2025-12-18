@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
+/*   Updated: 2025/12/18 01:28:18 by rerichar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
-#include "../gnl/get_next_line.h"
-#include "../libft/libft.h"
 
 int	here_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -27,11 +37,7 @@ int	heredoc_init(char *hname)
 	char	*str;
 
 	fdhere = open(hname, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	// if (unlink(hname) == -1);
-	// {
-	// 	perror("ERROR ");
-	// 	return (0);
-	// }
+	unlink(hname);
 	while (1)
 	{
 		str = get_next_line(1);
@@ -48,8 +54,26 @@ int	heredoc_init(char *hname)
 	return (0);
 }
 
-// int	main(void)
-// {
-// 	int	fd;
-// 	fd = heredoc_init("test la famille\n");
-// }
+int	double_out_init(char *rname)
+{
+	int		fdred;
+	
+	fdred = open(rname, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	return (fdred);
+}
+
+int	single_in_init(char *rname)
+{
+	int		fdred;
+	
+	fdred = open(rname, O_RDONLY);
+	return (fdred);
+}
+
+int	single_out_init(char *rname)
+{
+	int		fdred;
+	
+	fdred = open(rname, O_TRUNC | O_WRONLY | O_APPEND, 0644);
+	return (fdred);
+}

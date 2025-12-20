@@ -6,13 +6,43 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/18 09:58:24 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/20 04:53:23 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*new_tok(char *name, enum type_tok type)
+void	free_list_word(t_token **list, char)
+{
+
+}
+
+enum type_tok	which_type(char *word, enum type_tok type)
+{
+	int	i;
+
+	i = 0;
+	if (word[0] == '|' && !word[1])
+		return (PIPE);
+	return (CQUOI);
+}
+
+int	add_tok(t_token **list, char *word)
+{
+	enum type_tok	type;
+	t_token			*tok;
+
+	type = which_type(word, type);
+	tok = new_tok(word, type);
+	if (!tok)
+	{
+		free(word);
+		word = NULL;
+		return (1)
+	}
+}
+
+char	*new_tok(char *word, enum type_tok type)
 {
 	t_token	*tok;
 
@@ -20,7 +50,7 @@ void	*new_tok(char *name, enum type_tok type)
 	tok = malloc(sizeof(t_token));
 	if (!tok)
 		return (NULL);
-	tok->name = name;
+	tok->word = word;
 	tok->type = type;
 	tok->next = NULL;
 	return (tok);
@@ -31,21 +61,30 @@ int	is_space(char c)
 	return ((c == ' ') || (c >= 8 && c <= 13));
 }
 
-void	browse_word(t_token **tok, char *input, int i)
+int	browse_word(t_token **list, char *input, int *i)
 {
 	char	*word;
+	int		start;
 	int		len;
 	int		y;
 
 	y = 0;
-	len = i;
+	len = 0;
+	start = *i;
 	word = NULL;
-	while (!is_space(input[len]))
+	while (input[start + len] && !is_space(input[start + len]))
 		len++;
-	word = malloc(sizeof(char) * len + 1);
-	while (len--)
-		word[y++] = input[i++];
+	word = malloc(sizeof(char) * (len + 1));
+	if (!word)
+		return (1);
+	while (y < len)
+		word[y++] = input[(*i)++];
 	word[y] = '\0';
+	add_tok(list, word);
+	free(word);
+	word = NULL;
+	if
+	return (0);
 }
 
 void	iterate_input(char *input)
@@ -60,8 +99,10 @@ void	iterate_input(char *input)
 	while (input[i])
 	{
 		if (!is_space(input[i]))
-			put_word(&list, input, i);
-		i++;
+			if (browse_word(&list, input, &i))
+				return (1);
+		else
+			i++;
 	}
 }
 

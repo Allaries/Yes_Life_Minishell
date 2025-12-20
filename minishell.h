@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/18 09:17:14 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/20 02:48:04 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,18 @@
 
 enum type_tok {
 	CMD = 1,
-	PIPE,
-	ARG,
-	INFILE,
-	OUTFILE,
-	SINGLE_R,
-	SINGLE_L,
-	DOUBLE_R,
-	DOUBLE_L
+	PIPE = 2,
+	ARG = 3,
+	INFILE = 4,
+	OUTFILE = 5,
+	HEREDOC = 6,
+	APPEND = 7,
+	CQUOI = 8
 };
 
 typedef struct s_token
 {
-	char			*name;
+	char			*word;
 	enum type_tok	type;
 	struct s_token	*next;
 }	t_token;

@@ -6,23 +6,54 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/20 04:53:23 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/22 12:48:19 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_list_word(t_token **list, char)
+void	free_list_word(t_token **list, char *word)
 {
+	int		i;
+	t_token	*tmp;
+	t_token	*next;
 
+	tmp = NULL;
+	next = NULL;
+	i = 0;
+	if (word)
+	{
+		free(word);
+		word = NULL;
+	}
+	if (list || *list)
+	{
+		tmp = *list;
+		while (tmp)
+		{
+			next = tmp->next;
+			free(tmp->word);
+			free(tmp);
+			tmp = next;
+		}
+		*list = NULL;
+	}
 }
 
-enum type_tok	which_type(char *word, enum type_tok type)
+enum type_tok	which_type(char *word)
 {
 	int	i;
 
 	i = 0;
-	if (word[0] == '|' && !word[1])
+	if (strcmp(word, "<"))
+		return (REDIR_IN);
+	if (strcmp(word, ">"))
+		return (REDIR_OUT);
+	if (strcmp(word, "<<"))
+		return (HEREDOC);
+	if (strcmp(word, ">>"))
+		return (APPEND);
+	if (strcmp(word, "|"))
 		return (PIPE);
 	return (CQUOI);
 }
@@ -32,14 +63,15 @@ int	add_tok(t_token **list, char *word)
 	enum type_tok	type;
 	t_token			*tok;
 
-	type = which_type(word, type);
+	type = which_type(word);
 	tok = new_tok(word, type);
 	if (!tok)
 	{
 		free(word);
 		word = NULL;
-		return (1)
+		return (1);
 	}
+
 }
 
 char	*new_tok(char *word, enum type_tok type)
@@ -83,7 +115,7 @@ int	browse_word(t_token **list, char *input, int *i)
 	add_tok(list, word);
 	free(word);
 	word = NULL;
-	if
+	if ()
 	return (0);
 }
 

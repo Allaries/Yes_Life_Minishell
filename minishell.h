@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/20 02:48:04 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/21 02:14:51 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ enum type_tok {
 	CMD = 1,
 	PIPE = 2,
 	ARG = 3,
-	INFILE = 4,
-	OUTFILE = 5,
+	REDIR_IN = 4,
+	REDIR_OUT = 5,
 	HEREDOC = 6,
 	APPEND = 7,
 	CQUOI = 8
@@ -47,12 +47,14 @@ typedef struct s_node
 	char			**cmd;
 	char			**infile;
 	char			**outfile;
+	char			**heredoc;
+
 	struct s_node	*next;
 }	t_node;
 
 // main
 
-void	separate_word(char *input);
+void	iterate_input(char *input);
 void	parsing(char *input);
 
 #endif

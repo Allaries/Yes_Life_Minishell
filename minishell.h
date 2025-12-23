@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/21 02:14:51 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/23 17:24:00 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,12 @@ typedef struct s_node
 	char			**infile;
 	char			**outfile;
 	char			**heredoc;
-
 	struct s_node	*next;
 }	t_node;
 
 // main
 
-void	iterate_input(char *input);
-void	parsing(char *input);
+int	iterate_input(t_token **list, char *input);
+int	parsing(char *input);
 
 #endif

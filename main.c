@@ -6,13 +6,13 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/22 12:48:19 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/23 17:04:11 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_list_word(t_token **list, char *word)
+void	free_list_word(t_token **list, char **word)
 {
 	int		i;
 	t_token	*tmp;
@@ -23,10 +23,10 @@ void	free_list_word(t_token **list, char *word)
 	i = 0;
 	if (word)
 	{
-		free(word);
-		word = NULL;
+		free(*word);
+		*word = NULL;
 	}
-	if (list || *list)
+	if (list && *list)
 	{
 		tmp = *list;
 		while (tmp)
@@ -45,36 +45,43 @@ enum type_tok	which_type(char *word)
 	int	i;
 
 	i = 0;
-	if (strcmp(word, "<"))
+	if (ft_strcmp(word, "<"))
 		return (REDIR_IN);
-	if (strcmp(word, ">"))
+	if (ft_strcmp(word, ">"))
 		return (REDIR_OUT);
-	if (strcmp(word, "<<"))
+	if (ft_strcmp(word, "<<"))
 		return (HEREDOC);
-	if (strcmp(word, ">>"))
+	if (ft_strcmp(word, ">>"))
 		return (APPEND);
-	if (strcmp(word, "|"))
+	if (ft_strcmp(word, "|"))
 		return (PIPE);
-	return (CQUOI);
+	return (ARG);
 }
 
-int	add_tok(t_token **list, char *word)
+int	add_tok(t_token **list, char **word)
 {
 	enum type_tok	type;
 	t_token			*tok;
+	t_token			*tmp;
 
 	type = which_type(word);
 	tok = new_tok(word, type);
 	if (!tok)
+		return (free_list_word(list, word), 1);
+	tmp = NULL;
+	if (!*list)
+		*list = tok;
+	else
 	{
-		free(word);
-		word = NULL;
-		return (1);
+		tmp = *list;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = tok;
 	}
-
+	return (0);
 }
 
-char	*new_tok(char *word, enum type_tok type)
+t_token	*new_tok(char *word, enum type_tok type)
 {
 	t_token	*tok;
 
@@ -82,7 +89,12 @@ char	*new_tok(char *word, enum type_tok type)
 	tok = malloc(sizeof(t_token));
 	if (!tok)
 		return (NULL);
-	tok->word = word;
+	tok->word = ft_strdup(word);
+	if (!tok->word)
+	{
+		free(tok);
+		return (NULL);
+	}
 	tok->type = type;
 	tok->next = NULL;
 	return (tok);
@@ -108,39 +120,42 @@ int	browse_word(t_token **list, char *input, int *i)
 		len++;
 	word = malloc(sizeof(char) * (len + 1));
 	if (!word)
-		return (1);
+		return (free_list_word(list, &word), 1);
 	while (y < len)
 		word[y++] = input[(*i)++];
 	word[y] = '\0';
-	add_tok(list, word);
-	free(word);
-	word = NULL;
-	if ()
+	add_tok(list, &word);
+	free_list_word(0, &word);
 	return (0);
 }
 
-void	iterate_input(char *input)
+int	iterate_input(t_token **list, char *input)
 {
-	t_token	*list;
 	int		i;
 
 	i = 0;
-	list = NULL;
 	if (!input[0])
 		return ;
 	while (input[i])
 	{
 		if (!is_space(input[i]))
-			if (browse_word(&list, input, &i))
+			if (browse_word(list, input, &i))
 				return (1);
 		else
 			i++;
 	}
+	return (0);
 }
 
-void	parsing(char *input)
+int	parsing(char *input)
 {
-	iterate_input(input);
+	t_token	*list;
+
+	list = NULL;
+	if(iterate_input(&list, input))
+		return (1);
+	if (!list)
+		return (1);
 }
 
 int	main(void)

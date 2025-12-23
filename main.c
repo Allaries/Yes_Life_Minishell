@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/23 18:06:45 by smedenec         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:56:43 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,14 @@ int	parsing(char *input)
 		return (1);
 	if (!list)
 		return (1);
+	printf("Token :\n");
+	t_token	*tmp = list;
+	while (tmp)
+	{
+		printf("str = %s type = %d\n", tmp->word, tmp->type);
+		tmp = tmp->next;
+	}
+	free_list_word(&list, 0);
 	return (0);
 }
 

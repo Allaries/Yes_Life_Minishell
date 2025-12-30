@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:50 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/18 01:51:51 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/21 02:29:23 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct t_data {
 void	ft_strcat(char *dest, const char *src);
 int		def_path(t_data *data);
 void	def_arg(char *cmd, t_data *data);
+char	*slashcmd(char *cmd, char *path);
 void	free_tab(char **tab);
 int		check_fd(char **argv, t_data *data);
 void	free_struct(t_data *data);

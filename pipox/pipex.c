@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/18 00:31:51 by rerichar         ###   ########.fr       */
+/*   Updated: 2025/12/21 05:51:25 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*slashcmd(char *cmd, char *path)
 	temp = ft_strjoin("/", cmd);
 	if (!temp)
 		return (NULL);
-	free(cmd);
+	// free(cmd);
 	cmd = ft_strjoin(path, temp);
 	if (!cmd)
 		return (NULL);
@@ -127,19 +127,19 @@ void	check_nb_cmd(t_data *data, char **argv, int argc)
 	data->pid = ft_calloc(sizeof (int *) * data->nb_of_cmd, 1);
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_data	*data;
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	t_data	*data;
 
-	if (check_argv(argc, argv, envp) == 0)
-		return (error(1), 0);
-	data = ft_calloc(sizeof(t_data), 1);
-	check_nb_cmd(data, argv, argc);
-	if (!data)
-		return (0);
-	data->envp = envp;
-	if (check_fd(argv, data) == 0)
-		return (free_struct(data), 0);
-	exec_pipex(argv, data);
-	free_struct(data);
-}
+// 	if (check_argv(argc, argv, envp) == 0)
+// 		return (error(1), 0);
+// 	data = ft_calloc(sizeof(t_data), 1);
+// 	check_nb_cmd(data, argv, argc);
+// 	if (!data)
+// 		return (0);
+// 	data->envp = envp;
+// 	if (check_fd(argv, data) == 0)
+// 		return (free_struct(data), 0);
+// 	exec_pipex(argv, data);
+// 	free_struct(data);
+// }

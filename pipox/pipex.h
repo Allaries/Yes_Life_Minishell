@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:50 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/21 02:29:23 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/02 17:44:16 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ typedef struct t_data {
 	int		oldpipe[2];
 	int		newpipe[2];
 }	t_data;
+
+typedef struct t_env {
+	char	*key;
+	char	*content;
+	char	**envp;
+	t_env	*next;
+}	t_env;
 
 void	ft_strcat(char *dest, const char *src);
 int		def_path(t_data *data);

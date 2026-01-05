@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 01:36:50 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/02 17:44:16 by rerichar         ###   ########.fr       */
+/*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
+/*   Updated: 2026/01/05 16:26:03 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 // # include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
@@ -38,14 +38,9 @@ typedef struct t_data {
 	int		newpipe[2];
 }	t_data;
 
-typedef struct t_env {
-	char	*key;
-	char	*content;
-	char	**envp;
-	t_env	*next;
-}	t_env;
-
 void	ft_strcat(char *dest, const char *src);
+int		*env_already_exist(char **envp, char *var);
+char	**dupe_env(char **envp);
 int		def_path(t_data *data);
 void	def_arg(char *cmd, t_data *data);
 char	*slashcmd(char *cmd, char *path);

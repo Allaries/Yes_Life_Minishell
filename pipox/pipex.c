@@ -6,11 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2025/12/21 05:51:25 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/05 13:17:54 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 char	*slashcmd(char *cmd, char *path)
 {
@@ -19,7 +19,6 @@ char	*slashcmd(char *cmd, char *path)
 	temp = ft_strjoin("/", cmd);
 	if (!temp)
 		return (NULL);
-	// free(cmd);
 	cmd = ft_strjoin(path, temp);
 	if (!cmd)
 		return (NULL);

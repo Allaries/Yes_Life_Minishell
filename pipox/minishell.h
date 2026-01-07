@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/05 16:26:03 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/06 18:22:36 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int		double_out_init(char *rname);
 int		single_in_init(char *rname);
 int		single_out_init(char *rname);
 int		heredoc_init(char *hname);
-
+void	bi_env(char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:45 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/05 18:23:53 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/07 16:08:18 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,23 @@ void	remove_tab_elem(char **tab, int index)
 	tab[i] = NULL;
 }
 
-char	**bi_unset(char **envp, char *unset)
+int	check_unset_arg(char *arg)
+{
+	int	i;
+
+	i = 1;
+	if (ft_isalpha(arg[0]) == 0 && arg[0] != '_')
+		return (1);
+	while (arg[i])
+	{
+		if (ft_isalpha(arg[i]) == 0 && ft_isalnum(arg[i]) == 0 && arg[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	**unset_one(char **envp, char *unset)
 {
 	int		i;
 	int		j;
@@ -52,4 +68,18 @@ char	**bi_unset(char **envp, char *unset)
 		i++;
 	}
 	return (envp);
+}
+
+void	bi_unset(char **envp, char **cmd)
+{
+		int	i;
+
+	i = 0;
+	while (cmd[++i])
+	{
+		if (check_unset_arg(cmd[i]) == 1)
+			printf("unset: '%s': not a valid identifier", cmd[i]);
+		else
+			export_one(envp, cmd[i]);
+	}
 }

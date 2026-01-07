@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_echo_pwd.c                                      :+:      :+:    :+:   */
+/*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 16:51:36 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/07 15:40:34 by rerichar         ###   ########.fr       */
+/*   Created: 2026/01/05 18:15:46 by rerichar          #+#    #+#             */
+/*   Updated: 2026/01/06 18:20:02 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	bi_pwd(void)
+void	bi_env(char **envp)
 {
-	char	*pwd;
+	int	i;
 	
-	pwd = getcwd(NULL, 0);
-	if (pwd == NULL)
+	i = 0;
+	while (envp[i])
 	{
-		exit(1);
+		printf("%s\n", envp[i]);
+		i++;
 	}
-	printf("%s\n", pwd);
-	free (pwd);
-}
-
-void	bi_echo(char **cmd)
-{
-	//a ajuster apres que je sache comment les token ca marche
-	if (strncmp(cmd[1], "-n", 3) == 0)
-		printf("%s%%", cmd[2]);
-	else
-		printf("%s\n", cmd[1]);
+	return ;
 }

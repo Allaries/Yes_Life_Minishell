@@ -21,15 +21,16 @@ char	**export_new_var(char **envp, char *export)
 	while (envp[i])
 		i++;
 	new_env = ft_calloc(sizeof(char *) * (i + 2), 1);
+	if (!new_env)
+		return (printf("export error"), envp)
 	i = 0;
 	while (envp[i])
 	{
 		new_env[i] = envp[i];
 		i++;
 	}
-	new_env[i] = export;
+	new_env[i] = ft_strdup(export);
 	new_env[++i] = NULL;
-	free_tab(envp);
 	return (new_env);
 }
 

@@ -26,6 +26,20 @@ char	*cut_path(char *unc_path)
 	return (path);
 }
 
+void	chdir_and_env(char *path, char **envp)
+{
+	int	i;
+	int	j;
+
+	if(chdir(path) == -1)
+	{
+		perror(" cd : Error ");
+		return ;
+	}
+	i = 0;
+	envp export_one()
+}
+
 char	*gethome(char **envp)
 {
 	int	i;
@@ -71,7 +85,6 @@ void	bi_cd(char **cmd, char **envp)
 		}
 		else
 			path = slashcmd(cmd[1], pwd);
-		chdir(path);
 		free(path);
 	}
 	if (i == 0)

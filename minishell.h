@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/09 18:42:26 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/09 21:02:40 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+// to compile : valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
 
 // token
 
@@ -49,18 +51,18 @@ enum type_file {
 	APPEND_F = 4
 };
 
-typedef struct s_file
+typedef struct s_redir
 {
-	int				fd;
+	char			*fd;
 	char			*name;
 	enum type_file	type;
-	struct s_file	*next;
-}	t_file;
+	struct s_redir	*next;
+}	t_redir;
 
 typedef struct s_cmd
 {
 	char			**args;
-	t_file			*filelist;
+	t_redir			*redirs;
 	struct s_cmd	*next;
 }	t_cmd;
 

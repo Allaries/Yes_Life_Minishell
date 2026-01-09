@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/23 17:24:00 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:42:26 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,29 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-// list
+// cmd
 
-typedef struct s_node
+enum type_file {
+	INFILE = 1,
+	OUTFILE = 2,
+	HEREDOC_F = 3,
+	APPEND_F = 4
+};
+
+typedef struct s_file
 {
-	char			**cmd;
-	char			**infile;
-	char			**outfile;
-	char			**heredoc;
-	struct s_node	*next;
-}	t_node;
+	int				fd;
+	char			*name;
+	enum type_file	type;
+	struct s_file	*next;
+}	t_file;
+
+typedef struct s_cmd
+{
+	char			**args;
+	t_file			*filelist;
+	struct s_cmd	*next;
+}	t_cmd;
 
 // main
 

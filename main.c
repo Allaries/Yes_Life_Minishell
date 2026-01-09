@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2025/12/23 21:56:43 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:52:02 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,6 @@ int	add_tok(t_token **list, char **word)
 	return (0);
 }
 
-
-
 int	is_space(char c)
 {
 	return ((c == ' ') || (c >= 8 && c <= 13));
@@ -184,6 +182,7 @@ int	parsing(char *input)
 		printf("str = %s type = %d\n", tmp->word, tmp->type);
 		tmp = tmp->next;
 	}
+	// ICI ajouter t_cmd list
 	free_list_word(&list, 0);
 	return (0);
 }
@@ -194,7 +193,7 @@ int	main(void)
 	char	*input;
 
 	i = 0;
-	while (i++ <= 4)
+	while (++i <= 1)
 	{
 		input = readline(NULL);
 		if (!input)

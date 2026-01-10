@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/09 19:49:59 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/10 22:21:01 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_token	*new_tok(char *word, enum type_tok type)
 	return (tok);
 }
 
-int	add_tok(t_token **list, char **word)
+int	add_tok(t_token **tok_list, char **word)
 {
 	enum type_tok	type;
 	t_token			*tok;
@@ -103,13 +103,13 @@ int	add_tok(t_token **list, char **word)
 	type = which_type(*word);
 	tok = new_tok(*word, type);
 	if (!tok)
-		return (free_list_word(list, word), 1);
+		return (free_list_word(tok_list, word), 1);
 	tmp = NULL;
-	if (!*list)
-		*list = tok;
+	if (!*tok_list)
+		*tok_list = tok;
 	else
 	{
-		tmp = *list;
+		tmp = *tok_list;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = tok;
@@ -122,7 +122,33 @@ int	is_space(char c)
 	return ((c == ' ') || (c >= 8 && c <= 13));
 }
 
-int	browse_word(t_token **list, char *input, int *i)
+int	is_tok(char *input, int start, int len)
+{
+	int	i;
+
+	i = 0;
+	if (input[start + len] == '|')
+		return (1);
+	if (!len && (input[start + len] == '>' || input[start + len] == '<'))
+			return (0);
+	if (input[start + len] == '>')
+	{
+		if (len == 1 && input[start + len - 1] == '>')
+			return (0);
+		else
+			return (1);
+	}
+	if (input[start + len] == '<')
+	{
+		if (input[start + len - 1] == '<')
+				return (0);
+			else
+				return (1);
+	}
+	return (0);
+}
+
+int	browse_word(t_token **tok_list, char *input, int *i)
 {
 	char	*word;
 	int		start;
@@ -133,20 +159,20 @@ int	browse_word(t_token **list, char *input, int *i)
 	len = 0;
 	start = *i;
 	word = NULL;
-	while (input[start + len] && !is_space(input[start + len]))
+	while (input[start + len] && !is_space(input[start + len]) && !is_tok(input, start, len))
 		len++;
 	word = malloc(sizeof(char) * (len + 1));
 	if (!word)
-		return (free_list_word(list, &word), 1);
+		return (free_list_word(tok_list, &word), 1);
 	while (y < len)
 		word[y++] = input[(*i)++];
 	word[y] = '\0';
-	add_tok(list, &word);
+	add_tok(tok_list, &word);
 	free_list_word(0, &word);
 	return (0);
 }
 
-int	iterate_input(t_token **list, char *input)
+int	iterate_input(t_token **tok_list, char *input)
 {
 	int	i;
 
@@ -157,7 +183,7 @@ int	iterate_input(t_token **list, char *input)
 	{
 		if (!is_space(input[i]))
 		{
-			if (browse_word(list, input, &i))
+			if (browse_word(tok_list, input, &i))
 				return (1);
 		}
 		else
@@ -168,22 +194,22 @@ int	iterate_input(t_token **list, char *input)
 
 int	parsing(char *input)
 {
-	t_token	*list;
+	t_token	*tok_list;
 
-	list = NULL;
-	if(iterate_input(&list, input))
+	tok_list = NULL;
+	if(iterate_input(&tok_list, input))
 		return (1);
-	if (!list)
+	if (!tok_list)
 		return (1);
 	printf("Token :\n");
-	t_token	*tmp = list;
+	t_token	*tmp = tok_list;
 	while (tmp)
 	{
 		printf("str = %s type = %d\n", tmp->word, tmp->type);
 		tmp = tmp->next;
 	}
-	// ICI ajouter t_cmd list
-	free_list_word(&list, 0);
+	// ICI ajouter t_cmd cmd_list
+	free_list_word(&tok_list, 0);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/10 17:05:03 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/10 22:26:47 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 // token
 
 enum type_tok {
-	CMD = 1,
-	PIPE = 2,
-	ARG = 3,
-	REDIR_IN = 4,
-	REDIR_OUT = 5,
-	HEREDOC = 6,
-	APPEND = 7,
+	PIPE = 1,
+	REDIR_IN = 2,
+	REDIR_OUT = 3,
+	HEREDOC = 4,
+	APPEND = 5,
+	CMD = 6,
+	ARG = 7,
 	CQUOI = 8
 };
 
@@ -45,10 +45,10 @@ typedef struct s_token
 // cmd
 
 enum type_file {
-	INFILE = 1,
-	OUTFILE = 2,
-	HEREDOC_F = 3,
-	APPEND_F = 4
+	INFILE = 11,
+	OUTFILE = 12,
+	HEREDOC_F = 13,
+	APPEND_F = 14
 };
 
 typedef struct s_redir

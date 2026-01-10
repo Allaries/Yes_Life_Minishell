@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/09 21:02:40 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/10 17:05:03 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ enum type_file {
 
 typedef struct s_redir
 {
-	char			*fd;
+	int				fd;
 	char			*name;
 	enum type_file	type;
 	struct s_redir	*next;

@@ -1,7 +1,5 @@
-finir add_tok et pas oublie de gerer le free(word)
+finir add_tok et pas oublie de gerer le free (word)
 Gerer le cas : cat|ls les commandes colles quoi -> en gerant les carac speciaux : | < > << >>
-le CAS : 9>infile, 3 << append, 7>>log, 7	<<       log, 9999999>log (ne pas limiter le nbr fd et le stocker en str).
-se renseigner sur quels operateurs coupent les commandes :( \n et ; ) et comment les gerer
-Gerer le cas " " et ' ' et.. "''" '""' .. (la premiere agit sur toutes les autres a l'interieur)
+Gerer le cas " " et ' ' et.. "''" '""' .. (la premiere puis on cherche tout de suite la deuxieme)
 Determiner le type de token apres de remplir la list ou en la construisant ?
 free la list en entier en cas d'erreurs malloc

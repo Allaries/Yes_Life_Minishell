@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:35 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/10 22:26:47 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/11 19:09:01 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 // token
 
-enum type_tok {
+enum e_type_tok {
 	PIPE = 1,
 	REDIR_IN = 2,
 	REDIR_OUT = 3,
@@ -38,13 +38,13 @@ enum type_tok {
 typedef struct s_token
 {
 	char			*word;
-	enum type_tok	type;
+	enum e_type_tok	type;
 	struct s_token	*next;
 }	t_token;
 
 // cmd
 
-enum type_file {
+enum e_type_file {
 	INFILE = 11,
 	OUTFILE = 12,
 	HEREDOC_F = 13,
@@ -53,10 +53,10 @@ enum type_file {
 
 typedef struct s_redir
 {
-	int				fd;
-	char			*name;
-	enum type_file	type;
-	struct s_redir	*next;
+	int					fd;
+	char				*name;
+	enum e_type_file	type;
+	struct s_redir		*next;
 }	t_redir;
 
 typedef struct s_cmd

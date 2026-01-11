@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/10 22:21:01 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/11 19:34:23 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_strcmp_safe(const char *s1, const char *s2)
 {
 	if (!s1 || !s2)
-		return 1;
+		return (1);
 	while (*s1 && *s1 == *s2)
 	{
 		s1++;
@@ -23,7 +23,6 @@ int	ft_strcmp_safe(const char *s1, const char *s2)
 	}
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
-
 
 void	free_list_word(t_token **list, char **word)
 {
@@ -53,12 +52,12 @@ void	free_list_word(t_token **list, char **word)
 	}
 }
 
-enum type_tok	which_type(char *word)
+enum e_type_tok	which_type(char *word)
 {
 	int	i;
 
 	i = 0;
-	if(!word)
+	if (!word)
 		return (CQUOI);
 	if (!ft_strcmp_safe(word, "<"))
 		return (REDIR_IN);
@@ -73,7 +72,7 @@ enum type_tok	which_type(char *word)
 	return (ARG);
 }
 
-t_token	*new_tok(char *word, enum type_tok type)
+t_token	*new_tok(char *word, enum e_type_tok type)
 {
 	t_token	*tok;
 
@@ -96,7 +95,7 @@ t_token	*new_tok(char *word, enum type_tok type)
 
 int	add_tok(t_token **tok_list, char **word)
 {
-	enum type_tok	type;
+	enum e_type_tok	type;
 	t_token			*tok;
 	t_token			*tmp;
 
@@ -127,24 +126,18 @@ int	is_tok(char *input, int start, int len)
 	int	i;
 
 	i = 0;
-	if (input[start + len] == '|')
+	if (!len)
+		return (0);
+	if ((len == 1) && (input[start + len - 1] == '>'))
+		if (input[start + len] == '>')
+			return (0);
+	if ((len == 1) && (input[start + len - 1] == '<'))
+		if (input[start + len] == '<')
+			return (0);
+	if ((input[start + len - 1] == '>') || (input[start + len - 1] == '<') || (input[start + len - 1] == '|'))
 		return (1);
-	if (!len && (input[start + len] == '>' || input[start + len] == '<'))
-			return (0);
-	if (input[start + len] == '>')
-	{
-		if (len == 1 && input[start + len - 1] == '>')
-			return (0);
-		else
-			return (1);
-	}
-	if (input[start + len] == '<')
-	{
-		if (input[start + len - 1] == '<')
-				return (0);
-			else
-				return (1);
-	}
+	if ((input[start + len] == '>') || (input[start + len] == '<') || (input[start + len] == '|'))
+		return (1);
 	return (0);
 }
 
@@ -159,7 +152,8 @@ int	browse_word(t_token **tok_list, char *input, int *i)
 	len = 0;
 	start = *i;
 	word = NULL;
-	while (input[start + len] && !is_space(input[start + len]) && !is_tok(input, start, len))
+	while ((input[start + len] && !is_space(input[start + len])
+			&& !is_tok(input, start, len)))
 		len++;
 	word = malloc(sizeof(char) * (len + 1));
 	if (!word)
@@ -197,7 +191,7 @@ int	parsing(char *input)
 	t_token	*tok_list;
 
 	tok_list = NULL;
-	if(iterate_input(&tok_list, input))
+	if (iterate_input(&tok_list, input))
 		return (1);
 	if (!tok_list)
 		return (1);

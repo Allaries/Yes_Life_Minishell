@@ -1,8 +1,9 @@
-finir add_tok et pas oublie de gerer le free (word)
-je gere comment : ||, <<<, >>>, <>, ><
 double et single quotes : au debut, chercher les paires et return erreur si pas trouvee -> la premiere compte jusqu'a trouver la deuxieme
-je return erreur ou j'envois a l'exec
-Gerer le cas : cat|ls les commandes colles quoi -> en gerant les carac speciaux : | < > << >>
 Gerer le cas " " et ' ' et.. "''" '""' .. (la premiere puis on cherche tout de suite la deuxieme)
-Determiner le type de token apres de remplir la list ou en la construisant ?
+
+Filtrer toutes les erreurs de la liste t_token : (<, <<, arg) -> error
+return chaque erreurs speciales
+
+Remplir la liste t_cmd avec la liste t_token ?
 free la list en entier en cas d'erreurs malloc
+

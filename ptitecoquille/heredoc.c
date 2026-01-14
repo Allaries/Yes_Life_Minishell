@@ -1,0 +1,153 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
+/*   Updated: 2026/01/14 20:22:34 by rerichar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+int	here_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while ((s1[i] || s2[i]) && n > i)
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+		{
+			if (s1[i] == '\n' && s2[i] == '\0')
+				return (0);
+			else
+				return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	heredoc_init(char *hname)
+{
+	int		fdhere;
+	char	*str;
+
+	fdhere = open(hname, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (fdhere == -1)
+	{
+		printf("%s: No such file or directory", hname);
+		return (fdhere);
+	}
+	unlink(hname);
+	while (1)
+	{
+		str = get_next_line(1);
+		if (here_strncmp(str, hname, ft_strlen(hname) + 1) != 0)
+		{
+			write(fdhere, str, ft_strlen(str));
+			free(str);
+		}
+		else
+			return (free(str), fdhere);
+	}
+	if (str)
+		free(str);
+	return (fdhere);
+}
+
+int	append_init(char *rname)
+{
+	int		fdred;
+	
+	fdred = open(rname, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (fdred == -1)
+		printf("%s: No such file or directory", rname);
+	return (fdred);
+}
+
+int	infile_init(char *rname)
+{
+	int		fdred;
+	
+	fdred = open(rname, O_RDONLY);
+	if (fdred == -1)
+		printf("%s: No such file or directory", rname);
+	return (fdred);
+}
+
+int	outfile_init(char *rname)
+{
+	int		fdred;
+	
+	fdred = open(rname, O_TRUNC | O_WRONLY | O_APPEND, 0644);
+	if (fdred == -1)
+		printf("%s: No such file or directory", rname);
+	return (fdred);
+}
+
+int	get_infd(t_file **filelist)
+{
+	t_file	*temp;
+	int		fd;
+	int		tmp;
+	
+	fd = 0;
+	temp = *filelist;
+	while (temp)
+	{
+		if (temp->type == HEREDOC_F)
+			tmp = heredoc_init(temp->name);
+		if (temp->type == INFILE)
+			tmp = infile_init(temp->name);
+		if (tmp < 0)
+		{
+			if (fd != 0)
+				close(fd);
+			return (-1);
+		}
+		fd = tmp;
+		temp = temp->next;
+	}
+	return (fd);
+}
+
+int	get_outfd(t_file **filelist)
+{
+	t_file	*temp;
+	int		fd;
+	int		tmp;
+	
+	fd = 1;
+	temp = *filelist;
+	while ( temp )
+	{
+		if (temp->type == OUTFILE)
+			tmp = append_init(temp->name);
+		if (temp->type == APPEND_F)
+			tmp = append_init(temp->name);
+		if (tmp < 0)
+		{
+			if (fd != 1)
+				close(fd);
+			return (-1);
+		}
+		fd = tmp;
+		temp = temp->next;
+	}
+	return (fd);
+}
+
+void	get_fd(t_cmd *cmd)
+{
+	t_file	**filelist;
+
+
+	filelist = cmd->filelist;
+	cmd->infd = get_infd(filelist);
+	cmd->outfd = get_outfd(filelist);
+	return ;
+}

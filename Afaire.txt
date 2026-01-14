@@ -1,0 +1,5 @@
+finir add_tok et pas oublie de gerer le free(word)
+Gerer le cas : cat|ls les commandes colles quoi -> en gerant les carac speciaux : | < > << >>
+Gerer le cas " " et ' ' et.. "''" '""' ..
+Determiner le type de token apres de remplir la list ou en la construisant ?
+free la list en entier en cas d'erreurs malloc

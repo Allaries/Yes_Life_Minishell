@@ -1,7 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra
-NAME = pipex
-
+NAME = minishell
 SRC = pipox/pipex.c pipox/childs.c pipox/for_free.c pipox/heredoc.c pipox/built_in.c
 SRC_BONUS = bonus/main.c
 OBJ = $(SRC:.c=.o)
@@ -18,13 +17,13 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(GNL) -o $(NAME)
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) -s -C $(LIBFT_DIR)
 
 $(GNL):
 	$(MAKE) -C $(GNL_DIR)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -g3 -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf *.o

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/14 20:41:38 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/14 21:05:17 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // # include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
+# include "struct.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -22,8 +23,12 @@
 # include <sys/types.h>
 # include <sys/stat.h> 
 # include <sys/wait.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
-
+int	iterate_input(t_token **list, char *input);
+int	parsing(char *input);
+//--------------------------------------------------------------//
 void	ft_strcat(char *dest, const char *src);
 int		*env_already_exist(char **envp, char *var);
 char	**dupe_env(char **envp);

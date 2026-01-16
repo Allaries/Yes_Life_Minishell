@@ -6,9 +6,31 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/14 20:41:40 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/14 21:07:15 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+//parsing
+
+enum type_tok {
+	CMD = 1,
+	PIPE = 2,
+	ARG = 3,
+	REDIR_IN = 4,
+	REDIR_OUT = 5,
+	HEREDOC = 6,
+	APPEND = 7,
+	CQUOI = 8
+};
+
+typedef struct s_token
+{
+	char			*word;
+	enum type_tok	type;
+	struct s_token	*next;
+}	t_token;
+
+//pour exec
 
 enum type_file {
     INFILE = 1,
@@ -19,10 +41,9 @@ enum type_file {
 
 typedef struct t_file
 {
-    int				fd;
     char			*name;
     enum type_file	type;
-    struct s_file	*next;
+    struct t_file	*next;
 }    t_file;
 
 typedef struct t_cmd
@@ -32,7 +53,7 @@ typedef struct t_cmd
 	int				infd;
 	int				outfd;
 	int				built_in;
-	struct s_cmd	*next;
+	struct t_cmd	*next;
 }    t_cmd;
 
 typedef struct t_data {

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 15:41:21 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/13 16:51:46 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/18 19:48:05 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_file(t_file **filelist)
 	t_file	*temp_next;
 	
 	temp = *filelist;
-	while (temp->next != NULL)
+	while (temp)
 	{
 		temp_next = temp->next;
 		if (temp->name)
@@ -36,7 +36,7 @@ void	free_cmd_struct(t_cmd **cmd)
 	t_cmd	*temp_next;
 
 	temp = *cmd;
-	while(temp->next != NULL)
+	while(temp)
 	{
 		temp_next = temp->next;
 		free_tab(temp->next);

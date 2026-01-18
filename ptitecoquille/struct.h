@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/14 21:07:15 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/18 17:50:47 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,15 @@ typedef struct t_cmd
 {
     char			**args;
     t_file			**filelist;
+	char			*path;
 	int				infd;
 	int				outfd;
+	int				*pid;
 	int				built_in;
 	struct t_cmd	*next;
 }    t_cmd;
 
 typedef struct t_data {
-	char	*path;
-	char	**args;
-	char	*cmd;
-	char	*flags;
 	char	**envp;
 	int		*pid;
 	int		oldpipe[2];

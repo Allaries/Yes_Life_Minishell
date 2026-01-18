@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/14 21:05:17 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/18 19:22:19 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parsing(char *input);
 void	ft_strcat(char *dest, const char *src);
 int		*env_already_exist(char **envp, char *var);
 char	**dupe_env(char **envp);
-int		def_path(t_data *data);
+int		def_path(t_data *data, t_cmd *cmd);
 void	def_arg(char *cmd, t_data *data);
 char	*slashcmd(char *cmd, char *path);
 void	free_tab(char **tab);

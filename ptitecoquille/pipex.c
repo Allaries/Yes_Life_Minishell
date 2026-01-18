@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/05 13:17:54 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/18 17:54:06 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,37 +38,37 @@ int	abs_path_check(char *cmd, t_data *data)
 	return (0);
 }
 
-int	find_path(t_data *data, char **path)
+int	find_path(t_data *data, t_cmd *cmd, char **path)
 {
 	char	*cmd;
 	int		i;
 
 	i = 0;
-	if (abs_path_check(data->cmd, data) == 1)
+	if (abs_path_check(cmd->args[0], data) == 1)
 		{
-			data->path = ft_strdup(data->cmd);
+			cmd->path = ft_strdup(cmd->args[0]);
 			return (free_tab(path), 1);
 		}
 	while (path[i])
 	{
-		cmd = ft_strdup(data->cmd);
+		cmd = ft_strdup(cmd->args[0]);
 		if (!cmd)
 			return (free_tab(path), 0);
-		data->path = slashcmd(cmd, path[i]);
-		if (!data->path)
+		cmd->path = slashcmd(cmd, path[i]);
+		if (!cmd->path)
 			return (free_tab(path), 0);
-		if (access (data->path, F_OK) == 0)
+		if (access (cmd->path, F_OK) == 0)
 			return (free_tab(path), 1);
 		else
-			free(data->path);
+			free(cmd->path);
 		i++;
 	}
-	data->path = NULL;
+	cmd->path = NULL;
 	free_tab(path);
 	return (0);
 }
 
-int	def_path(t_data *data)
+int	def_path(t_data *data, t_cmd *cmd)
 {
 	char	**path;
 	int		i;
@@ -85,45 +85,8 @@ int	def_path(t_data *data)
 	free(path[0]);
 	path[0] = ft_strdup(temp);
 	free(temp);
-	find_path(data, path);
+	find_path(data, cmd, path);
 	return (1);
-}
-
-int	check_argv(int argc, char **argv, char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i] && argv[i][0] != '\0')
-		i++;
-	if (argc < 5 && ft_strncmp(argv[1], "here_doc", 8) != 0)
-		return (printf ("not here"), 0);
-	if (argc < 6 && ft_strncmp(argv[1], "here_doc", 8) == 0)
-		return (printf ("yes here"), 0);
-	if (!envp || !envp[0])
-		return (0);
-	return (1);
-}
-
-void	check_nb_cmd(t_data *data, char **argv, int argc)
-{
-	int	i;
-
-	i = 0;
-	if (ft_strncmp(argv[1], "here_doc", 8) != 0)
-	{
-		while (argv[i])
-			i++;
-		data->nb_of_cmd = argc - 3;
-	}
-	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
-	{
-		while (argv[i])
-			i++;
-		data->nb_of_cmd = i - 4;
-		data->heredoc = 1;
-	}
-	data->pid = ft_calloc(sizeof (int *) * data->nb_of_cmd, 1);
 }
 
 // int	main(int argc, char **argv, char **envp)

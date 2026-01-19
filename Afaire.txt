@@ -1,6 +1,7 @@
 Compter les single et double quotes pour spot les premieres erreurs
 double et single quotes : au debut, chercher les paires et return erreur si pas trouvee -> la premiere compte jusqu'a trouver la deuxieme
 Gerer le cas " " et ' ' et.. "''" '""' .. (la premiere puis on cherche tout de suite la deuxieme)
+Gerer le cas juste ""
 
 Bonn.. Il faut envoyer l'env au R dans la list chainee list_cmd
 
@@ -9,3 +10,6 @@ return chaque erreurs speciales
 
 Determiner le type de token apres avoir remplis la liste
 free la list en entier en cas d'erreurs malloc
+
+uname -a > file | cat -e < file | grep "linux"
+"unam''e"'' "'"-a > file | cat -e < file | grep "linux"

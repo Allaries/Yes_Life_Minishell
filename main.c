@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/19 12:05:34 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/19 16:48:27 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,25 +186,32 @@ int	iterate_input(t_token **tok_list, char *input)
 	return (0);
 }
 
+int	check_quote(char *input)
+{
+	return (1);
+}
+
 int	parsing(char *input)
 {
 	t_token	*tok_list;
 
 	tok_list = NULL;
+	if (check_quote(input))
+		return (0);
 	if (iterate_input(&tok_list, input))
-		return (1);
+		return (0);
 	if (!tok_list)
-		return (1);
-	printf("Token :\n");
-	t_token	*tmp = tok_list;
-	while (tmp)
-	{
-		printf("str = %s type = %d\n", tmp->word, tmp->type);
-		tmp = tmp->next;
-	}
+		return (0);
+	// printf("Token :\n");
+	// t_token	*tmp = tok_list;
+	// while (tmp)
+	// {
+	// 	printf("str = %s type = %d\n", tmp->word, tmp->type);
+	// 	tmp = tmp->next;
+	// }
 	// ICI ajouter t_cmd cmd_list
 	free_list_word(&tok_list, 0);
-	return (0);
+	return (1);
 }
 
 int	main(void)

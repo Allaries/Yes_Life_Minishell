@@ -3,63 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/14 21:07:15 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/19 12:07:24 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //parsing
 
-enum type_tok {
-	CMD = 1,
-	PIPE = 2,
-	ARG = 3,
-	REDIR_IN = 4,
-	REDIR_OUT = 5,
-	HEREDOC = 6,
-	APPEND = 7,
+// to compile : valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+
+// token
+
+enum e_type_tok {
+	PIPE = 1,
+	REDIR_IN = 2,
+	REDIR_OUT = 3,
+	HEREDOC = 4,
+	APPEND = 5,
+	CMD = 6,
+	ARG = 7,
 	CQUOI = 8
 };
 
 typedef struct s_token
 {
 	char			*word;
-	enum type_tok	type;
+	enum e_type_tok	type;
 	struct s_token	*next;
 }	t_token;
 
-//pour exec
+// cmd
 
-enum type_file {
-    INFILE = 1,
-    OUTFILE = 2,
-    HEREDOC_F = 3,
-    APPEND_F = 4
+enum e_type_file {
+	INFILE = 11,
+	OUTFILE = 12,
+	HEREDOC_F = 13,
+	APPEND_F = 14
 };
 
-typedef struct t_file
+typedef struct s_redir
 {
-    char			*name;
-    enum type_file	type;
-    struct t_file	*next;
-}    t_file;
+	int					fd;
+	char				*name;
+	enum e_type_file	type;
+	struct s_redir		*next;
+}	t_redir;
 
-typedef struct t_cmd
+typedef struct s_cmd
 {
-    char			**args;
-    t_file			**filelist;
-	int				infd;
-	int				outfd;
-	int				built_in;
-	struct t_cmd	*next;
-}    t_cmd;
+	char			**args;
+	t_redir			*redirs;
+	struct s_cmd	*next;
+}	t_cmd;
+
 
 typedef struct t_data {
 	char	*path;
 	char	**args;
-	char	*cmd;
 	char	*flags;
 	char	**envp;
 	int		*pid;

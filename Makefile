@@ -1,8 +1,8 @@
 CC = cc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
+LDFLAGS = -lreadline -lhistory -lncurses
 NAME = minishell
-SRC = pipox/pipex.c pipox/childs.c pipox/for_free.c pipox/heredoc.c pipox/built_in.c
-SRC_BONUS = bonus/main.c
+SRC = main.c
 OBJ = $(SRC:.c=.o)
 
 LIBFT_DIR = ./libft
@@ -14,7 +14,7 @@ GNL = $(GNL_DIR)/gnl.a
 all: $(LIBFT) $(GNL) $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(GNL) -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT) $(GNL) $(LDFLAGS) -o $(NAME)
 
 $(LIBFT):
 	@$(MAKE) -s -C $(LIBFT_DIR)

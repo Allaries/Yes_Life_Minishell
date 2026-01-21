@@ -6,8 +6,14 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:41 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/05 16:52:39 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/21 17:10:30 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	bi_exit(void)
+{
+	printf("exit");
+	exit(0);
+}

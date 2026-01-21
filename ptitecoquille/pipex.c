@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/18 17:54:06 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/21 16:57:44 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	abs_path_check(char *cmd, t_data *data)
 {
 	if (cmd[0] == '/')
 	{
-		if (access (data->cmd, F_OK) == 0)
+		if (access (cmd, F_OK) == 0)
 			return (1);
 		else
 			return (0);
@@ -40,7 +40,7 @@ int	abs_path_check(char *cmd, t_data *data)
 
 int	find_path(t_data *data, t_cmd *cmd, char **path)
 {
-	char	*cmd;
+	char	*cm2d;
 	int		i;
 
 	i = 0;
@@ -51,10 +51,10 @@ int	find_path(t_data *data, t_cmd *cmd, char **path)
 		}
 	while (path[i])
 	{
-		cmd = ft_strdup(cmd->args[0]);
+		cm2d = ft_strdup(cmd->args[0]);
 		if (!cmd)
 			return (free_tab(path), 0);
-		cmd->path = slashcmd(cmd, path[i]);
+		cmd->path = slashcmd(cm2d, path[i]);
 		if (!cmd->path)
 			return (free_tab(path), 0);
 		if (access (cmd->path, F_OK) == 0)

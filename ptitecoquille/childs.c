@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/18 22:12:43 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/21 17:15:55 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	dup2_infile_hack(t_data *data, t_cmd *cmd, int i)
 	return ;
 }
 
-void	dup2_outfile_hack(t_data *data, t_cmd *cmd, int i)
+void	dup2_outfile_hack(t_data *data, t_cmd *cmd)
 {
 	if (cmd->next == NULL)
 	{
@@ -79,7 +79,7 @@ void	dup2_outfile_hack(t_data *data, t_cmd *cmd, int i)
 void	dup2_child_hack(t_data *data, t_cmd *cmd, int i)
 {
 	dup2_infile_hack(data, cmd, i);
-	dup2_outfile_hack(data, cmd, i);
+	dup2_outfile_hack(data, cmd);
 	return ;
 }
 
@@ -92,7 +92,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	if (cmd->path == NULL)
 	{
 		close_all(data, cmd);
-		free_struct(data);
+		// free_struct(data);
 		exit(127);
 	}
 	dup2_child_hack(data, cmd, i);
@@ -114,28 +114,25 @@ void	adv_pipe(t_data *data)
 
 void	exec_only_one(t_cmd *cmd, t_data *data)
 {
-	int	i;
 	int		status;
-	t_cmd	**cmd;
 
-	cmd = data->cmd;
-	if (cmd->built_in == 1)
-		exec_single_bi(cmd, data);
-	else
+	// if (cmd->built_in == 1)
+	// 	exec_single_bi(cmd, data);
+	// else
+	// {
 		execute_child(data, cmd, 0);
 		waitpid(data->pid[0], &status, 0);
+	// }
 	return ;
 }
 
-int	exec_pipex(t_data *data)
+int	exec_pipex(t_data *data, t_cmd **cmd)
 {
 	int		i;
 	int		status;
-	t_cmd	**cmd;
 	t_cmd	*here_cmd;
 
 	i = 0;
-	cmd = data->cmd;
 	here_cmd = *cmd;
 	if (here_cmd->next == NULL)
 	{
@@ -144,6 +141,7 @@ int	exec_pipex(t_data *data)
 	}
 	while (here_cmd)
 	{	
+		get_fd(here_cmd);
 		if (here_cmd->next != NULL)
 			pipe(data->newpipe);
 		execute_child(data, here_cmd, i);

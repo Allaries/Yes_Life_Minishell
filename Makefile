@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra
 NAME = minishell
-SRC = pipox/pipex.c pipox/childs.c pipox/for_free.c pipox/heredoc.c pipox/built_in.c
+SRC = exec_test.c ptitecoquille/pipex.c ptitecoquille/childs.c ptitecoquille/for_free.c ptitecoquille/fd.c ptitecoquille/environment.c ptitecoquille/built_in/*c
 SRC_BONUS = bonus/main.c
 OBJ = $(SRC:.c=.o)
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/14 20:22:34 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/21 22:28:14 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,14 @@ int	get_outfd(t_file **filelist)
 
 void	get_fd(t_cmd *cmd)
 {
-	t_file	**filelist;
-
-
-	filelist = cmd->filelist;
-	cmd->infd = get_infd(filelist);
-	cmd->outfd = get_outfd(filelist);
+	if (cmd->filelist == NULL)
+	{
+		cmd->infd = 0;
+		cmd->outfd = 1;
+		return ;
+	}
+	cmd->infd = get_infd(cmd->filelist);
+	cmd->outfd = get_outfd(cmd->filelist);
+	fprintf (stderr, "in : %i, out : %i\n",cmd->infd, cmd->outfd);
 	return ;
 }

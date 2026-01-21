@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/18 19:22:19 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/21 17:12:52 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ char	*slashcmd(char *cmd, char *path);
 void	free_tab(char **tab);
 int		check_fd(char **argv, t_data *data);
 void	free_struct(t_data *data);
-int		close_all(t_data *data);
+int		close_all(t_data *data, t_cmd *cmd);
 void	error(int type);
-int		exec_pipex(char **argv, t_data *data);
-int		execute_child(char **argv, t_data *data, int i);
+int		exec_pipex(t_data *data, t_cmd **cmd);
+int		execute_child(t_data *data, t_cmd *herecmd, int i);
 int		double_out_init(char *rname);
 int		single_in_init(char *rname);
 int		single_out_init(char *rname);
 int		heredoc_init(char *hname);
+void	bi_exit(void);
 void	bi_env(char **envp);
 void	bi_cd(char **cmd, char **envp);
 void	bi_pwd(void);
@@ -53,5 +54,8 @@ void	bi_echo(char **cmd);
 void	bi_export(char **cmd, char **envp);
 void	bi_unset(char **envp, char **cmd);
 int		check_bi(char **cmd);
+void	get_fd(t_cmd *cmd);
+char	**export_one(char **envp, char *export);
+
 
 #endif

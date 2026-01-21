@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/09 14:28:14 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/21 17:12:10 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ char	*cut_path(char *unc_path)
 	return (path);
 }
 
-void	chdir_and_env(char *path, char **envp)
+void	chdirr(char *path)
 {
-	int	i;
-	int	j;
-
 	if(chdir(path) == -1)
 	{
 		perror(" cd : Error ");
@@ -77,12 +74,16 @@ void	bi_cd(char **cmd, char **envp)
 			path = cut_path(pwd);
 		if (cmd[1] == NULL)
 		{
-			path = get_home(envp);
+			path = gethome(envp);
 			if (!path)
-				return (printf("minishell : cd : HOME not set"));
+			{
+				printf("minishell : cd : HOME not set");
+				return ;
+			}
 		}
 		else
 			path = slashcmd(cmd[1], pwd);
+		chdirr(path);
 		free(path);
 	}
 	if (i == 0)

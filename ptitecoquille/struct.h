@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/18 17:50:47 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/21 16:37:26 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,4 @@ typedef struct t_data {
 	int		*pid;
 	int		oldpipe[2];
 	int		newpipe[2];
-	t_cmd	**cmd;
 }	t_data;

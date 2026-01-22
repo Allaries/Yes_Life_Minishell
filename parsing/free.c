@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 18:46:44 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/22 14:29:02 by smedenec         ###   ########.fr       */
+/*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
+/*   Updated: 2026/01/22 14:57:42 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-char	*ft_strdup(const char *s)
+void	free_list_word(t_token **list, char **word)
 {
-	char	*ptr;
 	int		i;
+	t_token	*tmp;
+	t_token	*next;
 
-	if (!s)
-		return (NULL);
-	ptr = malloc(sizeof (*ptr) * (ft_strlen((char *)s) + 1));
-	if (!ptr)
-		return (NULL);
+	tmp = NULL;
+	next = NULL;
 	i = 0;
-	while (s[i])
+	if (word)
 	{
-		ptr[i] = s[i];
-		i++;
+		free(*word);
+		*word = NULL;
 	}
-	ptr[i] = '\0';
-	return (ptr);
+	if (list && *list)
+	{
+		tmp = *list;
+		while (tmp)
+		{
+			next = tmp->next;
+			free(tmp->word);
+			free(tmp);
+			tmp = next;
+		}
+		*list = NULL;
+	}
 }
-/*
-#include<stdio.h>
-int	main(void)
-{
-	printf("%s",ft_strdup("skill issue ?"));
-}*/

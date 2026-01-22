@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/19 12:07:24 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/22 13:50:50 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+// exec
 
 typedef struct t_data {
 	char	*path;

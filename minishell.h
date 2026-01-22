@@ -6,14 +6,14 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/16 20:24:42 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:56:37 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// # include "../libft/libft.h"
+# include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
 # include "struct.h"
 # include <unistd.h>
@@ -26,32 +26,42 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-int	iterate_input(t_token **list, char *input);
-int	parsing(char *input);
-//--------------------------------------------------------------//
-void	ft_strcat(char *dest, const char *src);
-int		*env_already_exist(char **envp, char *var);
-char	**dupe_env(char **envp);
-int		def_path(t_data *data);
-void	def_arg(char *cmd, t_data *data);
-char	*slashcmd(char *cmd, char *path);
-void	free_tab(char **tab);
-int		check_fd(char **argv, t_data *data);
-void	free_struct(t_data *data);
-int		close_all(t_data *data);
-void	error(int type);
-int		exec_pipex(char **argv, t_data *data);
-int		execute_child(char **argv, t_data *data, int i);
-int		double_out_init(char *rname);
-int		single_in_init(char *rname);
-int		single_out_init(char *rname);
-int		heredoc_init(char *hname);
-void	bi_env(char **envp);
-void	bi_cd(char **cmd, char **envp);
-void	bi_pwd(void);
-void	bi_echo(char **cmd);
-void	bi_export(char **cmd, char **envp);
-void	bi_unset(char **envp, char **cmd);
-int		check_bi(char **cmd);
+// create_cmd
+int		create_cmd(char *input);
+
+// check_input
+int		check_input(char *input);
+
+// check_quote
+int		check_quote(char *input);
+
+// check_token
+int		check_token(t_token **tok_list, char *input);
+int		iterate_input(t_token **list, char *input);
+int		is_tok(char *input, int start, int len);
+
+// create_token
+int		create_word(t_token **tok_list, char *input, int *i);
+t_token	*create_token(char *word, enum e_type_tok type);
+int		add_tok_in_list(t_token **tok_list, char **word);
+enum	e_type_tok	which_type(char *word);
+
+// utils
+int		is_space(char c);
+int		ft_strcmp_safe(const char *s1, const char *s2);
+char	*ft_strduplicate(const char *s);
+
+// free
+void	free_list_word(t_token **list, char **word);
+
+
+
+
+
+
+
+int		is_tok(char *input, int start, int len);
+
+int		check_quote(char *input);
 
 #endif

@@ -32,7 +32,7 @@ $(GNL):
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -rf *.o
+	@rm -rf $(OBJ)
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
 	@$(MAKE) -s -C $(GNL_DIR) clean
 	@echo "All clean !"

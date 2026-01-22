@@ -8,19 +8,19 @@ OBJ = $(SRC:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	@ar rcs $(NAME) $(OBJ)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	rm -rf *.o
+	@rm -rf *.o
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 fclean : clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re : fclean all
 

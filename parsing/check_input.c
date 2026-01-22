@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/22 18:14:27 by smedenec         ###   ########.fr       */
+/*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
+/*   Updated: 2026/01/22 15:16:29 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	main(void)
+int	check_input(char *input)
 {
-	int		i;
-	char	*input;
-
-	i = 0;
-	while (++i <= 1)
-	{
-		input = readline(NULL);
-		if (!input)
-		{
-			perror("Error");
-			return (1);
-		}
-		build_cmd(input);
-		free(input);
-		input = NULL;
-	}
-	return (0);
+	if (!input || !input[0])
+		return (1);
+	return (1);
 }

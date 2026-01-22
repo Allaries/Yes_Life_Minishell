@@ -5,16 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/22 13:50:50 by smedenec         ###   ########.fr       */
+/*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
+/*   Updated: 2026/01/22 18:12:17 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//parsing
-
 // to compile : valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
-
 // token
+
+#ifndef STRUCT_H
+# define STRUCT_H
 
 enum e_type_tok {
 	PIPE = 1,
@@ -58,15 +58,4 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-// exec
-
-typedef struct t_data {
-	char	*path;
-	char	**args;
-	char	*flags;
-	char	**envp;
-	int		*pid;
-	int		oldpipe[2];
-	int		newpipe[2];
-	t_cmd	**cmd;
-}	t_data;
+#endif

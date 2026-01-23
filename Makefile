@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -no-pie
+CFLAGS = -Wall -Wextra
 NAME = minishell
 SRC = exec_test.c ptitecoquille/pipex.c ptitecoquille/childs.c ptitecoquille/for_free.c ptitecoquille/fd.c ptitecoquille/environment.c ptitecoquille/built_in/*c
 SRC_BONUS = bonus/main.c

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/21 17:15:55 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/23 19:45:27 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	dup2_outfile_hack(t_data *data, t_cmd *cmd)
 	else
 	{
 		if (cmd->outfd != 1)
-			dup2(cmd->infd, 1);
+			dup2(cmd->outfd, 1);
 		else
 			dup2(data->newpipe[1], 1);
 	}

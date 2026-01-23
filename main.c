@@ -6,11 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/19 16:37:38 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/23 18:38:53 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ptitecoquille/minishell.h"
 
 int	ft_strcmp_safe(const char *s1, const char *s2)
 {

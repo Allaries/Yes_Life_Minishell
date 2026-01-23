@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 16:38:06 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/21 22:16:45 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/23 19:46:26 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_file	*lstnew_file(char *name)
 	if (!new)
 		return (NULL);
 	new->name = name;
-	new->type = INFILE;
+	new->type = HEREDOC_F;
 	new->next = NULL;
 	return (new);
 }
@@ -42,15 +42,31 @@ void	lstadd_back_file(t_file **lst, t_file *new)
 	tmp->next = new;
 }
 
-t_cmd	*lstnew_cmd(char **args)
+t_cmd	*lstnew_cmd_filelist(char **args)
 {
 	t_cmd	*new;
 	t_file	**filelist;
 	t_file	*node;
 
 	filelist = calloc(1, sizeof(t_file *));
-	node = lstnew_file("main.c");
+	node = lstnew_file("test");
 	lstadd_back_file(filelist, node);
+	new = malloc(sizeof(t_cmd));
+	if (!new)
+		return (NULL);
+	new->filelist = filelist;
+	new->args = args;
+	new->next = NULL;
+	return (new);
+}
+
+t_cmd	*lstnew_cmd(char **args)
+{
+	t_cmd	*new;
+	t_file	**filelist;
+	t_file	*node;
+
+	filelist = NULL;
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
@@ -100,7 +116,7 @@ int main(int argc, char **argv, char **envp)
 	args1 = calloc(2, sizeof(char *));
 	args1[0] = argv[1];
 	args1[1] = NULL;
-	node = lstnew_cmd(args1);
+	node = lstnew_cmd_filelist(args1);
 	lstadd_back_cmd(cmds, node);
 
 	/* deuxième commande */

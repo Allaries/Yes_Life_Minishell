@@ -12,11 +12,45 @@
 
 #include "ptitecoquille/minishell.h"
 
+t_file	*lstnew_file(char *name)
+{
+	t_file	*new;
+
+	new = malloc(sizeof(t_file));
+	if (!new)
+		return (NULL);
+	new->name = name;
+	new->type = INFILE;
+	new->next = NULL;
+	return (new);
+}
+
+void	lstadd_back_file(t_file **lst, t_file *new)
+{
+	t_file	*tmp;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	tmp = *lst;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+}
+
 t_cmd	*lstnew_cmd(char **args)
 {
 	t_cmd	*new;
-	t_file	**filelist = NULL;
+	t_file	**filelist;
+	t_file	*node;
 
+	filelist = calloc(1, sizeof(t_file *));
+	node = lstnew_file("main.c");
+	lstadd_back_file(filelist, node);
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
@@ -26,19 +60,7 @@ t_cmd	*lstnew_cmd(char **args)
 	return (new);
 }
 
-t_file	*lstnew_file(char *name)
-{
-	t_file	*new;
-
-	new = malloc(sizeof(t_file));
-	if (!new)
-		return (NULL);
-	new->name = name;
-	new->next = NULL;
-	return (new);
-}
-
-void	lstadd_back(t_cmd **lst, t_cmd *new)
+void	lstadd_back_cmd(t_cmd **lst, t_cmd *new)
 {
 	t_cmd	*tmp;
 
@@ -79,14 +101,14 @@ int main(int argc, char **argv, char **envp)
 	args1[0] = argv[1];
 	args1[1] = NULL;
 	node = lstnew_cmd(args1);
-	lstadd_back(cmds, node);
+	lstadd_back_cmd(cmds, node);
 
 	/* deuxième commande */
 	args2 = calloc(2, sizeof(char *));
 	args2[0] = argv[2];
 	args2[1] = NULL;
 	node = lstnew_cmd(args2);
-	lstadd_back(cmds, node);
+	lstadd_back_cmd(cmds, node);
 
 	/* environnement */
 	data.envp = dupe_env(envp);

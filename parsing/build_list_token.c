@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_list_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/22 18:30:58 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:48:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	build_list_token(t_token **tok_list, char *input)
 {
-	if (iterate_input(tok_list, input))
-		return (1);
-	return (0);
+	if (!iterate_input(tok_list, input))
+		return (0);
+	return (1);
 }
 
 int	iterate_input(t_token **tok_list, char *input)
@@ -30,13 +30,13 @@ int	iterate_input(t_token **tok_list, char *input)
 	{
 		if (!is_space(input[i]))
 		{
-			if (create_word(tok_list, input, &i))
-				return (1);
+			if (!create_word(tok_list, input, &i))
+				return (0);
 		}
 		else
 			i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	create_word(t_token **tok_list, char *input, int *i)
@@ -55,12 +55,12 @@ int	create_word(t_token **tok_list, char *input, int *i)
 		len++;
 	word = malloc(sizeof(char) * (len + 1));
 	if (!word)
-		return (free_list_word(tok_list, &word), 1);
+		return (free_list_word(tok_list, &word), 0);
 	while (y < len)
 		word[y++] = input[(*i)++];
 	word[y] = '\0';
 	add_tok_in_list(tok_list, &word);
 	free_list_word(0, &word);
-	return (0);
+	return (1);
 }
 

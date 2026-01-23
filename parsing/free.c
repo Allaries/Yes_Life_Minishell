@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/22 14:57:42 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:32:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	free_list_word(t_token **list, char **word)
 {
-	int		i;
 	t_token	*tmp;
 	t_token	*next;
 
 	tmp = NULL;
 	next = NULL;
-	i = 0;
 	if (word)
 	{
 		free(*word);

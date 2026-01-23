@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/22 18:46:18 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/23 18:08:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int				check_input(char *input);
 
 // check_quote
 int				check_quote(char *input);
+int             is_pair(char *input);
+int             find_second_quote(char *input, char q, int *i);
 
 // build_list_token
 int				build_list_token(t_token **tok_list, char *input);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/22 18:29:53 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:33:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	is_tok(char *input, int start, int len)
 {
-	int	i;
-
-	i = 0;
 	if (!len)
 		return (0);
 	if ((len == 1) && (input[start + len - 1] == '>'))
@@ -36,9 +33,6 @@ int	is_tok(char *input, int start, int len)
 
 enum e_type_tok	which_type(char *word)
 {
-	int	i;
-
-	i = 0;
 	if (!word)
 		return (CQUOI);
 	if (!ft_strcmp_safe(word, "<"))

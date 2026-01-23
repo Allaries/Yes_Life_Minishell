@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:23:40 by rerichar          #+#    #+#             */
-/*   Updated: 2025/04/23 18:17:14 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/23 22:09:30 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 char	*ft_strchr(const char *s, int c)
 {
+	if (!s)
+		return (NULL);
 	while (*s)
 	{
 		if (*s == (char)c)

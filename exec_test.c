@@ -6,13 +6,13 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 16:38:06 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/23 19:46:26 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/23 23:15:55 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ptitecoquille/minishell.h"
 
-t_file	*lstnew_file(char *name)
+t_file	*lstnew_file_heredoc(char *name)
 {
 	t_file	*new;
 
@@ -21,6 +21,44 @@ t_file	*lstnew_file(char *name)
 		return (NULL);
 	new->name = name;
 	new->type = HEREDOC_F;
+	new->next = NULL;
+	return (new);
+}
+
+t_file	*lstnew_file_outfile(char *name)
+{
+	t_file	*new;
+
+	new = malloc(sizeof(t_file));
+	if (!new)
+		return (NULL);
+	new->name = name;
+	new->type = OUTFILE;
+	new->next = NULL;
+	return (new);
+}
+
+t_file	*lstnew_file_infile(char *name)
+{
+	t_file	*new;
+
+	new = malloc(sizeof(t_file));
+	if (!new)
+		return (NULL);
+	new->name = name;
+	new->type = INFILE;
+	new->next = NULL;
+	return (new);
+}
+t_file	*lstnew_file_append(char *name)
+{
+	t_file	*new;
+
+	new = malloc(sizeof(t_file));
+	if (!new)
+		return (NULL);
+	new->name = name;
+	new->type = APPEND_F;
 	new->next = NULL;
 	return (new);
 }
@@ -49,7 +87,11 @@ t_cmd	*lstnew_cmd_filelist(char **args)
 	t_file	*node;
 
 	filelist = calloc(1, sizeof(t_file *));
-	node = lstnew_file("test");
+	node = lstnew_file_infile("main.c");
+	lstadd_back_file(filelist, node);
+	node = lstnew_file_infile("Makefile");
+	lstadd_back_file(filelist, node);
+	node = lstnew_file_append("Youplaboum");
 	lstadd_back_file(filelist, node);
 	new = malloc(sizeof(t_cmd));
 	if (!new)

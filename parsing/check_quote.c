@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/23 17:58:37 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/26 10:15:28 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_pair(char *input)
 int	find_second_quote(char *input, char q, int *i)
 {
 	int	find;
-	
+
 	find = 0;
 	if (input[*i] == q)
 	{
@@ -55,7 +55,7 @@ int	find_second_quote(char *input, char q, int *i)
 			{
 				find = 1;
 				(*i)++;
-				break;
+				break ;
 			}
 			(*i)++;
 		}

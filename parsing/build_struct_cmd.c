@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_struct_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/23 14:49:34 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/26 11:06:11 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	build_cmd(char *input)
 		return (0);
 	if (!build_list_token(&tok_list, input))
 		return (0);
-	if (!tok_list)
+	if (!verify_list_token(&tok_list))
 		return (0);
 	printf("Token :\n");
 	t_token	*tmp = tok_list;
@@ -32,7 +32,7 @@ int	build_cmd(char *input)
 		printf("str = %s type = %d\n", tmp->word, tmp->type);
 		tmp = tmp->next;
 	}
-	//ICI ajouter t_cmd cmd_list
+	// ICI ajouter t_cmd cmd_list
 	free_list_word(&tok_list, 0);
 	return (1);
 }

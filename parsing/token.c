@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/22 18:31:02 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/26 10:36:32 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	add_tok_in_list(t_token **tok_list, char **word)
 	type = which_type(*word);
 	tok = create_token(*word, type);
 	if (!tok)
-		return (free_list_word(tok_list, word), 1);
+		return (free_list_word(tok_list, word), 0);
 	tmp = NULL;
 	if (!*tok_list)
 		*tok_list = tok;
@@ -32,7 +32,7 @@ int	add_tok_in_list(t_token **tok_list, char **word)
 			tmp = tmp->next;
 		tmp->next = tok;
 	}
-	return (0);
+	return (1);
 }
 
 t_token	*create_token(char *word, enum e_type_tok type)

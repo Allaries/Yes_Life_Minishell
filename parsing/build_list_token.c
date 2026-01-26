@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_list_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/23 14:48:00 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/26 14:43:47 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,3 @@ int	iterate_input(t_token **tok_list, char *input)
 	}
 	return (1);
 }
-
-int	create_word(t_token **tok_list, char *input, int *i)
-{
-	char	*word;
-	int		start;
-	int		len;
-	int		y;
-
-	y = 0;
-	len = 0;
-	start = *i;
-	word = NULL;
-	while ((input[start + len] && !is_space(input[start + len])
-			&& !is_tok(input, start, len)))
-		len++;
-	word = malloc(sizeof(char) * (len + 1));
-	if (!word)
-		return (free_list_word(tok_list, &word), 0);
-	while (y < len)
-		word[y++] = input[(*i)++];
-	word[y] = '\0';
-	add_tok_in_list(tok_list, &word);
-	free_list_word(0, &word);
-	return (1);
-}
-

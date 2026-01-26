@@ -6,12 +6,11 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/22 18:12:17 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/26 10:13:36 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // to compile : valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
-// token
 
 #ifndef STRUCT_H
 # define STRUCT_H

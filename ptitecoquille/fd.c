@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/23 20:47:40 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/26 22:58:10 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	heredoc_init(char *hname)
 	int		fdhere;
 	char	*str;
 
-	fdhere = open(hname, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	fdhere = open(hname, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fdhere == -1)
 	{
 		printf("%s: No such file or directory", hname);
@@ -131,7 +131,6 @@ int	get_outfd(t_file **filelist)
 	temp = *filelist;
 	while ( temp )
 	{
-		printf("%d\n", fd);
 		if (temp->type == OUTFILE)
 			tmp = outfile_init(temp->name);
 		if (temp->type == APPEND_F)
@@ -144,7 +143,6 @@ int	get_outfd(t_file **filelist)
 		}
 		fd = tmp;
 		temp = temp->next;
-		printf("%d\n", fd);
 	}
 	return (fd);
 }

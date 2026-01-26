@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/23 19:45:27 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/26 22:41:26 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	dup2_infile_hack(t_data *data, t_cmd *cmd, int i)
 		else
 			dup2(data->oldpipe[0], 0);
 	}
+	printf("infd = %d\n", cmd->infd);
 	return ;
 }
 
@@ -78,6 +79,7 @@ void	dup2_outfile_hack(t_data *data, t_cmd *cmd)
 
 void	dup2_child_hack(t_data *data, t_cmd *cmd, int i)
 {
+	fprintf (stderr ,"infd = %i, outfd = %i\n" ,cmd->infd, cmd->outfd);
 	dup2_infile_hack(data, cmd, i);
 	dup2_outfile_hack(data, cmd);
 	return ;
@@ -85,8 +87,8 @@ void	dup2_child_hack(t_data *data, t_cmd *cmd, int i)
 
 int	execute_child(t_data *data, t_cmd *cmd, int i)
 {
-	data->pid[i] = fork();
-	if (data->pid[i] != 0)
+	cmd->pid = fork();
+	if (cmd->pid != 0)
 		return (1);
 	def_path(data, cmd);
 	if (cmd->path == NULL)
@@ -150,14 +152,11 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 		here_cmd = here_cmd->next;
 		i++;
 	}
-	if (data->pid[i] != 0)
+	here_cmd = *cmd;
+	while (here_cmd)
 	{
-		i = 0;
-		while (data->pid[i])
-		{
-			waitpid(data->pid[i], &status, 0);
-			i++;
-		}
+		waitpid(here_cmd->pid, &status, 0);
+		here_cmd = here_cmd ->next;
 	}
 	return (1);
 }

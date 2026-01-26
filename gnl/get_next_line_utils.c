@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:13:36 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/23 20:45:43 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/26 18:49:46 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	fprintf(stderr, "casse les couilles");
 	if (!s)
 		return (NULL);
 	while (*s)

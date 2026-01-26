@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 16:38:06 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/23 23:15:55 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/26 22:32:22 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ t_cmd	*lstnew_cmd_filelist(char **args)
 	filelist = calloc(1, sizeof(t_file *));
 	node = lstnew_file_infile("main.c");
 	lstadd_back_file(filelist, node);
-	node = lstnew_file_infile("Makefile");
+	node = lstnew_file_heredoc("stop");
 	lstadd_back_file(filelist, node);
-	node = lstnew_file_append("Youplaboum");
+	node = lstnew_file_outfile("amogus");
 	lstadd_back_file(filelist, node);
 	new = malloc(sizeof(t_cmd));
 	if (!new)
@@ -148,7 +148,6 @@ int main(int argc, char **argv, char **envp)
 		printf("usage: %s cmd1 cmd2\n", argv[0]);
 		return (1);
 	}
-	data.pid = calloc(sizeof(int), 2);
 	/* allocation du tableau de commandes */
 	cmds = calloc(1, sizeof(t_cmd *));
 	if (!cmds)
@@ -158,14 +157,14 @@ int main(int argc, char **argv, char **envp)
 	args1 = calloc(2, sizeof(char *));
 	args1[0] = argv[1];
 	args1[1] = NULL;
-	node = lstnew_cmd_filelist(args1);
+	node = lstnew_cmd(args1);
 	lstadd_back_cmd(cmds, node);
 
 	/* deuxième commande */
 	args2 = calloc(2, sizeof(char *));
 	args2[0] = argv[2];
 	args2[1] = NULL;
-	node = lstnew_cmd(args2);
+	node = lstnew_cmd_filelist(args2);
 	lstadd_back_cmd(cmds, node);
 
 	/* environnement */
@@ -173,6 +172,7 @@ int main(int argc, char **argv, char **envp)
 
 	/* exécution */
 	exec_pipex(&data, cmds);
-
+	
+	free_tab(data.envp);
 	return (0);
 }

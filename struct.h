@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 17:17:44 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/27 20:07:11 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 # define STRUCT_H
 
 enum e_tok {
-	PIPE = 1,
-	REDIR_IN = 2,
-	REDIR_OUT = 3,
-	HEREDOC = 4,
-	APPEND = 5,
-	CMD = 6,
-	ARG = 7,
-	CQUOI = 8
+	VOID,
+	PIPE,
+	REDIR_IN,
+	REDIR_OUT,
+	HEREDOC,
+	APPEND,
+	CMD,
+	ARG
 };
 
 enum e_quote {
-	NO_QUOTE = 0,
-	S_QUOTE = 1,
-	D_QUOTE = 2
+	NO_QUOTE,
+	S_QUOTE,
+	D_QUOTE
 };
 
 typedef struct s_word

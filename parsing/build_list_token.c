@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 18:00:59 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/27 19:52:47 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,32 @@ int	build_list_token(char *input, t_token **tok_list)
 		return (0);
 	if (!check_quote(input))
 		return (0);
-	if (!add_word_in_list(input, tok_list))
+	if (!fill_token_list(input, tok_list))
 		return (0);
 	if (!verify_list_token(tok_list))
 		return (0);
 	return (1);
 }
 
+int	fill_token_list(char *input, t_token **tok_list)
+{
+	int		i;
+	t_word	*word;
+""
+	i = 0;
+	word = NULL;
+	while (input[i])
+	{
+		if (is_space(input[i]))
+			i++;
+		else
+		{
+			if (!create_word(input, &word, &i))
+				return (free_all(tok_list, &word), 0);
+			if (!add_tok_in_list(tok_list, &word))
+				return ((free_all(tok_list, &word), 0));
+			free_all(0, &word);
+		}
+	}
+	return (1);
+}

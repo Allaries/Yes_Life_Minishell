@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/27 18:42:54 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:59:27 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 // build_struct_cmd
 int				build_cmd(char *input);
 
+// build_list_token
+int				build_list_token(char *input, t_token **tok_list);
+int				fill_token_list(char *input, t_token **tok_list);
+
 // check_input
 int				check_input(char *input);
 
@@ -37,12 +41,7 @@ int				check_quote(char *input);
 int				is_pair(char *input);
 int				find_second_quote(char *input, char q, int *i);
 
-// build_list_token
-int				build_list_token(char *input, t_token **tok_list);
-
 // build_word
-int				create_word(t_token **tok_list, char *input, int *i);
-int				iterate_word(char *input, char *word, int *i);
 int				is_word(char *input, int *i, char *q);
 
 // token

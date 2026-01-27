@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline -lhistory -lncurses
 NAME = minishell
 SRC = parsing/main.c parsing/build_list_token.c \
-		parsing/build_struct_cmd.c parsing/check_input.c \
+		parsing/build_cmd.c parsing/check_input.c \
 		parsing/check_quote.c parsing/free.c \
 		parsing/token_utils.c parsing/token.c \
 		parsing/utils.c parsing/verify_list_token.c \

@@ -17,20 +17,9 @@ Parce que -> \$HOME = $HOME  ;  $HOME = home/smedenec
 struct t_word exemple
 typedef struct s_word
 {
-    char    *buf;           // buffer dynamique
-    int     cap;            // capacité du buffer
-    int     len;            // longueur actuelle
-
-    int     has_squote;     // contient des quotes simples ?
-    int     has_dquote;     // contient des quotes doubles ?
-    int     expandable;     // doit-on faire $ expansion ?
-    int     is_heredoc_delim; // heredoc quoted ?
-}   t_word;
-typedef struct s_word
-{
     char *buf;        // contenu final sans quotes
     char *qmask;      // même longueur que buf : 0 = non quoté, 1 = simple, 2 = double
-    int  cap;
+    int  buf_size;
     int  len;
 } t_word;
 

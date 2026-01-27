@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 10:32:15 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/26 14:08:47 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:59:12 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,26 @@ int	verify_list_token(t_token **tok_list)
 
 int	is_front_token(t_token **tok_list)
 {
-	t_token			*tmp;
+	t_token		*tmp;
 
 	tmp = *tok_list;
-	if ((tmp->type) == 1 || (tmp->type) == 2 || (tmp->type) == 3
-		|| (tmp->type) == 4 || (tmp->type) == 5)
+	if ((tmp->type_tok) == 1 || (tmp->type_tok) == 2 || (tmp->type_tok) == 3
+		|| (tmp->type_tok) == 4 || (tmp->type_tok) == 5)
 		return (0);
 	return (1);
 }
 
 int	is_separated_token(t_token **tok_list)
 {
-	t_token			*tmp;
-	int				next_to;
+	t_token		*tmp;
+	int			next_to;
 
 	tmp = *tok_list;
 	next_to = 0;
 	while (tmp)
 	{
-		if ((tmp->type) == 1 || (tmp->type) == 2 || (tmp->type) == 3
-			|| (tmp->type) == 4 || (tmp->type) == 5)
+		if ((tmp->type_tok) == 1 || (tmp->type_tok) == 2 || (tmp->type_tok) == 3
+			|| (tmp->type_tok) == 4 || (tmp->type_tok) == 5)
 				next_to++;
 		else
 			next_to = 0;

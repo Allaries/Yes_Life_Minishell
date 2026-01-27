@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 15:14:54 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:17:44 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,26 @@ enum e_tok {
 
 enum e_quote {
 	NO_QUOTE = 0,
-	SINGLE_QUOTE = 1,
-	DOUBLE_QUOTE = 2
+	S_QUOTE = 1,
+	D_QUOTE = 2
 };
+
+typedef struct s_word
+{
+	char	*buf;
+	char	*qmask;
+	int		in_squote;
+	int		in_dquote;
+	int		expand;
+	int		size;
+	int		len;
+}	t_word;
 
 typedef struct s_token
 {
 	char			*word;
+	char			*qmask;
 	enum e_tok		type_tok;
-	enum e_quote	type_quote;
 	struct s_token	*next;
 }	t_token;
 

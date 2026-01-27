@@ -6,36 +6,16 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 15:17:05 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:40:57 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	iterate_input(t_token **tok_list, char *input)
+int	add_word_in_list(char *input, t_token **tok_list)
 {
-	int	i;
-
-	i = 0;
-	if (!input || !input[0])
-		return (1);
-	while (input[i])
-	{
-		if (!is_space(input[i]))
-		{
-			if (!add_word_in_list(tok_list, input, &i))
-				return (0);
-		}
-		else
-			i++;
-	}
-	return (1);
-}
-
-int	add_word_in_list(t_token **tok_list, char *input)
-{
-	char	*word;
 	int		i;
+	t_word	*word;
 
 	i = 0;
 	word = NULL;
@@ -43,12 +23,12 @@ int	add_word_in_list(t_token **tok_list, char *input)
 	{
 		if (is_space(input[i]))
 			i++;
-		else if (!create_word(input, word, &i))
-			return (free_list_word(tok_list, &word), 0);
+		else if (!create_word(input, &word, &i))
+			return (free_all(tok_list, &word), 0);
 	}
 	if (!add_tok_in_list(tok_list, &word))
 		return (0);
-	free_list_word(0, &word);
+	free_all(0, &word);
 	return (1);
 }
 

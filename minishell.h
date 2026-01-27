@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/27 14:08:08 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:42:54 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int				is_pair(char *input);
 int				find_second_quote(char *input, char q, int *i);
 
 // build_list_token
-int				build_list_token(t_token **tok_list, char *input);
-int				iterate_input(t_token **list, char *input);
+int				build_list_token(char *input, t_token **tok_list);
 
 // build_word
 int				create_word(t_token **tok_list, char *input, int *i);
@@ -65,6 +64,8 @@ int				ft_strcmp_safe(const char *s1, const char *s2);
 char			*ft_strduplicate(const char *s);
 
 // free
-void			free_list_word(t_token **list, char **word);
+void			free_all(t_token **list, char **word);
+void			free_list_token(t_token **list);
+void			free_word(t_word **word);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/22 14:59:27 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:59:00 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	ft_strcmp_safe(const char *s1, const char *s2)
 
 char	*ft_strduplicate(const char *s)
 {
-	char	*ptr;
 	int		i;
+	char	*ptr;
 
 	if (!s)
 		return (NULL);

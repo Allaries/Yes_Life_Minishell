@@ -1,31 +1,43 @@
-Compter les single et double quotes pour spot les premieres erreurs
-double et single quotes : au debut, chercher les paires et return erreur si pas trouvee -> la premiere compte jusqu'a trouver la deuxieme
-Gerer le cas " " et ' ' et.. "''" '""' .. (la premiere puis on cherche tout de suite la deuxieme)
+
 Gerer le cas juste "" et transformer ca "'hello'" en ca : 'hello' pour l'exec
 
 Les quotes ne séparent jamais les mots
 et "" compte comme un vrai mot mais vide
 
-les quotes ne servent qu’à désactiver les métacaractères
-(espace, $, |, >, <, etc.)
-
-envie de mourir ces cas :
-bash-5.1$ echo   ""  p
-->  p
-bash-5.1$ echo a power
-->a power
-Parce que je peux pas decouper les mots depuis le debut ;/
-
 Bonn.. Il faut envoyer l'env au R dans la list chainee list_cmd
 
-Filtrer toutes les erreurs de la liste t_token : (<, <<, arg) -> error
-return chaque erreurs speciales
+
 
 Determiner le type de token apres avoir remplis la liste
 free la list en entier en cas d'erreurs malloc
 
 Comment je fais avec les slash \$HOME , pour les detecter a chaque fois ?
 Parce que -> \$HOME = $HOME  ;  $HOME = home/smedenec
+
+struct t_word exemple
+typedef struct s_word
+{
+    char    *buf;           // buffer dynamique
+    int     cap;            // capacité du buffer
+    int     len;            // longueur actuelle
+
+    int     has_squote;     // contient des quotes simples ?
+    int     has_dquote;     // contient des quotes doubles ?
+    int     expandable;     // doit-on faire $ expansion ?
+    int     is_heredoc_delim; // heredoc quoted ?
+}   t_word;
+typedef struct s_word
+{
+    char *buf;        // contenu final sans quotes
+    char *qmask;      // même longueur que buf : 0 = non quoté, 1 = simple, 2 = double
+    int  cap;
+    int  len;
+} t_word;
+
+faire un qmask =222220011111 Pour detecter quels caracteres sont sous doubles/single/none quotes
+
+Filtrer toutes les erreurs de la liste t_token : (<, <<, arg) -> error
+return chaque erreurs speciales
 
 define_type_list_token
 add_environment_variable

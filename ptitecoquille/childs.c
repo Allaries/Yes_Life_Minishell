@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/26 22:41:26 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/27 19:36:10 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,18 @@ void	dup2_infile_hack(t_data *data, t_cmd *cmd, int i)
 {
 	if (i == 0)
 	{
-		if (cmd->infd != 0)
-			dup2(cmd->infd, 0);
+		if (cmd->infd != STDIN_FILENO)
+			dup2(cmd->infd, STDIN_FILENO);
 	}
 	else
 	{
-		if (cmd->infd != 0)
-			dup2(cmd->infd, 0);
+		if (cmd->infd != STDIN_FILENO)
+		{
+			dup2(cmd->infd, STDIN_FILENO);
+		}
 		else
-			dup2(data->oldpipe[0], 0);
+			dup2(data->oldpipe[0], STDIN_FILENO);
 	}
-	printf("infd = %d\n", cmd->infd);
 	return ;
 }
 
@@ -97,6 +98,8 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 		// free_struct(data);
 		exit(127);
 	}
+	printf("CHILD: cmd->infd = %d\n", cmd->infd);
+	printf("CHILD: isatty(cmd->infd) = %d\n", isatty(cmd->infd)); 
 	dup2_child_hack(data, cmd, i);
 	if (i != 0 && close_all(data, cmd) == 0)
 	{

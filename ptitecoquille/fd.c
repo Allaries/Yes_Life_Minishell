@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/26 22:58:10 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/27 20:38:08 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	heredoc_init(char *hname)
 	char	*str;
 
 	fdhere = open(hname, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	printf ("fdhere == %i\n", fdhere);
 	if (fdhere == -1)
 	{
 		printf("%s: No such file or directory", hname);
 		return (fdhere);
 	}
-	printf ("heredoc = %i\n", fdhere);
-	unlink(hname);
+	// unlink(hname);
 	while (1)
 	{
 		str = get_next_line(STDIN_FILENO);
@@ -93,32 +93,40 @@ int	outfile_init(char *rname)
 	return (fdred);
 }
 
-int	get_infd(t_file **filelist)
+int get_infd(t_file **filelist)
 {
-	t_file	*temp;
-	int		fd;
-	int		tmp;
-	
+    t_file  *temp;
+    int     fd;
+    int     tmp;
+
+	temp = *filelist;
 	fd = 0;
 	tmp = 0;
-	temp = *filelist;
-	while (temp)
-	{
-		if (temp->type == HEREDOC_F)
-			tmp = heredoc_init(temp->name);
-		if (temp->type == INFILE)
-			tmp = infile_init(temp->name);
-		if (tmp < 0)
-		{
-			if (fd != 0)
-				close(fd);
-			return (-1);
-		}
-		fd = tmp;
-		temp = temp->next;
-	}
-	return (fd);
+    while (temp)
+    {
+        if (temp->type == HEREDOC_F)
+        {
+            tmp = heredoc_init(temp->name);
+            if (tmp < 0)
+            	return (-1);
+        	close(tmp);
+            tmp = open(temp->name, O_RDONLY);
+			unlink(temp->name);
+            if (tmp < 0)
+            	return (-1);
+        }
+        if (temp->type == INFILE)
+        {
+            tmp = infile_init(temp->name);
+            if (tmp < 0)
+                return (-1);
+        }
+        fd = tmp;
+        temp = temp->next;
+    }
+    return (fd);
 }
+
 
 int	get_outfd(t_file **filelist)
 {

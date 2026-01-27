@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 16:38:06 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/26 22:32:22 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/27 20:58:46 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,9 @@ t_cmd	*lstnew_cmd_filelist(char **args)
 	t_file	*node;
 
 	filelist = calloc(1, sizeof(t_file *));
-	node = lstnew_file_infile("main.c");
-	lstadd_back_file(filelist, node);
 	node = lstnew_file_heredoc("stop");
 	lstadd_back_file(filelist, node);
-	node = lstnew_file_outfile("amogus");
+	node = lstnew_file_append("result");
 	lstadd_back_file(filelist, node);
 	new = malloc(sizeof(t_cmd));
 	if (!new)
@@ -108,7 +106,9 @@ t_cmd	*lstnew_cmd(char **args)
 	t_file	**filelist;
 	t_file	*node;
 
-	filelist = NULL;
+	filelist = calloc(1, sizeof(t_file *));
+	node = lstnew_file_outfile("banazini_champanzini");
+	lstadd_back_file(filelist, node);
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
@@ -163,6 +163,13 @@ int main(int argc, char **argv, char **envp)
 	/* deuxième commande */
 	args2 = calloc(2, sizeof(char *));
 	args2[0] = argv[2];
+	args2[1] = NULL;
+	node = lstnew_cmd_filelist(args2);
+	lstadd_back_cmd(cmds, node);
+
+	/* troisieme commande */
+	args2 = calloc(2, sizeof(char *));
+	args2[0] = argv[3];
 	args2[1] = NULL;
 	node = lstnew_cmd_filelist(args2);
 	lstadd_back_cmd(cmds, node);

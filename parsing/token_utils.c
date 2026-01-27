@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/26 10:33:00 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/27 15:17:40 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_tok(char *input, int start, int len)
 	return (0);
 }
 
-enum e_type_tok	which_type(char *word)
+enum e_tok	which_type(char *word)
 {
 	if (!word)
 		return (CQUOI);

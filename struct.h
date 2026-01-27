@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/26 10:13:36 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/27 15:14:54 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-enum e_type_tok {
+enum e_tok {
 	PIPE = 1,
 	REDIR_IN = 2,
 	REDIR_OUT = 3,
@@ -26,10 +26,17 @@ enum e_type_tok {
 	CQUOI = 8
 };
 
+enum e_quote {
+	NO_QUOTE = 0,
+	SINGLE_QUOTE = 1,
+	DOUBLE_QUOTE = 2
+};
+
 typedef struct s_token
 {
 	char			*word;
-	enum e_type_tok	type;
+	enum e_tok		type_tok;
+	enum e_quote	type_quote;
 	struct s_token	*next;
 }	t_token;
 

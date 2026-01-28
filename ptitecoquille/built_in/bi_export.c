@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:49:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/21 17:04:35 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/28 23:00:27 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,39 +22,40 @@ char	**export_new_var(char **envp, char *export)
 		i++;
 	new_env = ft_calloc(sizeof(char *) * (i + 2), 1);
 	if (!new_env)
-		return (printf("export error\n"), envp);
+		return (printf("malloc error\n"), envp);
 	i = 0;
 	while (envp[i])
 	{
 		new_env[i] = envp[i];
 		i++;
 	}
+	free_tab(envp);
 	new_env[i] = ft_strdup(export);
 	new_env[++i] = NULL;
 	return (new_env);
 }
 
-char	**export_one(char **envp, char *export)
+void	export_one(t_data *data, char *export)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	while (envp[i])
+	while (data->envp[i])
 	{	
 		j = 0;
-		while (envp[i][j] != '=')
+		while (data->envp[i][j] != '=')
 			j++;
-		if (strncmp(export, envp[i], j) == 0)
+		if (strncmp(export, data->envp[i], j + 1) == 0)
 		{
-			free (envp[i]);
-			envp[i] = ft_strdup(export);
-			return (envp);
+			free (data->envp[i]);
+			data->envp[i] = ft_strdup(export);
+			return ;
 		}
 		i++;
 	}
-	envp = export_new_var(envp, export);
-	return (envp);
+	data->envp = export_new_var(data->envp, export);
+	return ;
 }
 
 int	check_export_arg(char *arg)
@@ -73,18 +74,18 @@ int	check_export_arg(char *arg)
 	return (0);
 }
 
-void	bi_export(char **cmd, char **envp)
+void	bi_export(t_cmd *cmd, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (cmd[++i])
+	while (cmd->args[++i])
 	{
-		if (check_export_arg(cmd[i]) == 1)
-			printf("export: `%s': not a valid identifier", cmd[i]);
+		if (check_export_arg(cmd->args[i]) == 1)
+			printf("export: `%s': not a valid identifier", cmd->args[i]);
 		else
-			export_one(envp, cmd[i]);
+			export_one(data, cmd->args[i]);
 	}
 	if (i == 1)
-		bi_env(envp);
+		bi_env(data->envp);
 }

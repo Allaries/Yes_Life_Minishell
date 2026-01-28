@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/27 19:36:10 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/28 23:23:24 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	dup2_outfile_hack(t_data *data, t_cmd *cmd)
 
 void	dup2_child_hack(t_data *data, t_cmd *cmd, int i)
 {
-	fprintf (stderr ,"infd = %i, outfd = %i\n" ,cmd->infd, cmd->outfd);
 	dup2_infile_hack(data, cmd, i);
 	dup2_outfile_hack(data, cmd);
 	return ;
@@ -92,14 +91,19 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	if (cmd->pid != 0)
 		return (1);
 	def_path(data, cmd);
-	if (cmd->path == NULL)
+	if (cmd->built_in != 0)
 	{
+		exec_single_bi(cmd->built_in, data, cmd);
+		//ajouter dans t_cmd un truc t_cmd **head pour pouvoir tout free (a mediter pour crime de guerre)
+		// thanos_snap_child(data);
+		exit(0);
+	}
+	if (cmd->path == NULL && cmd->built_in == 0)
+	{
+		printf ("command not found: %s", cmd->args[0]);
 		close_all(data, cmd);
-		// free_struct(data);
 		exit(127);
 	}
-	printf("CHILD: cmd->infd = %d\n", cmd->infd);
-	printf("CHILD: isatty(cmd->infd) = %d\n", isatty(cmd->infd)); 
 	dup2_child_hack(data, cmd, i);
 	if (i != 0 && close_all(data, cmd) == 0)
 	{
@@ -147,6 +151,7 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 	while (here_cmd)
 	{	
 		get_fd(here_cmd);
+		check_bi(here_cmd);
 		if (here_cmd->next != NULL)
 			pipe(data->newpipe);
 		execute_child(data, here_cmd, i);

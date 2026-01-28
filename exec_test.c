@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 16:38:06 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/27 20:58:46 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/28 22:25:54 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,10 @@ t_cmd	*lstnew_cmd_filelist(char **args)
 	t_file	**filelist;
 	t_file	*node;
 
-	filelist = calloc(1, sizeof(t_file *));
-	node = lstnew_file_heredoc("stop");
-	lstadd_back_file(filelist, node);
-	node = lstnew_file_append("result");
-	lstadd_back_file(filelist, node);
+	filelist = NULL;
+	// filelist = calloc(1, sizeof(t_file *));
+	// node = lstnew_file_append("result");
+	// lstadd_back_file(filelist, node);
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
@@ -106,9 +105,10 @@ t_cmd	*lstnew_cmd(char **args)
 	t_file	**filelist;
 	t_file	*node;
 
-	filelist = calloc(1, sizeof(t_file *));
-	node = lstnew_file_outfile("banazini_champanzini");
-	lstadd_back_file(filelist, node);
+	filelist = NULL;
+	// filelist = calloc(1, sizeof(t_file *));
+	// node = lstnew_file_outfile("gougougaga");
+	// lstadd_back_file(filelist, node);
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
@@ -154,23 +154,18 @@ int main(int argc, char **argv, char **envp)
 		return (1);
 
 	/* première commande */
-	args1 = calloc(2, sizeof(char *));
+	args1 = calloc(3, sizeof(char *));
 	args1[0] = argv[1];
-	args1[1] = NULL;
+	args1[1] = argv[2];
+	args1[2] = NULL;
 	node = lstnew_cmd(args1);
 	lstadd_back_cmd(cmds, node);
 
 	/* deuxième commande */
-	args2 = calloc(2, sizeof(char *));
-	args2[0] = argv[2];
-	args2[1] = NULL;
-	node = lstnew_cmd_filelist(args2);
-	lstadd_back_cmd(cmds, node);
-
-	/* troisieme commande */
-	args2 = calloc(2, sizeof(char *));
+	args2 = calloc(3, sizeof(char *));
 	args2[0] = argv[3];
-	args2[1] = NULL;
+	args2[1] = argv[4];
+	args2[2] = NULL;
 	node = lstnew_cmd_filelist(args2);
 	lstadd_back_cmd(cmds, node);
 

@@ -6,42 +6,44 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/21 17:13:55 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/28 20:51:06 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exec_single_bi(int mod, char **envp, t_cmd *cmd)
+void	exec_single_bi(int mod, t_data *data, t_cmd *cmd)
 {
 	if (mod == 1)
 		bi_echo(cmd->args);
 	if (mod == 2)
-		bi_cd(cmd->args, envp);
+		bi_cd(cmd->args, data->envp);
 	if (mod == 3)
 		bi_pwd();
 	if (mod == 4)
-		bi_export(cmd->args, envp);
+		bi_export(cmd, data);
 	if (mod == 5)
-		bi_unset(cmd->args, envp);
+		bi_unset(cmd->args, data->envp);
 	if (mod == 6)
 		bi_exit();
 	return ;
 }
 
-int	check_bi(char **cmd)
+void	check_bi(t_cmd *cmd)
 {
-	if (strncmp(cmd[0], "echo", 5) == 0)
-		return (1);
-	if (strncmp(cmd[0], "cd", 3) == 0)
-		return (2);
-	if (strncmp(cmd[0], "pwd", 4) == 0)
-		return (3);
-	if (strncmp(cmd[0], "export", 7) == 0)
-		return (4);
-	if (strncmp(cmd[0], "unset", 6) == 0)
-		return (5);
-	if (strncmp(cmd[0], "exit", 5) == 0)
-		return (6);
-	return (0);
+	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
+		cmd->built_in = 1;
+	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
+		cmd->built_in = 2;
+	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
+		cmd->built_in = 3;
+	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
+		cmd->built_in = 4;
+	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
+		cmd->built_in = 5;
+	else if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
+		cmd->built_in = 6;
+	else
+		cmd->built_in = 0;
+	return ;
 }

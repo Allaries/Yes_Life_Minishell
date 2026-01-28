@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/27 20:38:08 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/01/28 19:00:08 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,10 @@ int get_infd(t_file **filelist)
         {
             tmp = heredoc_init(temp->name);
             if (tmp < 0)
+			{
             	return (-1);
-        	close(tmp);
+			}
+			close(tmp);
             tmp = open(temp->name, O_RDONLY);
 			unlink(temp->name);
             if (tmp < 0)

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/28 15:00:44 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/28 18:23:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,10 @@ t_word	*init_word(int size)
 int	parse_word(char *input, t_word **word, int *i)
 {
 	int	y;
-	int	len;
+	int	size;
 
 	y = 0;
-	len = 29;
-	word = malloc(sizeof(char) * (len + 1));
-	if (!word)
-		return (free_all(NULL, &word), 0);
+	size = *word->size;
 	while (y < len)
 	{
 		if (*q && (input[*i] == *q))
@@ -94,7 +91,7 @@ int	is_word(char *input, t_word **word, int *i)
 // void word_add_char(t_word *w, char c, char mask)
 // {
 //     if (w->len + 1 >= w->size)
-//         return; // ou realloc
+//         return; // ou realloc // realloc la size * 2 c'est bien opti
 
 //     w->buf[w->len] = c;
 //     w->qmask[w->len] = mask;

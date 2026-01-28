@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/28 16:55:30 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/28 18:28:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	add_tok_in_list(t_token **tok_list, char **word)
+int	add_tok_in_list(t_token **tok_list, t_word **word)
 {
 	enum e_tok	type;
 	t_token		*tok;
@@ -35,7 +35,7 @@ int	add_tok_in_list(t_token **tok_list, char **word)
 	return (1);
 }
 
-t_token	*create_token(char *buf, char *qmask enum e_tok type)
+t_token	*create_token(char *buf, char *qmask, enum e_tok type)
 {
 	t_token	*tok;
 

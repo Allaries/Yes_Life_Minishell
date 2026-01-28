@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 20:08:57 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/28 15:01:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ int	is_tok(char *input, int start, int len)
 	return (0);
 }
 
-enum e_tok	which_type(char *word)
+enum e_tok	which_type(char *buf)
 {
-	if (!word)
+	if (!buf)
 		return (VOID);
-	if (!ft_strcmp_safe(word, "<"))
+	if (!ft_strcmp_safe(buf, "<"))
 		return (REDIR_IN);
-	if (!ft_strcmp_safe(word, ">"))
+	if (!ft_strcmp_safe(buf, ">"))
 		return (REDIR_OUT);
-	if (!ft_strcmp_safe(word, "<<"))
+	if (!ft_strcmp_safe(buf, "<<"))
 		return (HEREDOC);
-	if (!ft_strcmp_safe(word, ">>"))
+	if (!ft_strcmp_safe(buf, ">>"))
 		return (APPEND);
-	if (!ft_strcmp_safe(word, "|"))
+	if (!ft_strcmp_safe(buf, "|"))
 		return (PIPE);
 	return (ARG);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_list_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 19:52:47 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/28 14:01:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	fill_token_list(char *input, t_token **tok_list)
 {
 	int		i;
 	t_word	*word;
-""
+
 	i = 0;
 	word = NULL;
 	while (input[i])
@@ -38,11 +38,14 @@ int	fill_token_list(char *input, t_token **tok_list)
 			i++;
 		else
 		{
-			if (!create_word(input, &word, &i))
+			word = init_word(32);
+			if (!word)
+				return (free_all(tok_list, NULL), 0);
+			if (!parse_word(input, &word, &i))
 				return (free_all(tok_list, &word), 0);
 			if (!add_tok_in_list(tok_list, &word))
 				return ((free_all(tok_list, &word), 0));
-			free_all(0, &word);
+			free_all(NULL, &word);
 		}
 	}
 	return (1);

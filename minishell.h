@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/27 18:59:27 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/28 16:47:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,17 @@ int				is_pair(char *input);
 int				find_second_quote(char *input, char q, int *i);
 
 // build_word
-int				is_word(char *input, int *i, char *q);
+t_word          *init_word(int size);
+int             parse_word(char *input, t_word **word, int *i)
+int				is_word(char *input, t_word **word, int *i);
 
 // token
-int				add_tok_in_list(t_token **tok_list, char **word);
-t_token			*create_token(char *word, enum e_type_tok type);
+int				add_tok_in_list(t_token **tok_list, t_word **word);
+t_token			*create_token(t_word **word, enum e_type_tok type);
 
 // token_utils
 int				is_tok(char *input, int start, int len);
-enum e_type_tok	which_type(char *word);
+enum e_type_tok	which_type(char *buf);
 
 // verify_list_token
 int				verify_list_token(t_token **tok_list);
@@ -63,8 +65,9 @@ int				ft_strcmp_safe(const char *s1, const char *s2);
 char			*ft_strduplicate(const char *s);
 
 // free
-void			free_all(t_token **list, char **word);
+void			free_all(t_token **list, t_word **word);
 void			free_list_token(t_token **list);
+void            free_token(t_token *tok);
 void			free_word(t_word **word);
 
 #endif

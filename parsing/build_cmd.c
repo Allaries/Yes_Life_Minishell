@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 18:40:44 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/28 14:02:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int	build_cmd(char *input)
 	// 	tmp = tmp->next;
 	// }
 	// ICI ajouter t_cmd cmd_list
-	free_all(&tok_list, 0);
+	free_all(&tok_list, NULL);
 	return (1);
 }

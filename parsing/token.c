@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 19:40:37 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/28 16:23:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	add_tok_in_list(t_token **tok_list, char **word)
 	t_token		*tok;
 	t_token		*tmp;
 
-	type = which_type(*word);
-	tok = create_token(*word, type);
+	type = which_type((*word)->buf);
+	tok = create_token((*word)->buf, (*word)->qmask, type);
 	if (!tok)
 		return (0);
 	tmp = NULL;
@@ -35,19 +35,20 @@ int	add_tok_in_list(t_token **tok_list, char **word)
 	return (1);
 }
 
-t_token	*create_token(char *word, enum e_tok type)
+t_token	*create_token(char *buf, char *qmask enum e_tok type)
 {
 	t_token	*tok;
 
 	tok = NULL;
-	if (!word)
-		return (NULL);
 	tok = malloc(sizeof(t_token));
 	if (!tok)
 		return (NULL);
-	tok->word = ft_strduplicate(word);
-	if (!tok->word)
+	tok->word = ft_strduplicate(buf);
+	tok->qmask = ft_strduplicate(qmask);
+	if (!tok->word || !tok->qmask)
 	{
+		free(tok->word);
+		free(tok->qmask);
 		free(tok);
 		return (NULL);
 	}

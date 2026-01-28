@@ -7,10 +7,6 @@ et "" compte comme un vrai mot mais vide
 Bonn.. Il faut envoyer l'env au R dans la list chainee list_cmd
 
 
-
-Determiner le type de token apres avoir remplis la liste
-free la list en entier en cas d'erreurs malloc
-
 Comment je fais avec les slash \$HOME , pour les detecter a chaque fois ?
 Parce que -> \$HOME = $HOME  ;  $HOME = home/smedenec
 
@@ -22,6 +18,8 @@ typedef struct s_word
     int  buf_size;
     int  len;
 } t_word;
+
+au moment de creer le word, bien verifier qu'il ne sort pas NULL.
 
 faire un qmask =222220011111 Pour detecter quels caracteres sont sous doubles/single/none quotes
 

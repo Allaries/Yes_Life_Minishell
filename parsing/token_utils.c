@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/28 15:01:57 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/28 16:50:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_tok(char *input, int start, int len)
 
 enum e_tok	which_type(char *buf)
 {
-	if (!buf)
+	if (!buf[0])
 		return (VOID);
 	if (!ft_strcmp_safe(buf, "<"))
 		return (REDIR_IN);

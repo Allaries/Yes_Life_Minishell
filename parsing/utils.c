@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 17:59:00 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/28 17:03:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,21 @@ int	ft_strcmp_safe(const char *s1, const char *s2)
 char	*ft_strduplicate(const char *s)
 {
 	int		i;
-	char	*ptr;
+	int		len;
+	char	*str;
 
 	if (!s)
 		return (NULL);
-	ptr = malloc(sizeof (*ptr) * (ft_strlen((char *)s) + 1));
-	if (!ptr)
+	len = ft_strlen(s);
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
 		return (NULL);
 	i = 0;
 	while (s[i])
 	{
-		ptr[i] = s[i];
+		str[i] = s[i];
 		i++;
 	}
-	ptr[i] = '\0';
-	return (ptr);
+	str[i] = '\0';
+	return (str);
 }

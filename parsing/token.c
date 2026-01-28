@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/28 16:23:33 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/28 16:55:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,7 @@ t_token	*create_token(char *buf, char *qmask enum e_tok type)
 	tok->word = ft_strduplicate(buf);
 	tok->qmask = ft_strduplicate(qmask);
 	if (!tok->word || !tok->qmask)
-	{
-		free(tok->word);
-		free(tok->qmask);
-		free(tok);
-		return (NULL);
-	}
+		return (free_token(tok), NULL);
 	tok->type_tok = type;
 	tok->next = NULL;
 	return (tok);

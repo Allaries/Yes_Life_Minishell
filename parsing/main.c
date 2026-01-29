@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 18:42:12 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/29 13:06:05 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,5 @@ int	main(void)
 	}
 	return (0);
 }
+
+// to compile : valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell

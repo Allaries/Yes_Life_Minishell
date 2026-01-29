@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/28 16:46:15 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/29 13:46:05 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	free_list_token(t_token **list)
 
 void free_token(t_token *tok)
 {
-    if (!tok)
-        return;
-    free(tok->word);
-    free(tok->qmask);
-    free(tok);
+	if (!tok)
+		return;
+	free(tok->word);
+	free(tok->qmask);
+	free(tok);
 }
 
 void	free_word(t_word **word)

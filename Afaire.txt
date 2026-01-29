@@ -1,3 +1,4 @@
+// to compile : valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
 
 Gerer le cas juste "" et transformer ca "'hello'" en ca : 'hello' pour l'exec
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_word.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/28 18:23:16 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/29 13:36:14 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,17 @@ t_word	*init_word(int size)
 
 int	parse_word(char *input, t_word **word, int *i)
 {
+	// free ici (*word)->buf et (*word)->qmask
 	int	y;
 	int	size;
 
 	y = 0;
-	size = *word->size;
-	while (y < len)
+	size = (*word)->size;
+	{
+		printf("size = %i\n", (*word)->size);
+		return (0); // Pour tester si ca marche jusqu'a la
+	}
+	while (is_word(input, *word, i))
 	{
 		if (*q && (input[*i] == *q))
 				(*i)++;
@@ -57,7 +62,7 @@ int	parse_word(char *input, t_word **word, int *i)
 	printf("word = %s\n", (char *)word);
 }
 
-int	is_word(char *input, t_word **word, int *i)
+int	is_word(char *input, t_word *word, int *i)
 {
 	int		start;
 	int		len;
@@ -87,15 +92,3 @@ int	is_word(char *input, t_word **word, int *i)
 	printf("len = %i\n", len);
 	return (len);
 }
-
-// void word_add_char(t_word *w, char c, char mask)
-// {
-//     if (w->len + 1 >= w->size)
-//         return; // ou realloc // realloc la size * 2 c'est bien opti
-
-//     w->buf[w->len] = c;
-//     w->qmask[w->len] = mask;
-//     w->len++;
-//     w->buf[w->len] = '\0';
-//     w->qmask[w->len] = '\0';
-// }

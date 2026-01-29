@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 13:19:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/29 14:51:48 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/29 18:25:54 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	add_char_in_word(t_word *word, char char_buf, char char_mask)
 			return (0);
 	word->buf[word->len] = char_buf;
 	word->qmask[word->len] = char_mask;
-	word->len++;
+	(word->len)++;
 	word->buf[word->len] = '\0';
 	word->qmask[word->len] = '\0';
 	return (1);
@@ -43,4 +43,3 @@ int	realloc_word(t_word *word)
 	word->qmask = tmp_qmask;
 	return (1);
 }
-

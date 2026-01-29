@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/29 13:05:38 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/29 17:12:05 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ enum e_tok {
 	APPEND,
 	CMD,
 	ARG
-};
-
-enum e_quote {
-	NO_QUOTE,
-	S_QUOTE,
-	D_QUOTE
 };
 
 typedef struct s_word

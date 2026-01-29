@@ -7,6 +7,8 @@ et "" compte comme un vrai mot mais vide
 
 Bonn.. Il faut envoyer l'env au R dans la list chainee list_cmd
 
+peut etre passer : int	parse_word(char *input, t_word **word, int *i)
+en : int	parse_word(char *input, t_word *word, int *i)
 
 Comment je fais avec les slash \$HOME , pour les detecter a chaque fois ?
 Parce que -> \$HOME = $HOME  ;  $HOME = home/smedenec

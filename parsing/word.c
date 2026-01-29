@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_word.c                                       :+:      :+:    :+:   */
+/*   word.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/29 13:36:14 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/29 18:38:36 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,57 +38,41 @@ t_word	*init_word(int size)
 
 int	parse_word(char *input, t_word **word, int *i)
 {
-	// free ici (*word)->buf et (*word)->qmask
-	int	y;
-	int	size;
+	char	char_buf;
 
-	y = 0;
-	size = (*word)->size;
+	char_buf = 0;
 	{
 		printf("size = %i\n", (*word)->size);
-		return (0); // Pour tester si ca marche jusqu'a la
+		return (0);// Pour tester si ca marche jusqu'a ici
 	}
-	while (is_word(input, *word, i))
+	while (input[*i] && is_word(input, *word, i))
 	{
-		if (*q && (input[*i] == *q))
-				(*i)++;
-		else
-			word[y++] = input[(*i)++];
+		char_buf = input[*i];
+		if ((*word)->in_dquote)
+			if (!add_char_in_word(*word, char_buf, '2'))
+				return (0);
+		if ((*word)->in_squote)
+			if (!add_char_in_word(*word, char_buf, '1'))
+				return (0);
+		if (!((*word)->in_dquote) && !((*word)->in_dquote))
+			if (!add_char_in_word(*word, char_buf, '0'))
+				return (0);
+		(*i)++;
 	}
-	if (*q && (input[*i] == *q))
-				(*i)++;
-	word[y] = '\0';
-	printf("i = %i\n", *i);
-	printf("word = %s\n", (char *)word);
+	return (1);
 }
 
 int	is_word(char *input, t_word *word, int *i)
 {
-	int		start;
-	int		len;
+	int	y;
 
-	len = 0;
-	start = *i;
-	while (input[start + len] && !is_space(input[start + len])
-		&& !is_tok(input, start, len) && ((!*q) || ((*q) && ((input[start + len] != '"') && (input[start + len] != '\'')))))
-	{
-		if (input[start + len] == '\'' || input[start + len] == '"')
-		{
-			if (!*q)
-				*q = input[start + len];
-			len++;
-			while (input[start + len] && input[start + len] != *q)
-				len++;
-			len++;
-			sleep(1);
-		}
-		else
-			len++;
-	}
-	if (*q)
-		len -= 2;
-	if (!len)
-		*i += 2;
-	printf("len = %i\n", len);
-	return (len);
+	y = *i;
+	if (!(word->in_squote) && !(word->in_dquote)
+		&& input[*i] != '\'' && input[*i] != '"')
+		return (0);
+	if (is_space(input[y]))
+		return (0);
+	if (is_tok(input, y, word->len))
+		return (0);
+	return (1);
 }

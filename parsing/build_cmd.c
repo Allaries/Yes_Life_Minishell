@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/28 14:02:36 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/29 18:28:52 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	build_cmd(char *input)
 	t_token	*tok_list;
 
 	tok_list = NULL;
-	if (!build_list_token(&tok_list, input))
+	if (!build_list_token(input, &tok_list))
 		return (0);
 	// printf("Token :\n");
 	// t_token	*tmp = tok_list;

@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/29 14:23:57 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/29 18:29:40 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,9 @@ int				realloc_word(t_word *word);
 int				add_tok_in_list(t_token **tok_list, t_word **word);
 t_token			*create_token(char *buf, char *qmask, enum e_tok type);
 
-
 // token_utils
 int				is_tok(char *input, int start, int len);
-enum e_tok	which_type(char *buf);
+enum e_tok		which_type(char *buf);
 
 // verify_list_token
 int				verify_list_token(t_token **tok_list);

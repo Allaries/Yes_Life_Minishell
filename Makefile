@@ -9,7 +9,8 @@ SRC = parsing/main.c parsing/build_list_token.c \
 		parsing/utils.c parsing/verify_list_token.c \
 		parsing/word.c parsing/word_utils.c \
 
-OBJ = $(SRC:.c=.o)
+OBJDIR = obj
+OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -29,11 +30,12 @@ $(LIBFT):
 $(GNL):
 	@$(MAKE) -s -C $(GNL_DIR)
 
-%.o: %.c
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJDIR)
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
 	@$(MAKE) -s -C $(GNL_DIR) clean
 	@echo "All clean !"

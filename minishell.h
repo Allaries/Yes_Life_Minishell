@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/29 18:29:40 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/29 20:31:35 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int				find_second_quote(char *input, char q, int *i);
 // word
 t_word			*init_word(int size);
 int				parse_word(char *input, t_word **word, int *i);
-int				is_word(char *input, t_word *word, int *i);
+int				can_extend_word(char *input, t_word *word, int *i);
 
 // word_utils
 int				add_char_in_word(t_word *word, char char_buf, char char_mask);

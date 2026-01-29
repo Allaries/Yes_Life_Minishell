@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/29 19:55:49 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/29 20:43:24 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	parse_word(char *input, t_word **word, int *i)
 
 	char_buf = 0;
 	return (0);// Pour tester si ca marche jusqu'a ici
-	while (input[*i] && is_word(input, *word, i))
+	while (input[*i] && can_extend_word(input, *word, i))
 	{
 		char_buf = input[*i];
 		if ((*word)->in_dquote)
@@ -51,25 +51,29 @@ int	parse_word(char *input, t_word **word, int *i)
 		if ((*word)->in_squote)
 			if (!add_char_in_word(*word, char_buf, '1'))
 				return (0);
-		if (!((*word)->in_dquote) && !((*word)->in_dquote))
-			if (!add_char_in_word(*word, char_buf, '0'))
+		if (!add_char_in_word(*word, char_buf, '0'))
 				return (0);
 		(*i)++;
 	}
 	return (1);
 }
 
-int	is_word(char *input, t_word *word, int *i)
+int	can_extend_word(char *input, t_word *word, int *i)
 {
-	int	y;
+	char	c;
 
-	y = *i;
-	if (!(word->in_squote) && !(word->in_dquote)
-		&& input[*i] != '\'' && input[*i] != '"')
-		return (0);
-	if (is_space(input[y]))
-		return (0);
-	if (is_tok(input, y, word->len))
-		return (0);
+	c = input[*i];
+	// La le build in sans quotes
+	if (!(word->in_squote) && !(word->in_dquote) && (c != '\'') && (c != '"'))
+	{
+		if (is_tok(input, *i, word->len))
+			return (0);
+		if (is_space(c))
+			return (0);
+	}
+	///////
+
+	// Ici Built in avec double
+	// Ici Built in avec single
 	return (1);
 }

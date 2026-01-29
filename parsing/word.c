@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/29 18:38:36 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:55:49 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_word	*init_word(int size)
 	t_word	*word;
 
 	word = NULL;
-	word = malloc(sizeof(sizeof(t_word)));
+	word = malloc(sizeof(t_word));
 	if (!word)
 		return (NULL);
 	word->buf = malloc(sizeof(char) * (size + 1));
@@ -41,10 +41,7 @@ int	parse_word(char *input, t_word **word, int *i)
 	char	char_buf;
 
 	char_buf = 0;
-	{
-		printf("size = %i\n", (*word)->size);
-		return (0);// Pour tester si ca marche jusqu'a ici
-	}
+	return (0);// Pour tester si ca marche jusqu'a ici
 	while (input[*i] && is_word(input, *word, i))
 	{
 		char_buf = input[*i];

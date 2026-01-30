@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/29 20:43:24 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/30 21:43:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,41 +39,58 @@ t_word	*init_word(int size)
 int	parse_word(char *input, t_word **word, int *i)
 {
 	char	char_buf;
+	char	char_qmask;
 
 	char_buf = 0;
-	return (0);// Pour tester si ca marche jusqu'a ici
-	while (input[*i] && can_extend_word(input, *word, i))
+	char_qmask = 0;
+	//return (0);// Pour tester si ca marche jusqu'a ici
+	while (input[*i] && skip_quote(input, *word, i) && can_extend(input, *word, i))
 	{
 		char_buf = input[*i];
-		if ((*word)->in_dquote)
-			if (!add_char_in_word(*word, char_buf, '2'))
-				return (0);
-		if ((*word)->in_squote)
-			if (!add_char_in_word(*word, char_buf, '1'))
-				return (0);
-		if (!add_char_in_word(*word, char_buf, '0'))
+		char_qmask = which_quote(*word);
+		if (!add_char_in_word(*word, char_buf, char_qmask))
 				return (0);
 		(*i)++;
 	}
 	return (1);
 }
 
-int	can_extend_word(char *input, t_word *word, int *i)
+int	can_extend(char *input, t_word *word, int *i)
 {
 	char	c;
+	char	q;
 
+	q = which_quote(word);
 	c = input[*i];
-	// La le build in sans quotes
-	if (!(word->in_squote) && !(word->in_dquote) && (c != '\'') && (c != '"'))
+	if (q == '0' && ((c != '\'') && (c != '"')))
 	{
-		if (is_tok(input, *i, word->len))
-			return (0);
 		if (is_space(c))
 			return (0);
+		if (is_tok(input, *i, word->len))
+			return (0);
 	}
-	///////
+	else if (q == '1' || q == '2')
+		return (1);
+	return (1);
+}
 
-	// Ici Built in avec double
-	// Ici Built in avec single
+int	skip_quote(char *input, t_word *word, int *i)
+{
+	while (input[*i] && ((input[*i] == '\'') || (input[*i] == '"')))
+	{
+		first_one(input, word, i);
+		if (word->in_squote)
+		{
+			skip_one(input, word, i, '\'');
+			skip_one(input, word, i, '\'');
+		}
+		else if (word->in_dquote)
+		{
+			skip_one(input, word, i, '"');
+			skip_one(input, word, i, '"');
+		}	
+	}
+	if (!input[*i])
+		return(0);
 	return (1);
 }

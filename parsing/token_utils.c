@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/29 20:42:03 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/01/30 17:30:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,25 @@
 
 int	is_tok(char *input, int i, int len)
 {
-	if (!len) // Ici ameliorer en ajoutant char c = input[c]
+	char	c;
+	char	c_prev;
+
+	c = '\0';
+	c_prev = '\0';
+	if (!len)
 		return (0);
+	c = input[i];
+	c_prev = input[i - 1];
 	if (len == 1)
 	{
-		if ((input[i - 1] == '>') && (input[i] == '>'))
+		if ((c_prev == '>') && (c == '>'))
 			return (0);
-		if ((input[i - 1] == '<') && (input[i] == '<'))
+		if ((c_prev == '<') && (c == '<'))
 			return (0);
 	}
-	if ((input[i - 1] == '>') || (input[i - 1] == '<') || (input[i - 1] == '|'))
+	if ((c_prev == '>') || (c_prev == '<') || (c_prev == '|'))
 		return (1);
-	if ((input[i] == '>') || (input[i] == '<') || (input[i] == '|'))
+	if ((c == '>') || (c == '<') || (c == '|'))
 		return (1);
 	return (0);
 }
@@ -53,6 +60,8 @@ enum e_tok	which_type(char *buf)
 {
 	if (!buf[0])
 		return (VOID);
+	if (!ft_strcmp_safe(buf, "|"))
+		return (PIPE);
 	if (!ft_strcmp_safe(buf, "<"))
 		return (REDIR_IN);
 	if (!ft_strcmp_safe(buf, ">"))
@@ -61,7 +70,5 @@ enum e_tok	which_type(char *buf)
 		return (HEREDOC);
 	if (!ft_strcmp_safe(buf, ">>"))
 		return (APPEND);
-	if (!ft_strcmp_safe(buf, "|"))
-		return (PIPE);
 	return (ARG);
 }

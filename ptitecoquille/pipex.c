@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/21 16:57:44 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/02 21:42:29 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*slashcmd(char *cmd, char *path)
 	return (cmd);
 }
 
-int	abs_path_check(char *cmd, t_data *data)
+int	abs_path_check(char *cmd)
 {
 	if (cmd[0] == '/')
 	{
@@ -38,23 +38,24 @@ int	abs_path_check(char *cmd, t_data *data)
 	return (0);
 }
 
-int	find_path(t_data *data, t_cmd *cmd, char **path)
+int	find_path(t_cmd *cmd, char **path)
 {
 	char	*cm2d;
 	int		i;
 
 	i = 0;
-	if (abs_path_check(cmd->args[0], data) == 1)
-		{
-			cmd->path = ft_strdup(cmd->args[0]);
-			return (free_tab(path), 1);
-		}
+	if (abs_path_check(cmd->args[0]) == 1)
+	{
+		cmd->path = ft_strdup(cmd->args[0]);
+		return (free_tab(path), 1);
+	}
 	while (path[i])
 	{
 		cm2d = ft_strdup(cmd->args[0]);
 		if (!cmd)
 			return (free_tab(path), 0);
 		cmd->path = slashcmd(cm2d, path[i]);
+		free (cm2d);
 		if (!cmd->path)
 			return (free_tab(path), 0);
 		if (access (cmd->path, F_OK) == 0)
@@ -85,7 +86,7 @@ int	def_path(t_data *data, t_cmd *cmd)
 	free(path[0]);
 	path[0] = ft_strdup(temp);
 	free(temp);
-	find_path(data, cmd, path);
+	find_path(cmd, path);
 	return (1);
 }
 

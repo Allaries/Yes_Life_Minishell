@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/28 22:52:32 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/02 23:07:36 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-int	iterate_input(t_token **list, char *input);
-int	parsing(char *input);
-//--------------------------------------------------------------//
+int		iterate_input(t_token **list, char *input);
+int		parsing(char *input);
 void	ft_strcat(char *dest, const char *src);
 int		*env_already_exist(char **envp, char *var);
 char	**dupe_env(char **envp);
@@ -49,8 +48,9 @@ void	bi_env(char **envp);
 void	bi_cd(char **cmd, char **envp);
 void	bi_pwd(void);
 void	bi_echo(char **cmd);
-void	bi_export(t_cmd *cmd, t_data *data);
+void	bi_export(t_data *data, t_cmd *cmd);
 void	export_one(t_data *data, char *export);
-void	bi_unset(char **envp, char **cmd);
+void	bi_unset(t_data *data, t_cmd *cmd);
+void	thanos_snap_child(t_data *data);
 
 #endif

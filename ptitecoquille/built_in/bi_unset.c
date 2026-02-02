@@ -6,24 +6,21 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:45 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/28 22:53:10 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/02 23:23:10 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	remove_tab_elem(char **tab, int index)
+char	**remove_tab_elem(char **tab, int index)
 {
 	int	i;
 
 	if (!tab || index < 0)
-		return;
-
+		return (NULL);
 	if (!tab[index])
-		return;
-
+		return (NULL);
 	free(tab[index]);
-
 	i = index;
 	while (tab[i + 1])
 	{
@@ -31,6 +28,7 @@ void	remove_tab_elem(char **tab, int index)
 		i++;
 	}
 	tab[i] = NULL;
+	return (tab);
 }
 
 int	check_unset_arg(char *arg)
@@ -49,37 +47,35 @@ int	check_unset_arg(char *arg)
 	return (0);
 }
 
-char	**unset_one(char **envp, char *unset)
+void	unset_one(t_data *data, char *unset)
 {
 	int		i;
-	int		j;
-
+	
 	i = 0;
-	while (envp[i])
-	{	
-		j = 0;
-		while (envp[i][j] != '=')
-			j++;
-		if (strncmp(unset, envp[i], j) == 0)
+	while (data->envp[i])
+	{
+		if (strncmp(unset, data->envp[i], ft_strlen(unset)) == 0)
 		{
-			remove_tab_elem(envp, i);
-			return (envp);
+			data->envp = remove_tab_elem(data->envp, i);
+			if (data->envp == NULL)
+				printf("unset problem");
+			return ;
 		}
 		i++;
 	}
-	return (envp);
+	return ;
 }
 
-void	bi_unset(char **envp, char **cmd)
+void	bi_unset(t_data *data, t_cmd *cmd)
 {
-		int	i;
+	int	i;
 
 	i = 0;
-	while (cmd[++i])
+	while (cmd->args[++i])
 	{
-		if (check_unset_arg(cmd[i]) == 1)
-			printf("unset: '%s': not a valid identifier", cmd[i]);
+		if (check_unset_arg(cmd->args[i]) == 1)
+			printf("unset: '%s': not a valid identifier", cmd->args[i]);
 		else
-			export_one(envp, cmd[i]);
+			unset_one(data, cmd->args[i]);
 	}
 }

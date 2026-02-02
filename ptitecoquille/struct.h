@@ -6,11 +6,10 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/26 18:35:04 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/02 21:45:59 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//parsing
 
 enum type_tok {
 	CMD = 1,
@@ -29,8 +28,6 @@ typedef struct s_token
 	enum type_tok	type;
 	struct s_token	*next;
 }	t_token;
-
-//pour exec
 
 enum type_file {
     INFILE = 1,
@@ -60,6 +57,7 @@ typedef struct t_cmd
 
 typedef struct t_data {
 	char	**envp;
+	t_cmd	**cmd;
 	int		*pid;
 	int		oldpipe[2];
 	int		newpipe[2];

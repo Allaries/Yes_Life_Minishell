@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 16:38:06 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/28 22:25:54 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/02 21:39:30 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,13 @@ t_cmd	*lstnew_cmd_filelist(char **args)
 	// filelist = calloc(1, sizeof(t_file *));
 	// node = lstnew_file_append("result");
 	// lstadd_back_file(filelist, node);
-	new = malloc(sizeof(t_cmd));
+	new = calloc(sizeof(t_cmd) * 1, 1);
 	if (!new)
 		return (NULL);
 	new->filelist = filelist;
 	new->args = args;
 	new->next = NULL;
+	new->path = NULL;
 	return (new);
 }
 
@@ -106,15 +107,13 @@ t_cmd	*lstnew_cmd(char **args)
 	t_file	*node;
 
 	filelist = NULL;
-	// filelist = calloc(1, sizeof(t_file *));
-	// node = lstnew_file_outfile("gougougaga");
-	// lstadd_back_file(filelist, node);
-	new = malloc(sizeof(t_cmd));
+	new = calloc(sizeof(t_cmd) * 1, 1);
 	if (!new)
 		return (NULL);
 	new->filelist = filelist;
 	new->args = args;
 	new->next = NULL;
+	new->path = NULL;
 	return (new);
 }
 
@@ -152,29 +151,28 @@ int main(int argc, char **argv, char **envp)
 	cmds = calloc(1, sizeof(t_cmd *));
 	if (!cmds)
 		return (1);
-
 	/* première commande */
 	args1 = calloc(3, sizeof(char *));
-	args1[0] = argv[1];
-	args1[1] = argv[2];
+	args1[0] = ft_strdup(argv[1]);
+	args1[1] = ft_strdup(argv[2]);
 	args1[2] = NULL;
 	node = lstnew_cmd(args1);
 	lstadd_back_cmd(cmds, node);
 
 	/* deuxième commande */
 	args2 = calloc(3, sizeof(char *));
-	args2[0] = argv[3];
-	args2[1] = argv[4];
+	args2[0] = ft_strdup(argv[3]);
+	args2[1] = ft_strdup(argv[4]);
 	args2[2] = NULL;
 	node = lstnew_cmd_filelist(args2);
 	lstadd_back_cmd(cmds, node);
 
 	/* environnement */
+	data.cmd = cmds;
 	data.envp = dupe_env(envp);
 
 	/* exécution */
 	exec_pipex(&data, cmds);
-	
-	free_tab(data.envp);
+	thanos_snap_child(&data);
 	return (0);
 }

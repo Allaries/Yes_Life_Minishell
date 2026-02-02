@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/28 23:23:24 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/02 17:30:47 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	if (cmd->built_in != 0)
 	{
 		exec_single_bi(cmd->built_in, data, cmd);
-		//ajouter dans t_cmd un truc t_cmd **head pour pouvoir tout free (a mediter pour crime de guerre)
-		// thanos_snap_child(data);
+		thanos_snap_child(data);
 		exit(0);
 	}
 	if (cmd->path == NULL && cmd->built_in == 0)

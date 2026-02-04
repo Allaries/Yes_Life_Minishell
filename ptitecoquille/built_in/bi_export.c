@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:49:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/02 23:07:08 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/04 23:22:29 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_export_arg(char *arg)
 		i++;
 	}
 	return (0);
-}
+} 
 
 void	bi_export(t_data *data, t_cmd *cmd)
 {

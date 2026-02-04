@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 16:38:06 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/02 21:39:30 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/04 23:08:37 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,16 +142,12 @@ int main(int argc, char **argv, char **envp)
 	char	**args1;
 	char	**args2;
 
-	if (argc < 3)
-	{
-		printf("usage: %s cmd1 cmd2\n", argv[0]);
-		return (1);
-	}
 	/* allocation du tableau de commandes */
 	cmds = calloc(1, sizeof(t_cmd *));
 	if (!cmds)
 		return (1);
 	/* première commande */
+	
 	args1 = calloc(3, sizeof(char *));
 	args1[0] = ft_strdup(argv[1]);
 	args1[1] = ft_strdup(argv[2]);
@@ -159,13 +155,14 @@ int main(int argc, char **argv, char **envp)
 	node = lstnew_cmd(args1);
 	lstadd_back_cmd(cmds, node);
 
-	/* deuxième commande */
-	args2 = calloc(3, sizeof(char *));
-	args2[0] = ft_strdup(argv[3]);
-	args2[1] = ft_strdup(argv[4]);
-	args2[2] = NULL;
-	node = lstnew_cmd_filelist(args2);
-	lstadd_back_cmd(cmds, node);
+	
+	// /* deuxième commande */
+	// args2 = calloc(3, sizeof(char *));
+	// args2[0] = ft_strdup(argv[3]);
+	// args2[1] = ft_strdup(argv[4]);
+	// args2[2] = NULL;
+	// node = lstnew_cmd_filelist(args2);
+	// lstadd_back_cmd(cmds, node);
 
 	/* environnement */
 	data.cmd = cmds;

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/02 17:30:47 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/04 23:50:27 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,13 +124,10 @@ void	exec_only_one(t_cmd *cmd, t_data *data)
 {
 	int		status;
 
-	// if (cmd->built_in == 1)
-	// 	exec_single_bi(cmd, data);
-	// else
-	// {
+	if (cmd->built_in != 0)
+		exec_single_bi(cmd->built_in, data, cmd);
+	else
 		execute_child(data, cmd, 0);
-		waitpid(data->pid[0], &status, 0);
-	// }
 	return ;
 }
 
@@ -144,11 +141,12 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 	here_cmd = *cmd;
 	if (here_cmd->next == NULL)
 	{
+		check_bi(here_cmd);
 		exec_only_one(here_cmd, data);
 		return (1);
 	}
 	while (here_cmd)
-	{	
+	{
 		get_fd(here_cmd);
 		check_bi(here_cmd);
 		if (here_cmd->next != NULL)
@@ -167,51 +165,3 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 	}
 	return (1);
 }
-
-
-// int	execute_child_one(char **argv, t_data *data)
-// {
-// 	def_arg(argv[2], data);
-// 	def_path(data);
-// 	pipe(data->pipe);
-	// data->pid1 = fork();
-// 	if (data->pid1 == 0)
-// 	{
-// 		dup2(data->infd, 0);
-// 		dup2(data->pipe[1]);
-// 		if (data->path == NULL)
-// 		{
-// 			close_all(data);
-// 			free_struct(data);
-// 			exit(127);
-// 		}
-// 		if (close_all(data) == 0)
-// 			return (0);
-// 		if (execve(data->path, data->args, data->envp) == -1)
-// 			perror("Error ");
-// 	}
-// 	return (1);
-// }
-
-// int	execute_child_two(char **argv, t_data *data)
-// {
-// 	def_arg(argv[3], data);
-// 	def_path(data);
-// 	data->pid2 = fork();
-// 	if (data->pid2 == 0)
-// 	{
-// 		dup2(data->outfd, 1);
-// 		dup2(data->pipe[0]);
-// 		if (data->path == NULL)
-// 		{
-// 			close_all(data);
-// 			free_struct(data);
-// 			exit(127);
-// 		}
-// 		if (close_all(data) == 0)
-// 			return (0);
-// 		if (execve(data->path, data->args, data->envp) == -1)
-// 			perror("Error :");
-// 	}
-// 	return (1);
-// }

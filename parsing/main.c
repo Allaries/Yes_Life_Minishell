@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/29 13:06:05 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:12:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(void)
 			perror("Error");
 			return (1);
 		}
-		build_cmd(input);
+		parsing(input);
 		free(input);
 		input = NULL;
 	}

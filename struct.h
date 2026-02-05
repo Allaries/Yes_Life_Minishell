@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 14:46:01 by marvin           ###   ########.fr       */
+/*   Updated: 2026/02/05 15:57:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,14 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
-	char			**args;
-	t_redir			*redirs;
+    char			**args;
+    t_redir			**redirs;
+	char			*path;
+	int				infd;
+	int				outfd;
+	int				pid;
+	int				built_in;
 	struct s_cmd	*next;
-}	t_cmd;
+}    t_cmd;
 
 #endif

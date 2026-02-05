@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/05 15:30:25 by marvin           ###   ########.fr       */
+/*   Updated: 2026/02/05 17:41:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,15 @@
 # include <readline/history.h>
 
 // build_struct_cmd
-int				build_cmd(char *input);
+int				parsing(char *input);
+
+// build_list_cmd
+int				build_list_cmd(t_cmd **cmd_list, t_token **tok_list);
+int				fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list);
 
 // build_list_token
 int				build_list_token(char *input, t_token **tok_list);
-int				fill_token_list(char *input, t_token **tok_list);
+int				fill_list_token(char *input, t_token **tok_list);
 
 // check_input
 int				check_input(char *input);

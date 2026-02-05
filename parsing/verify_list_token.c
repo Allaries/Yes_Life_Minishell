@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_list_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 10:32:15 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/27 17:59:12 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/05 15:49:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	verify_list_token(t_token **tok_list)
 {
 	if (!is_front_token(tok_list))
 		return (0);
-	if (!is_separated_token(tok_list))
-		return (0);
+	// if (!is_separated_token(tok_list))
+	// 	return (0);
 	return (1);
 }
 

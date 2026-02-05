@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/30 20:50:18 by marvin           ###   ########.fr       */
+/*   Updated: 2026/02/05 15:30:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,19 @@ int				find_second_quote(char *input, char q, int *i);
 // word
 t_word			*init_word(int size);
 int				parse_word(char *input, t_word **word, int *i);
+int             skip_quote(char *input, t_word *word, int *i);
 int				can_extend(char *input, t_word *word, int *i);
-int             word_in_quote(char *input, t_word *word, int *i, char c);
-
 
 // word_utils
-int             which_quote(t_word *word);
-int				add_char_in_word(t_word *word, char char_buf, char char_mask);
+void	        first_one(char *input, t_word *word, int *i);
+void	        skip_one(char *input, t_word *word, int *i, char q);
+char            which_quote(t_word *word);
+int				add_char_in_word(t_word *word, char char_buf);
 int				realloc_word(t_word *word);
 
 // token
 int				add_tok_in_list(t_token **tok_list, t_word **word);
-t_token			*create_token(char *buf, char *qmask, enum e_tok type);
+t_token			*create_token(char *buf, enum e_tok type);
 
 // token_utils
 int				is_tok(char *input, int start, int len);

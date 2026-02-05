@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/29 19:55:44 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/05 14:54:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	free_token(t_token *tok)
 	if (!tok)
 		return ;
 	free(tok->word);
-	free(tok->qmask);
 	free(tok);
 }
 
@@ -53,7 +52,6 @@ void	free_word(t_word **word)
 	if (!word || !*word)
 		return ;
 	free((*word)->buf);
-	free((*word)->qmask);
 	free(*word);
 	*word = NULL;
 }

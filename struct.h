@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/29 17:12:05 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/05 14:46:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ enum e_tok {
 typedef struct s_word
 {
 	char	*buf;
-	char	*qmask;
 	int		in_squote;
 	int		in_dquote;
 	int		expand;
@@ -38,7 +37,6 @@ typedef struct s_word
 typedef struct s_token
 {
 	char			*word;
-	char			*qmask;
 	enum e_tok		type_tok;
 	struct s_token	*next;
 }	t_token;

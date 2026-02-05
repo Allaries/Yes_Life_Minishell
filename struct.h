@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 15:57:05 by marvin           ###   ########.fr       */
+/*   Updated: 2026/02/05 23:52:08 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+// token
 
 enum e_tok {
 	VOID,
@@ -20,7 +22,10 @@ enum e_tok {
 	REDIR_OUT,
 	HEREDOC,
 	APPEND,
-	CMD,
+	INFILE,
+	OUTFILE,
+	HEREDOC_F,
+	APPEND_F,
 	ARG
 };
 
@@ -43,31 +48,24 @@ typedef struct s_token
 
 // cmd
 
-enum e_type_file {
-	INFILE = 11,
-	OUTFILE = 12,
-	HEREDOC_F = 13,
-	APPEND_F = 14
-};
-
 typedef struct s_redir
 {
-	int					fd;
-	char				*name;
-	enum e_type_file	type;
-	struct s_redir		*next;
+	int				fd;
+	char			*name;
+	enum e_tok		type;
+	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_cmd
 {
-    char			**args;
-    t_redir			**redirs;
+	char			**args;
+	t_redir			**redirs;
 	char			*path;
 	int				infd;
 	int				outfd;
 	int				pid;
 	int				built_in;
 	struct s_cmd	*next;
-}    t_cmd;
+}	t_cmd;
 
 #endif

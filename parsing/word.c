@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 15:39:13 by marvin           ###   ########.fr       */
+/*   Updated: 2026/02/05 20:49:46 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	parse_word(char *input, t_word **word, int *i)
 	{
 		char_buf = input[*i];
 		if (!add_char_in_word(*word, char_buf))
-				return (0);
+			return (0);
 		(*i)++;
 	}
 	return (1);
@@ -63,10 +63,10 @@ int	skip_quote(char *input, t_word *word, int *i)
 		{
 			skip_one(input, word, i, '"');
 			skip_one(input, word, i, '"');
-		}	
+		}
 	}
 	if (!input[*i])
-		return(0);
+		return (0);
 	return (1);
 }
 
@@ -88,5 +88,3 @@ int	can_extend(char *input, t_word *word, int *i)
 		return (1);
 	return (1);
 }
-
-

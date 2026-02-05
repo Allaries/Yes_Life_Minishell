@@ -23,13 +23,13 @@ int	parsing(char *input)
 		return (0);
 	if (!build_list_cmd(&cmd_list, &tok_list))
 		return (0);
-	// printf("Token :\n");
-	// t_token	*tmp = tok_list;
-	// while (tmp)
-	// {
-	// 	printf("str = %s type = %d\n", tmp->word, tmp->type_tok);
-	// 	tmp = tmp->next;
-	// }
+	printf("Token :\n");
+	t_token	*tmp = tok_list;
+	while (tmp)
+	{
+		printf("str = %s type = %d\n", tmp->word, tmp->type_tok);
+		tmp = tmp->next;
+	}
 	//ICI ajouter t_cmd cmd_list
 	free_all(&tok_list, NULL);
 	//appell d'exec

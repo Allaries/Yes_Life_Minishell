@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 13:19:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 15:10:24 by marvin           ###   ########.fr       */
+/*   Updated: 2026/02/05 20:50:29 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	skip_one(char *input, t_word *word, int *i, char q)
 
 char	which_quote(t_word *word)
 {
-    if (word->in_dquote)
-        return ('2');
-    if (word->in_squote)
-        return ('1');
-    return ('0');
+	if (word->in_dquote)
+		return ('2');
+	if (word->in_squote)
+		return ('1');
+	return ('0');
 }
 
 int	add_char_in_word(t_word *word, char char_buf)

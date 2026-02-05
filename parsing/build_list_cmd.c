@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_list_cmd.c                                        :+:      :+:    :+:   */
+/*   build_list_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 17:14:24 by marvin            #+#    #+#             */
-/*   Updated: 2026/02/05 17:14:24 by marvin           ###   ########.fr       */
+/*   Created: 2026/02/05 20:46:22 by smedenec          #+#    #+#             */
+/*   Updated: 2026/02/05 20:46:22 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	build_list_cmd(t_cmd **cmd_list, t_token **tok_list)
 		return (0);
 	return (1);
 }
+
 int	fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list)
 {
 	int	i;

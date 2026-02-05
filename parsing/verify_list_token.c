@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_list_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 10:32:15 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 15:49:25 by marvin           ###   ########.fr       */
+/*   Updated: 2026/02/05 23:37:07 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	verify_list_token(t_token **tok_list)
 	// 	return (0);
 	return (1);
 }
+// is_back_token
 
 int	is_front_token(t_token **tok_list)
 {
 	t_token		*tmp;
 
 	tmp = *tok_list;
-	if ((tmp->type_tok) == 1 || (tmp->type_tok) == 2 || (tmp->type_tok) == 3
-		|| (tmp->type_tok) == 4 || (tmp->type_tok) == 5)
+	if ((tmp->type_tok) == 1)
 		return (0);
 	return (1);
 }

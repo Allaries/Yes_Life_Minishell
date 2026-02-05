@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_input.c                                      :+:      :+:    :+:   */
+/*   expend_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/01/26 10:32:40 by smedenec         ###   ########.fr       */
+/*   Created: 2026/02/05 20:51:07 by smedenec          #+#    #+#             */
+/*   Updated: 2026/02/05 23:28:01 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_input(char *input)
+int	expend_input(char *input)
 {
-	if (!input || !input[0])
-		return (0);
 	return (1);
 }

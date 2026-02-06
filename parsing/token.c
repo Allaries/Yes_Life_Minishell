@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 20:07:26 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/06 05:33:48 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_token	*create_token(char *buf, enum e_tok type)
 	t_token	*tok;
 
 	tok = NULL;
-	tok = malloc(sizeof(t_token));
+	tok = ft_calloc(sizeof(t_token), 1);
 	if (!tok)
 		return (NULL);
 	tok->word = ft_strduplicate(buf);

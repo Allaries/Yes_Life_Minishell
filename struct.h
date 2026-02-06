@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 23:52:08 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/06 05:00:19 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,13 @@ typedef struct s_cmd
 	int				built_in;
 	struct s_cmd	*next;
 }	t_cmd;
+
+// typedef struct s_data {
+// 	char	**envp;
+// 	t_cmd	**cmd;
+// 	int		*pid;
+// 	int		oldpipe[2];
+// 	int		newpipe[2];
+// }	t_data;
 
 #endif

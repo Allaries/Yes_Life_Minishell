@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 13:19:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 20:50:29 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/06 05:38:27 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	realloc_word(t_word *word)
 
 	tmp_buf = NULL;
 	word->size = word->size + word->size;
-	tmp_buf = realloc(word->buf, word->size);
+	tmp_buf = ft_realloc(word->buf, word->size);
 	if (!tmp_buf)
 		return (0);
 	word->buf = tmp_buf;

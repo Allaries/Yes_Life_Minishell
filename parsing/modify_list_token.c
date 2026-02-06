@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 20:18:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 23:47:31 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/06 03:50:52 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,25 @@ int	modify_list_token(t_token **tok_list)
 			modify_type_tok(tmp);
 			tmp = tmp->next;
 		}
-
 		else
 			tmp = tmp->next;
 	}
 	return (1);
 }
 
-void	modify_type_tok(t_token *tmp)
+void	modify_type_tok(t_token *tok_list)
 {
 	enum e_tok	file;
 
 	file = 0;
-	if (tmp->type_tok == REDIR_IN)
+	if (tok_list->type_tok == REDIR_IN)
 		file = INFILE;
-	else if (tmp->type_tok == REDIR_OUT)
+	else if (tok_list->type_tok == REDIR_OUT)
 		file = OUTFILE;
-	else if (tmp->type_tok == HEREDOC)
+	else if (tok_list->type_tok == HEREDOC)
 		file = HEREDOC_F;
-	else if (tmp->type_tok == APPEND)
+	else if (tok_list->type_tok == APPEND)
 		file = APPEND_F;
-	if (tmp->next && tmp->next->type_tok == ARG)
-		tmp->next->type_tok = file;
+	if (tok_list->next && tok_list->next->type_tok == ARG)
+		tok_list->next->type_tok = file;
 }

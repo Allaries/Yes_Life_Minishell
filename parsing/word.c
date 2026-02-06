@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 20:49:46 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/06 05:36:17 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ t_word	*init_word(int size)
 	t_word	*word;
 
 	word = NULL;
-	word = malloc(sizeof(t_word));
+	word = ft_calloc(sizeof(t_word), 1);
 	if (!word)
 		return (NULL);
-	word->buf = malloc(sizeof(char) * (size + 1));
+	word->buf = ft_calloc(sizeof(char) * (size + 1), 1);
 	if (!(word->buf))
 		return (free_all(NULL, &word), NULL);
 	word->buf[0] = '\0';

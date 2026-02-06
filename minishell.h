@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/05 23:30:02 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/06 08:26:46 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,15 @@ int				parsing(char *input);
 // build_list_cmd
 int				build_list_cmd(t_cmd **cmd_list, t_token **tok_list);
 int				fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list);
+int				add_cmd_in_list(t_cmd **cmd_list, t_token *tok_list);
 
 // build_list_token
 int				build_list_token(char *input, t_token **tok_list);
+t_cmd			*create_cmd(t_token *tok_list);
+char			**build_args(t_token *tok_list);
+t_redir			**build_redir_list(t_redir **redir_list, t_token *tok_list);
+int				add_redir_in_list(t_redir **redir_list, t_token *tok_list);
+t_redir			*create_redir(t_token *tok_list);
 
 ///////////////////////////////////////////////
 
@@ -87,6 +93,7 @@ enum e_tok		which_type(char *buf);
 int				is_space(char c);
 int				ft_strcmp_safe(const char *s1, const char *s2);
 char			*ft_strduplicate(const char *s);
+char			*ft_realloc(void *ptr, size_t new_size);
 
 // free
 void			free_all(t_token **list, t_word **word);

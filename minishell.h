@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/06 08:26:46 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/07 00:48:51 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				add_cmd_in_list(t_cmd **cmd_list, t_token *tok_list);
 int				build_list_token(char *input, t_token **tok_list);
 t_cmd			*create_cmd(t_token *tok_list);
 char			**build_args(t_token *tok_list);
-t_redir			**build_redir_list(t_redir **redir_list, t_token *tok_list);
+int				build_redir_list(t_redir **redir_list, t_token *tok_list);
 int				add_redir_in_list(t_redir **redir_list, t_token *tok_list);
 t_redir			*create_redir(t_token *tok_list);
 

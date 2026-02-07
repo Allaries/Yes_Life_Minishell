@@ -30,7 +30,7 @@ int	fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list)
 	{
 		if (!add_cmd_in_list(cmd_list, tmp))
 		{
-			printf ("a ce soir la team");
+			printf ("a ce soir la team\n");
 			return (0);
 		}
 		while (tmp && tmp->type_tok != PIPE)
@@ -76,9 +76,9 @@ t_cmd	*create_cmd(t_token *tok_list)
 	cmd->args = build_args(tok_list);
 	if (!cmd->args)
 		return (NULL); // + Free la cmd
-	cmd->redirs = build_redir_list(redir_list, tok_list);
-	if (!cmd->redirs)
-		return (NULL); // + Free la cmd + Free args
+	if (!build_redir_list(redir_list, tok_list))
+		return (0); // + Free la cmd + Free args
+	cmd->redirs = redir_list;
 	cmd->path = NULL;
 	cmd->infd = 0;
 	cmd->outfd = 1;
@@ -122,10 +122,11 @@ char	**build_args(t_token *tok_list)
 	return (args);
 }
 
-t_redir	**build_redir_list(t_redir **redir_list, t_token *tok_list)
+int	build_redir_list(t_redir **redir_list, t_token *tok_list)
 {
 	while (tok_list && tok_list->type_tok != PIPE)
 	{
+		printf("type tok = %i\n", tok_list->type_tok);
 		if (tok_list->type_tok == INFILE || tok_list->type_tok == OUTFILE
 			|| tok_list->type_tok == HEREDOC_F || tok_list->type_tok == APPEND_F)
 		{
@@ -134,7 +135,7 @@ t_redir	**build_redir_list(t_redir **redir_list, t_token *tok_list)
 		}
 		tok_list = tok_list->next;
 	}
-	return (redir_list);
+	return (1);
 }
 
 int	add_redir_in_list(t_redir **redir_list, t_token *tok_list)

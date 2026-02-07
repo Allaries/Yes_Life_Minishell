@@ -6,11 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:15:46 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/28 20:43:07 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/07 04:21:20 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	bi_env(char **envp)
 {

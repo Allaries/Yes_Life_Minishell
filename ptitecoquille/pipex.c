@@ -6,11 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/02 21:42:29 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/07 04:37:08 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*slashcmd(char *cmd, char *path)
 {

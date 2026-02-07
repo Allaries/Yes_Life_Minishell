@@ -6,11 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/04 23:50:27 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/07 05:21:27 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	close_all(t_data *data, t_cmd *cmd)
 {
@@ -94,7 +94,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	if (cmd->built_in != 0)
 	{
 		exec_single_bi(cmd->built_in, data, cmd);
-		thanos_snap_child(data);
+		thanos_snap_process(data);
 		exit(0);
 	}
 	if (cmd->path == NULL && cmd->built_in == 0)
@@ -122,8 +122,6 @@ void	adv_pipe(t_data *data)
 
 void	exec_only_one(t_cmd *cmd, t_data *data)
 {
-	int		status;
-
 	if (cmd->built_in != 0)
 		exec_single_bi(cmd->built_in, data, cmd);
 	else

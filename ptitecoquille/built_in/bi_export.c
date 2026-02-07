@@ -6,11 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:49:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/04 23:22:29 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/07 04:21:12 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	**export_new_var(char **envp, char *export)
 {

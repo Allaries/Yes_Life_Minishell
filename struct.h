@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 01:02:16 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/07 04:20:34 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ enum e_tok {
     ARG
 };
 
+typedef struct s_word
+{
+	char	*buf;
+	int		in_squote;
+	int		in_dquote;
+	int		expand;
+	int		size;
+	int		len;
+}	t_word;
+
+typedef struct s_token
+{
+	char			*word;
+	enum e_tok		type_tok;
+	struct s_token	*next;
+}	t_token;
+
 typedef struct s_redir
 {
     int                fd;
@@ -36,7 +53,7 @@ typedef struct s_redir
 typedef struct t_cmd
 {
     char			**args;
-    t_redir			**filelist;
+    t_redir			**redirs;
 	char			*path;
 	int				infd;
 	int				outfd;

@@ -6,11 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:45 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/02 23:23:10 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/07 04:21:08 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	**remove_tab_elem(char **tab, int index)
 {

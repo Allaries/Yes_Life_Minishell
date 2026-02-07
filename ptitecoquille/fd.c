@@ -6,11 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/06 04:56:40 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/07 04:37:19 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	here_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -159,14 +159,14 @@ int	get_outfd(t_redir **filelist)
 
 void	get_fd(t_cmd *cmd)
 {
-	if (cmd->filelist == NULL)
+	if (cmd->redirs == NULL)
 	{
 		cmd->infd = 0;
 		cmd->outfd = 1;
 		return ;
 	}
-	cmd->infd = get_infd(cmd->filelist);
-	cmd->outfd = get_outfd(cmd->filelist);
+	cmd->infd = get_infd(cmd->redirs);
+	cmd->outfd = get_outfd(cmd->redirs);
 	fprintf (stderr, "in : %i, out : %i\n",cmd->infd, cmd->outfd);
 	return ;
 }

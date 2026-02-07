@@ -1,0 +1,33 @@
+// to compile : valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+
+Gerer le cas juste "" et transformer ca "'hello'" en ca : 'hello' pour l'exec
+
+Les quotes ne séparent jamais les mots
+et "" compte comme un vrai mot mais vide
+
+Bonn.. Il faut envoyer l'env au R dans la list chainee list_cmd
+
+peut etre passer : int    parse_word(char input, t_word **word, inti)
+en : int    parse_word(char input, t_wordword, int i)
+
+Comment je fais avec les slash $HOME , pour les detecter a chaque fois ?
+Parce que -> $HOME = $HOME  ;  $HOME = home/smedenec
+
+struct t_word exemple
+typedef struct s_word
+{
+    charbuf;        // contenu final sans quotes
+    char *qmask;      // même longueur que buf : 0 = non quoté, 1 = simple, 2 = double
+    int  buf_size;
+    int  len;
+} t_word;
+
+au moment de creer le word, bien verifier qu'il ne sort pas NULL.
+
+faire un qmask =222220011111 Pour detecter quels caracteres sont sous doubles/single/none quotes
+
+Filtrer toutes les erreurs de la liste t_token : (<, <<, arg) -> error
+return chaque erreurs speciales
+
+define_type_list_token
+add_environment_variable

@@ -6,11 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:16:03 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/28 20:02:17 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/07 04:37:22 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	**dupe_env(char **envp)
 {

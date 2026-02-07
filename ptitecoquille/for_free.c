@@ -6,11 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/06 04:56:58 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/07 04:38:38 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_tab(char **tab)
 {
@@ -66,7 +66,7 @@ void	free_cmd_struct(t_cmd **cmd)
 		if (temp->outfd != 1 && temp->outfd != -1)
 			close(temp->outfd);
 		free_tab(temp->args);
-		free_file(temp->filelist);
+		free_file(temp->redirs);
 		if (temp->path)
 			free(temp->path);
 		temp->next = NULL;

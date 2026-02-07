@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/02 23:07:36 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/06 04:33:39 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	bi_echo(char **cmd);
 void	bi_export(t_data *data, t_cmd *cmd);
 void	export_one(t_data *data, char *export);
 void	bi_unset(t_data *data, t_cmd *cmd);
-void	thanos_snap_child(t_data *data);
+void	thanos_snap_process(t_data *data);
 
 #endif

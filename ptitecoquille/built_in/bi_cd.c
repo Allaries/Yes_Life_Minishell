@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/21 17:12:10 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/04 23:53:07 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	bi_cd(char **cmd, char **envp)
 	i = 0;
 	while (cmd[i])
 		i++;
-	if (i >= 2)
+	if (i > 2)
 	{
 		printf("cd : too many argument\n");
 		printf("%i\n", i);

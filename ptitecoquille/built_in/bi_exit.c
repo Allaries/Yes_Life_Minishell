@@ -6,14 +6,15 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:41 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/21 17:10:30 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/06 04:41:55 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	bi_exit(void)
+void	bi_exit(t_data *data)
 {
-	printf("exit");
+	printf("exit\n");
+	thanos_snap_process(data);
 	exit(0);
 }

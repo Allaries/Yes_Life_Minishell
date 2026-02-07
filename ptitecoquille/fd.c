@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/01/28 19:00:08 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/06 04:56:40 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ int	outfile_init(char *rname)
 	return (fdred);
 }
 
-int get_infd(t_file **filelist)
+int get_infd(t_redir **filelist)
 {
-    t_file  *temp;
+    t_redir  *temp;
     int     fd;
     int     tmp;
 
@@ -130,9 +130,9 @@ int get_infd(t_file **filelist)
 }
 
 
-int	get_outfd(t_file **filelist)
+int	get_outfd(t_redir **filelist)
 {
-	t_file	*temp;
+	t_redir	*temp;
 	int		fd;
 	int		tmp;
 	

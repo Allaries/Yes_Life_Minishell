@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/04 17:42:27 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/06 04:56:58 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	free_tab(char **tab)
 		free(tab);
 }
 
-void	free_file(t_file **filelist)
+void	free_file(t_redir **filelist)
 {
-	t_file	*temp;
-	t_file	*temp_next;
+	t_redir	*temp;
+	t_redir	*temp_next;
 	
 	if (filelist == NULL)
 		return ;
@@ -78,7 +78,7 @@ void	free_cmd_struct(t_cmd **cmd)
 	return ;
 }
 
-void	thanos_snap_child(t_data *data)
+void	thanos_snap_process(t_data *data)
 {
 	free_tab(data->envp);
 	free_cmd_struct(data->cmd);

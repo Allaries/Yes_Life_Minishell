@@ -78,7 +78,7 @@ t_cmd	*create_cmd(t_token *tok_list)
 		return (free_cmd(cmd), NULL);
 	if (!build_redir_list(&redir_list, tok_list))
 		return (free_cmd(cmd), NULL);
-	cmd->redirs = redir_list;
+	cmd->redirs = &redir_list;
 	cmd->path = NULL;
 	cmd->infd = 0;
 	cmd->outfd = 1;
@@ -126,9 +126,6 @@ int	build_redir_list(t_redir **redir_list, t_token *tok_list)
 {
 	enum e_tok	t;
 
-	*redir_list = ft_calloc(sizeof(t_redir *) * 1, 1);
-	if (!*redir_list)
-		return (0);
 	t = 0;
 	while (tok_list && tok_list->type_tok != PIPE)
 	{
@@ -138,8 +135,6 @@ int	build_redir_list(t_redir **redir_list, t_token *tok_list)
 				return (0);
 		tok_list = tok_list->next;
 	}
-	if (!*redir_list)
-		redir_list = NULL;
 	return (1);
 }
 

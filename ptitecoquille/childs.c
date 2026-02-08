@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 05:21:27 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/08 19:07:59 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,10 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 
 	i = 0;
 	here_cmd = *cmd;
+	// init_heredoc(cmd);
 	if (here_cmd->next == NULL)
 	{
+		get_fd(here_cmd);
 		check_bi(here_cmd);
 		exec_only_one(here_cmd, data);
 		return (1);

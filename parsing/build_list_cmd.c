@@ -21,7 +21,7 @@ int	build_list_cmd(t_cmd **cmd_list, t_token **tok_list)
 
 int	fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list)
 {
-	int	i;
+	int		i;
 	t_token	*tmp;
 
 	i = 0;
@@ -31,7 +31,7 @@ int	fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list)
 		if (!add_cmd_in_list(cmd_list, tmp))
 		{
 			printf ("a ce soir la team\n");
-			return (0);
+			return (free_list_cmd(cmd_list), free_list_token(tok_list), 0);
 		}
 		while (tmp && tmp->type_tok != PIPE)
 			tmp = tmp->next;
@@ -81,6 +81,7 @@ t_cmd	*create_cmd(t_token *tok_list)
 	if (!build_redir_list(redir_list, tok_list))
 		return (free_cmd(cmd), NULL);
 	cmd->redirs = redir_list;
+	fprintf (stderr, "1er redir name: %s\n", cmd->redirs[0]->name);
 	cmd->path = NULL;
 	cmd->infd = 0;
 	cmd->outfd = 1;
@@ -116,7 +117,7 @@ char	**build_args(t_token *tok_list)
 		{
 			args[len] = ft_strduplicate(tok_list->word);
 			if (!args[len])
-				return (NULL); // free all args
+				return (NULL);
 			len++;
 		}
 		tok_list = tok_list->next;
@@ -126,13 +127,22 @@ char	**build_args(t_token *tok_list)
 
 int	build_redir_list(t_redir **redir_list, t_token *tok_list)
 {
+	enum e_tok	t;
+
+	t = 0;
 	while (tok_list && tok_list->type_tok != PIPE)
 	{
-		if (tok_list->type_tok == INFILE || tok_list->type_tok == OUTFILE
-			|| tok_list->type_tok == HEREDOC_F || tok_list->type_tok == APPEND_F)
+		t = tok_list->type_tok;
+		fprintf (stderr, "out cond : %u\n", t);
+		if (t == INFILE || t == OUTFILE || t == HEREDOC_F || t == APPEND_F)
 		{
+			fprintf (stderr, "in cond : %u\n", t);
 			if (!add_redir_in_list(redir_list, tok_list))
+			{
+				fprintf (stderr, "non");
 				return (0);
+			}
+
 		}
 		if (tok_list)
 			tok_list = tok_list->next;
@@ -151,19 +161,12 @@ int	add_redir_in_list(t_redir **redir_list, t_token *tok_list)
 		return (0);
 	tmp = NULL;
 	if (!*redir_list)
-	{
 		*redir_list = redir;
-		fprintf (stderr, "%s\n", redir->name);
-	}
 	else
 	{
 		tmp = *redir_list;
 		while (tmp && tmp->next)
-		{
-			fprintf (stderr, "%s\n", tmp->name);
 			tmp = tmp->next;
-		}
-			
 		tmp->next = redir;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/08 19:01:00 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/08 19:49:10 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,16 +159,13 @@ int	get_outfd(t_redir **filelist)
 
 void	get_fd(t_cmd *cmd)
 {
-	fprintf (stderr, "gougougougagagagagagaga\n");
 	if (cmd->redirs == NULL)
 	{
-		fprintf (stderr, "gougougougagagagagagaga\n");
 		cmd->infd = 0;
 		cmd->outfd = 1;
 		return ;
 	}
 	cmd->infd = get_infd(cmd->redirs);
 	cmd->outfd = get_outfd(cmd->redirs);
-	fprintf (stderr, "in : %i, out : %i\n",cmd->infd, cmd->outfd);
 	return ;
 }

@@ -65,23 +65,20 @@ int	add_cmd_in_list(t_cmd **cmd_list, t_token *tok_list)
 t_cmd	*create_cmd(t_token *tok_list)
 {
 	t_cmd	*cmd;
-	t_redir	**redir_list;
+	t_redir	*redir_list;
 	char	**args;
 
 	args = NULL;
+	redir_list = NULL;
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	if (!cmd)
 		return (NULL);
-	redir_list = ft_calloc(sizeof(t_redir *) * 1, 1);
-	if (!redir_list)
-		return (free_cmd(cmd), NULL);
 	cmd->args = build_args(tok_list);
 	if (!cmd->args)
-		return (free_cmd(cmd), free_list_redir(redir_list), NULL);
-	if (!build_redir_list(redir_list, tok_list))
+		return (free_cmd(cmd), NULL);
+	if (!build_redir_list(&redir_list, tok_list))
 		return (free_cmd(cmd), NULL);
 	cmd->redirs = redir_list;
-	fprintf (stderr, "1er redir name: %s\n", cmd->redirs[0]->name);
 	cmd->path = NULL;
 	cmd->infd = 0;
 	cmd->outfd = 1;
@@ -129,24 +126,20 @@ int	build_redir_list(t_redir **redir_list, t_token *tok_list)
 {
 	enum e_tok	t;
 
+	*redir_list = ft_calloc(sizeof(t_redir *) * 1, 1);
+	if (!*redir_list)
+		return (0);
 	t = 0;
 	while (tok_list && tok_list->type_tok != PIPE)
 	{
 		t = tok_list->type_tok;
-		fprintf (stderr, "out cond : %u\n", t);
 		if (t == INFILE || t == OUTFILE || t == HEREDOC_F || t == APPEND_F)
-		{
-			fprintf (stderr, "in cond : %u\n", t);
 			if (!add_redir_in_list(redir_list, tok_list))
-			{
-				fprintf (stderr, "non");
 				return (0);
-			}
-
-		}
-		if (tok_list)
-			tok_list = tok_list->next;
+		tok_list = tok_list->next;
 	}
+	if (!*redir_list)
+		redir_list = NULL;
 	return (1);
 }
 

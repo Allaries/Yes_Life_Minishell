@@ -29,10 +29,7 @@ int	fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list)
 	while (tmp)
 	{
 		if (!add_cmd_in_list(cmd_list, tmp))
-		{
-			printf ("a ce soir la team\n");
 			return (free_list_cmd(cmd_list), free_list_token(tok_list), 0);
-		}
 		while (tmp && tmp->type_tok != PIPE)
 			tmp = tmp->next;
 		if (tmp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 05:20:21 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/08 19:48:00 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/types.h>
-# include <sys/stat.h> 
+# include <sys/stat.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -49,7 +49,7 @@ int				is_pair(char *input);
 int				find_second_quote(char *input, char q, int *i);
 // verify_list_token
 int				verify_list_token(t_token **tok_list);
-int				is_front_token(t_token **tok_list);
+int				is_good_pipe(t_token **tok_list);
 int				is_separated_token(t_token **tok_list);
 // modify_list_token
 int				modify_list_token(t_token **tok_list);

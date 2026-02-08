@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 10:32:15 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/05 23:37:07 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/08 19:48:14 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	verify_list_token(t_token **tok_list)
 {
-	if (!is_front_token(tok_list))
+	if (!is_good_pipe(tok_list))
 		return (0);
 	// if (!is_separated_token(tok_list))
 	// 	return (0);
@@ -22,11 +22,15 @@ int	verify_list_token(t_token **tok_list)
 }
 // is_back_token
 
-int	is_front_token(t_token **tok_list)
+int	is_good_pipe(t_token **tok_list)
 {
 	t_token		*tmp;
 
 	tmp = *tok_list;
+	if ((tmp->type_tok) == 1)
+		return (0);
+	while (tmp->next)
+		tmp = tmp->next;
 	if ((tmp->type_tok) == 1)
 		return (0);
 	return (1);

@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   expend_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 20:51:07 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/07 05:22:18 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:17:57 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	expend_input(char *input)
 {
+	if (!input || !*input)
+		return (0);
 	return (1);
 }

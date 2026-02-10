@@ -6,11 +6,11 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 13:19:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/06 05:38:27 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:16:42 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	first_one(char *input, t_word *word, int *i)
 {

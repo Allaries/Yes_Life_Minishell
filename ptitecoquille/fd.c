@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/08 19:01:00 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:17:42 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	heredoc_init(char *hname)
 int	append_init(char *rname)
 {
 	int		fdred;
-	
+
 	fdred = open(rname, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	printf ("append = %i\n", fdred);
 	if (fdred == -1)
@@ -74,7 +74,7 @@ int	append_init(char *rname)
 int	infile_init(char *rname)
 {
 	int		fdred;
-	
+
 	fdred = open(rname, O_RDONLY);
 	printf ("infile = %i\n", fdred);
 	if (fdred == -1)
@@ -85,7 +85,7 @@ int	infile_init(char *rname)
 int	outfile_init(char *rname)
 {
 	int		fdred;
-	
+
 	fdred = open(rname, O_CREAT | O_TRUNC | O_WRONLY | O_APPEND, 0644);
 	printf ("outfile = %i\n", fdred);
 	if (fdred == -1)
@@ -93,13 +93,13 @@ int	outfile_init(char *rname)
 	return (fdred);
 }
 
-int get_infd(t_redir **filelist)
+int get_infd(t_redir *filelist)
 {
     t_redir  *temp;
     int     fd;
     int     tmp;
 
-	temp = *filelist;
+	temp = filelist;
 	fd = 0;
 	tmp = 0;
     while (temp)
@@ -130,15 +130,15 @@ int get_infd(t_redir **filelist)
 }
 
 
-int	get_outfd(t_redir **filelist)
+int	get_outfd(t_redir *filelist)
 {
 	t_redir	*temp;
 	int		fd;
 	int		tmp;
-	
+
 	fd = 1;
 	tmp = 1;
-	temp = *filelist;
+	temp = filelist;
 	while ( temp )
 	{
 		if (temp->type == OUTFILE)

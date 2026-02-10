@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   modify_list_token.c                                :+:      :+:    :+:   */
+/*   define_file_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 20:18:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/06 03:50:52 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:16:20 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-int	modify_list_token(t_token **tok_list)
+int	define_file_token(t_token **tok_list)
 {
 	int		i;
 	t_token	*tmp;

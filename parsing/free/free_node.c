@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 05:05:38 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 05:13:54 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:17:30 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	free_token(t_token *tok)
 {
@@ -43,7 +43,7 @@ void	free_cmd(t_cmd *cmd)
 			free(cmd->args[i++]);
 		free(cmd->args);
 	}
-	free_list_redir(cmd->redirs);
+	free_list_redir(&cmd->redirs);
 	free(cmd);
 }
 

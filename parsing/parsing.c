@@ -19,6 +19,8 @@ int	parsing(char *input, t_data *data)
 
 	tok_list = NULL;
 	cmd_list = NULL;
+	if (!expend_input(input)) // expend_input -> malloc new input
+		return (0);
 	if (!build_list_token(input, &tok_list))
 		return (0);
 	if (!build_list_cmd(&cmd_list, &tok_list))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   for_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 04:38:38 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:17:09 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	free_tab(char **tab)
 		free(tab);
 }
 
-void	free_file(t_redir **filelist)
+void	free_file(t_redir *filelist)
 {
 	t_redir	*temp;
 	t_redir	*temp_next;
-	
+
 	if (filelist == NULL)
 		return ;
-	temp = *filelist;
+	temp = filelist;
 	while (temp)
 	{
 		temp_next = temp->next;

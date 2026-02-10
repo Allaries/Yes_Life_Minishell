@@ -1,0 +1,13 @@
+gnl
+infile
+libft
+lp
+main.c
+Makefile
+minishell
+minishell.h
+obj
+parsing
+ptitecoquille
+readline.supp
+struct.h

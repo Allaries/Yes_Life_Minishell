@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/10 15:46:47 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 19:08:29 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	}
 	if (cmd->path == NULL && cmd->built_in == 0)
 	{
-		printf ("command not found: %s", cmd->args[0]);
+		fprintf (stderr, "command not found: %s\n", cmd->args[0]);
 		close_all(data, cmd);
 		thanos_snap_process(data);
 		exit(127);

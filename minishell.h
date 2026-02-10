@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/10 14:24:21 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:33:16 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char			*ft_realloc(void *ptr, size_t new_size);
 void			free_all(t_token **list, t_word **word);
 void			free_list_token(t_token **list);
 void			free_list_cmd(t_cmd **list);
-void			free_list_redir(t_redir *list);
+void			free_list_redir(t_redir **list);
 // free_node
 void			free_token(t_token *tok);
 void			free_word(t_word **word);

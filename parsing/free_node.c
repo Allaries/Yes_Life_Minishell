@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 05:05:38 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 05:13:54 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:33:23 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	free_cmd(t_cmd *cmd)
 			free(cmd->args[i++]);
 		free(cmd->args);
 	}
-	free_list_redir(cmd->redirs);
+	free_list_redir(&cmd->redirs);
 	free(cmd);
 }
 

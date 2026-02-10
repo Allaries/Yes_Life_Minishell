@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/08 19:08:31 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 14:28:52 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	int		i;
 	char	*input;
 	t_data	data;
 
-	i = 0;
 	data.envp = dupe_env(envp);
-	while (++i <= 10)
+	while (1)
 	{
 		input = readline("mini-0.1$ ");
 		if (!input)

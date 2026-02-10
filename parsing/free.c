@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/07 05:09:16 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 14:24:03 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,21 @@ void	free_list_cmd(t_cmd **list)
 	*list = NULL;
 }
 
-void	free_list_redir(t_redir **list)
+void	free_list_redir(t_redir *list)
 {
 	t_redir	*tmp;
 	t_redir	*next;
 
 	tmp = NULL;
 	next = NULL;
-	if ((!list || !*list))
+	if (!list)
 		return ;
-	tmp = *list;
+	tmp = list;
 	while (tmp)
 	{
 		next = tmp->next;
 		free_redir(tmp);
 		tmp = next;
 	}
-	*list = NULL;
+	list = NULL;
 }

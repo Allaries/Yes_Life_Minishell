@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra
-LDFLAGS = -lreadline -lhistory -lncurses
+LDFLAGS = -lreadline -lhistory -lncurses -g3
 NAME = minishell
 SRC =   ptitecoquille/pipex.c ptitecoquille/childs.c \
 		ptitecoquille/for_free.c ptitecoquille/fd.c \

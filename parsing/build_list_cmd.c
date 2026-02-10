@@ -78,7 +78,7 @@ t_cmd	*create_cmd(t_token *tok_list)
 		return (free_cmd(cmd), NULL);
 	if (!build_redir_list(&redir_list, tok_list))
 		return (free_cmd(cmd), NULL);
-	cmd->redirs = &redir_list;
+	cmd->redirs = redir_list;
 	cmd->path = NULL;
 	cmd->infd = 0;
 	cmd->outfd = 1;
@@ -131,8 +131,10 @@ int	build_redir_list(t_redir **redir_list, t_token *tok_list)
 	{
 		t = tok_list->type_tok;
 		if (t == INFILE || t == OUTFILE || t == HEREDOC_F || t == APPEND_F)
+		{
 			if (!add_redir_in_list(redir_list, tok_list))
 				return (0);
+		}
 		tok_list = tok_list->next;
 	}
 	return (1);

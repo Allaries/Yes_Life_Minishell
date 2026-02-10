@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/08 19:07:59 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:46:47 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	{
 		printf ("command not found: %s", cmd->args[0]);
 		close_all(data, cmd);
+		thanos_snap_process(data);
 		exit(127);
 	}
 	dup2_child_hack(data, cmd, i);
@@ -122,10 +123,13 @@ void	adv_pipe(t_data *data)
 
 void	exec_only_one(t_cmd *cmd, t_data *data)
 {
+	int	status;
+	
 	if (cmd->built_in != 0)
 		exec_single_bi(cmd->built_in, data, cmd);
 	else
 		execute_child(data, cmd, 0);
+	waitpid(cmd->pid, &status, 0);
 	return ;
 }
 
@@ -163,5 +167,6 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 		waitpid(here_cmd->pid, &status, 0);
 		here_cmd = here_cmd ->next;
 	}
+	free_cmd_struct(data->cmd);
 	return (1);
 }

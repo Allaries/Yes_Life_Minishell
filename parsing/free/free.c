@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/10 15:17:36 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/10 18:52:12 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	free_list_redir(t_redir **list)
 
 	tmp = NULL;
 	next = NULL;
-	if ((!list || !*list))
+	if (!list || !*list)
 		return ;
 	tmp = *list;
 	while (tmp)
@@ -74,5 +74,5 @@ void	free_list_redir(t_redir **list)
 		free_redir(tmp);
 		tmp = next;
 	}
-	*list = NULL;
+	list = NULL;
 }

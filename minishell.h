@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/10 17:46:23 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/10 18:55:18 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ void	bi_export(t_data *data, t_cmd *cmd);
 void	export_one(t_data *data, char *export);
 void	bi_unset(t_data *data, t_cmd *cmd);
 void	thanos_snap_process(t_data *data);
+void	free_cmd_struct(t_cmd **cmd);
 
 #endif

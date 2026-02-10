@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/10 17:17:42 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/10 18:50:27 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int	get_outfd(t_redir *filelist)
 	fd = 1;
 	tmp = 1;
 	temp = filelist;
-	while ( temp )
+	while (temp)
 	{
 		if (temp->type == OUTFILE)
 			tmp = outfile_init(temp->name);
@@ -159,16 +159,13 @@ int	get_outfd(t_redir *filelist)
 
 void	get_fd(t_cmd *cmd)
 {
-	fprintf (stderr, "gougougougagagagagagaga\n");
 	if (cmd->redirs == NULL)
 	{
-		fprintf (stderr, "gougougougagagagagagaga\n");
 		cmd->infd = 0;
 		cmd->outfd = 1;
 		return ;
 	}
 	cmd->infd = get_infd(cmd->redirs);
 	cmd->outfd = get_outfd(cmd->redirs);
-	fprintf (stderr, "in : %i, out : %i\n",cmd->infd, cmd->outfd);
 	return ;
 }

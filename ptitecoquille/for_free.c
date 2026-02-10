@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   for_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/10 17:17:09 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/10 18:51:48 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	free_cmd_struct(t_cmd **cmd)
 		free (temp);
 		temp = temp_next;
 	}
-	free (temp);
-	free (cmd);
+	if (temp)
+		free (temp);
 	return ;
 }
 

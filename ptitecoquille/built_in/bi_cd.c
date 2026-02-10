@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 04:21:29 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:42:55 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ char	*gethome(char **envp)
 {
 	int	i;
 	
-	i = 0;
-	while(envp[i])
+	i = -1;
+	while(envp[++i])
 	{
 		if(strncmp(envp[i], "HOME=", 5) == 0)
 			return (ft_strchr(envp[i], '/'));
@@ -61,6 +61,17 @@ void	bi_cd(char **cmd, char **envp)
 	{
 		printf("cd : too many argument\n");
 		printf("%i\n", i);
+		return ;
+	}
+	if (i == 1)
+	{
+		path = gethome(envp);
+		if (!path)
+		{
+			printf("minishell : cd : HOME not set");
+			return ;
+		}
+		chdirr(path);
 		return ;
 	}
 	pwd = getcwd(NULL, 0);
@@ -84,8 +95,7 @@ void	bi_cd(char **cmd, char **envp)
 		else
 			path = slashcmd(cmd[1], pwd);
 		chdirr(path);
+		free(pwd);
 		free(path);
 	}
-	if (i == 0)
-		printf("kus");
 }

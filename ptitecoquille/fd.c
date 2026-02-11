@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/10 18:50:27 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/11 20:01:46 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,23 +108,21 @@ int get_infd(t_redir *filelist)
         {
             tmp = heredoc_init(temp->name);
             if (tmp < 0)
-			{
             	return (-1);
-			}
 			close(tmp);
             tmp = open(temp->name, O_RDONLY);
 			unlink(temp->name);
-            if (tmp < 0)
-            	return (-1);
         }
         if (temp->type == INFILE)
-        {
             tmp = infile_init(temp->name);
-            if (tmp < 0)
-                return (-1);
-        }
+		if (tmp < 0)
+		{
+			if (fd != 1)
+				close(fd);
+		}
         fd = tmp;
         temp = temp->next;
+		
     }
     return (fd);
 }
@@ -157,15 +155,17 @@ int	get_outfd(t_redir *filelist)
 	return (fd);
 }
 
-void	get_fd(t_cmd *cmd)
+int	get_fd(t_cmd *cmd)
 {
 	if (cmd->redirs == NULL)
 	{
 		cmd->infd = 0;
 		cmd->outfd = 1;
-		return ;
+		return (1);
 	}
 	cmd->infd = get_infd(cmd->redirs);
+	if (cmd->infd == -1)
+		return (0);
 	cmd->outfd = get_outfd(cmd->redirs);
-	return ;
+	return (1);
 }

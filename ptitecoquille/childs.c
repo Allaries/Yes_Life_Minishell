@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/10 19:08:29 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/11 20:00:21 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	exec_only_one(t_cmd *cmd, t_data *data)
 	else
 		execute_child(data, cmd, 0);
 	waitpid(cmd->pid, &status, 0);
+	free_cmd_struct(data->cmd);
 	return ;
 }
 
@@ -144,7 +145,8 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 	// init_heredoc(cmd);
 	if (here_cmd->next == NULL)
 	{
-		get_fd(here_cmd);
+		if (get_fd(here_cmd) == 0)
+			return (0);
 		check_bi(here_cmd);
 		exec_only_one(here_cmd, data);
 		return (1);

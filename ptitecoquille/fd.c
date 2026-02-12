@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/11 20:01:46 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/12 18:14:44 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	heredoc_init(char *hname)
 	printf ("fdhere == %i\n", fdhere);
 	if (fdhere == -1)
 	{
-		printf("%s: No such file or directory", hname);
+		printf("No such file or directory : %s\n", hname);
 		return (fdhere);
 	}
 	// unlink(hname);
@@ -65,9 +65,8 @@ int	append_init(char *rname)
 	int		fdred;
 
 	fdred = open(rname, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	printf ("append = %i\n", fdred);
 	if (fdred == -1)
-		printf("%s: No such file or directory", rname);
+		printf("No such file or directory : %s\n", rname);
 	return (fdred);
 }
 
@@ -76,9 +75,8 @@ int	infile_init(char *rname)
 	int		fdred;
 
 	fdred = open(rname, O_RDONLY);
-	printf ("infile = %i\n", fdred);
 	if (fdred == -1)
-		printf("%s: No such file or directory", rname);
+		printf("No such file or directory : %s\n", rname);
 	return (fdred);
 }
 
@@ -87,9 +85,8 @@ int	outfile_init(char *rname)
 	int		fdred;
 
 	fdred = open(rname, O_CREAT | O_TRUNC | O_WRONLY | O_APPEND, 0644);
-	printf ("outfile = %i\n", fdred);
 	if (fdred == -1)
-		printf("%s: No such file or directory", rname);
+		printf("No such file or directory : %s\n", rname);
 	return (fdred);
 }
 
@@ -117,8 +114,9 @@ int get_infd(t_redir *filelist)
             tmp = infile_init(temp->name);
 		if (tmp < 0)
 		{
-			if (fd != 1)
+			if (fd != 0)
 				close(fd);
+			return (-1);
 		}
         fd = tmp;
         temp = temp->next;
@@ -164,8 +162,14 @@ int	get_fd(t_cmd *cmd)
 		return (1);
 	}
 	cmd->infd = get_infd(cmd->redirs);
-	if (cmd->infd == -1)
-		return (0);
 	cmd->outfd = get_outfd(cmd->redirs);
+	if (cmd->infd == -1 || cmd->outfd == -1)
+	{
+		if (cmd->infd != -1 && cmd->infd != 0)
+			close (cmd->infd);
+		if (cmd->outfd != -1 && cmd->outfd != 1)	
+			close (cmd->outfd);
+		return (0);
+	}
 	return (1);
 }

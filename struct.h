@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/13 00:58:54 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/13 23:23:48 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct t_cmd
 typedef struct s_data {
 	char	**envp;
 	t_cmd	**cmd;
+	int		exit_code;
 	int		*pid;
 	int		oldpipe[2];
 	int		newpipe[2];

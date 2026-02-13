@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/06 05:35:21 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/13 01:04:24 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,3 +77,32 @@ char	*ft_realloc(void *ptr, size_t new_size)
 	free(ptr);
 	return (new_ptr);
 }
+
+char *type_to_str(enum e_tok type)
+{
+	if (type == VOID)
+		return "VOID";
+	if (type == PIPE)
+		return "PIPE";
+	if (type == REDIR_IN)
+		return "REDIR_IN";
+	if (type == REDIR_OUT)
+		return "REDIR_OUT";
+	if (type == HEREDOC)
+		return "HEREDOC";
+	if (type == APPEND)
+		return "APPEND";
+	if (type == INFILE)
+		return "INFILE";
+	if (type == OUTFILE)
+		return "OUTFILE";
+	if (type == HEREDOC_F)
+		return "HEREDOC_F";
+	if (type == APPEND_F)
+		return "APPEND_F";
+	if (type == ARG)
+		return "ARG";
+	return ("NONE");
+}
+
+

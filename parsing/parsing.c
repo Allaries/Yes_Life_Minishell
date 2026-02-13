@@ -42,7 +42,7 @@ int	parsing(char *input, t_data *data)
 	// 		int i = 0;
 	// 		while (tmp_c->args[i])
 	// 		{
-	// 			printf("arg[%d] : %s\n", i, tmp_c->args[i]);
+	// 			printf("arg[%d] : '%s'\n", i, tmp_c->args[i]);
 	// 			i++;
 	// 		}
 	// 	}
@@ -58,8 +58,8 @@ int	parsing(char *input, t_data *data)
 	// 		while (tmp_r)
 	// 		{
 	// 			printf("file[%i]   ", i);
-	// 			printf("name = %s   ", tmp_r->name);
-	// 			printf("type = %u", tmp_r->type);
+	// 			printf("name = '%s'   ", tmp_r->name);
+	// 			printf("type = '%s'", type_to_str(tmp_r->type));
 	// 			printf("\n");
 	// 			tmp_r = tmp_r->next;
 	// 			i++;
@@ -72,6 +72,7 @@ int	parsing(char *input, t_data *data)
 	// 	y++;
 	// }
 	// return(1);
+
 	exec_pipex(data, data->cmd);
 	return (1);
 }

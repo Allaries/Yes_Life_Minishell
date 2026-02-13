@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/13 00:43:07 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/13 00:58:45 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int			is_space(char c);
 int			ft_strcmp_safe(const char *s1, const char *s2);
 char		*ft_strduplicate(const char *s);
 char		*ft_realloc(void *ptr, size_t new_size);
+char		*type_to_str(enum e_tok type);
 // free
 void		free_all(t_token **list, t_word **word);
 void		free_list_token(t_token **list);

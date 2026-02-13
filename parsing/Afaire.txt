@@ -9,6 +9,8 @@ Parce que -> $HOME = $HOME  ;  $HOME = home/smedenec
 
 au moment de creer le word, bien verifier qu'il ne sort pas NULL.
 
+verify_token pour les list sans arguments :  < iinfile > outfile
+
 Filtrer toutes les erreurs de la liste t_token : (<, <<, arg) -> error
 return chaque erreurs speciales
 

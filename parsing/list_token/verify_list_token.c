@@ -6,69 +6,56 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 10:32:15 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/13 00:42:46 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/13 02:20:55 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+// Ici il faut verifier si il y a bien un argumemt dans chaque commandes et aussi apres le pipe
+
 int	verify_list_token(t_token **tok_list)
 {
-	t_token		*tmp;
+	t_token		*tok;
 
 	if (!tok_list || !*tok_list)
 		return (0);
-	tmp = *tok_list;
-	if (!is_good_pipe(tmp))
+	tok = *tok_list;
+	if (!is_good_pipe(tok))
 		return (0);
-	if (!is_good_token(tmp))
-		return (0);
-	if (!is_separated_token(tmp))
+	if (!is_there_file(tok))
 		return (0);
 	return (1);
 }
 
-int	is_good_pipe(t_token *tok_list)
+int	is_good_pipe(t_token *tok)
 {
-	if ((tok_list->type_tok) == PIPE)
+	if ((tok->type_tok) == PIPE)
 		return (0);
-	while (tok_list->next)
-		tok_list = tok_list->next;
-	if ((tok_list->type_tok) == PIPE)
-		return (0);
-	return (1);
-}
-
-int	is_good_token(t_token *tok_list)
-{
-	while (tok_list->next)
-		tok_list = tok_list->next;
-	if ((tok_list->type_tok) == REDIR_IN)
-		return (0);
-	if ((tok_list->type_tok) == REDIR_OUT)
-		return (0);
-	if ((tok_list->type_tok) == HEREDOC)
-		return (0);
-	if ((tok_list->type_tok) == APPEND)
-		return (0);
-	return (1);
-}
-
-int	is_separated_token(t_token *tok_list)
-{
-	int			next_to;
-
-	next_to = 0;
-	while (tok_list)
+	while (tok->next)
 	{
-		if ((tok_list->type_tok) == 2 || (tok_list->type_tok) == 3
-			|| (tok_list->type_tok) == 4 || (tok_list->type_tok) == 5)
-				next_to++;
-		else
-			next_to = 0;
-		if (next_to > 1)
+		if (tok->type_tok == PIPE && tok->next->type_tok == PIPE)
 			return (0);
-		tok_list = tok_list->next;
+		tok = tok->next;
+	}
+	if ((tok->type_tok) == PIPE)
+		return (0);
+	return (1);
+}
+
+int	is_there_file(t_token *tok)
+{
+	while (tok)
+	{
+		if ((tok->type_tok) == REDIR_IN
+			|| (tok->type_tok) == REDIR_OUT
+			|| (tok->type_tok) == HEREDOC
+			|| (tok->type_tok) == APPEND)
+		{
+			if (!tok->next || tok->next->type_tok != ARG)
+				return (0);
+		}
+		tok = tok->next;
 	}
 	return (1);
 }

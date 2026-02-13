@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/13 00:58:45 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/13 02:23:31 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ int			is_pair(char *input);
 int			find_second_quote(char *input, char q, int *i);
 // verify_list_token
 int			verify_list_token(t_token **tok_list);
-int			is_good_pipe(t_token *tok_list);
-int			is_good_token(t_token *tok_list);
-int			is_separated_token(t_token *tok_list);
+int			is_good_pipe(t_token *tok);
+int			is_there_file(t_token *tok);
 // define_file_token
 int			define_file_token(t_token **tok_list);
 void		modify_type_tok(t_token *tmp);

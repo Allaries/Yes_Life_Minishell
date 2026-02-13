@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/12 18:15:06 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/13 02:59:41 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_data	data;
+	int		i;
 
-	if (argc && argv)
+	if (argc && argv) // Pour aucun warning
 		argc = 1;
+	i = 3;
 	data.envp = dupe_env(envp);
-	while (1)
+	while (i--) // i pour tester valgrind
 	{
 		input = readline("mini-0.1$ ");
 		if (!input)

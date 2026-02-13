@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/13 02:23:31 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/13 04:12:21 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,16 @@ void		modify_type_tok(t_token *tmp);
 // word
 t_word		*init_word(int size);
 int			parse_word(char *input, t_word **word, int *i);
+int			add_char_in_word(t_word *word, char char_buf);
 int			skip_quote(char *input, t_word *word, int *i);
 int			can_extend(char *input, t_word *word, int *i);
 // word_utils
-void		first_one(char *input, t_word *word, int *i);
-void		skip_one(char *input, t_word *word, int *i, char q);
-char		which_quote(t_word *word);
-int			add_char_in_word(t_word *word, char char_buf);
+int			which_quote(t_word *word);
 int			realloc_word(t_word *word);
+int			char_is_a_quote(char *input, int i);
+void		toggle_quote(char *input, t_word *word, int *i);
+
+
 // token
 int			fill_list_token(char *input, t_token **tok_list);
 int			add_tok_in_list(t_token **tok_list, t_word **word);

@@ -71,6 +71,7 @@ int	parsing(char *input, t_data *data)
 	// 	tmp_c = tmp_c->next;
 	// 	y++;
 	// }
+	// free_list_cmd(&cmd_list);
 	// return(1);
 
 	exec_pipex(data, data->cmd);

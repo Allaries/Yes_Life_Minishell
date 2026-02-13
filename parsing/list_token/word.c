@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/10 15:16:46 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/13 04:13:57 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	parse_word(char *input, t_word **word, int *i)
 	char	char_buf;
 
 	char_buf = 0;
-	//return (0);// Pour tester si ca marche jusqu'a ici
 	while (input[*i] && skip_quote(input, *word, i) && can_extend(input, *word, i))
 	{
 		char_buf = input[*i];
@@ -48,23 +47,36 @@ int	parse_word(char *input, t_word **word, int *i)
 	return (1);
 }
 
+int	add_char_in_word(t_word *word, char char_buf)
+{
+	if (word->len + 1 >= word->size)
+		if (!realloc_word(word))
+			return (0);
+	word->buf[word->len] = char_buf;
+	(word->len)++;
+	word->buf[word->len] = '\0';
+	return (1);
+}
+
 int	skip_quote(char *input, t_word *word, int *i)
 {
-	return (1); // Pour l'instant
-	while (input[*i] && ((input[*i] == '\'') || (input[*i] == '"')))
+	int	q;
+
+	// return (1); // Pour l'instant
+	q = which_quote(word);
+	while (input[*i] && char_is_a_quote(input, *i))
 	{
-		first_one(input, word, i);
-		if (word->in_squote)
-		{
-			skip_one(input, word, i, '\'');
-			skip_one(input, word, i, '\'');
-		}
-		else if (word->in_dquote)
-		{
-			skip_one(input, word, i, '"');
-			skip_one(input, word, i, '"');
-		}
+		if (!q)
+			toggle_quote(input, word, i);
+		else if (q == 1 && input[*i] == '\'')
+			toggle_quote(input, word, i);
+		else if (q == 2 && input[*i] == '"')
+			toggle_quote(input, word, i);
+		else
+			return (1);
 	}
+	if (char_is_a_quote(input, *i)) // Pour gerer ""''""uf
+		skip_quote(input, word, i);
 	if (!input[*i])
 		return (0);
 	return (1);
@@ -73,18 +85,18 @@ int	skip_quote(char *input, t_word *word, int *i)
 int	can_extend(char *input, t_word *word, int *i)
 {
 	char	c;
-	char	q;
+	int		q;
 
 	q = which_quote(word);
 	c = input[*i];
-	if (q == '0' && ((c != '\'') && (c != '"')))
+	if (!q)
 	{
 		if (is_space(c))
 			return (0);
 		if (is_tok(input, *i, word->len))
 			return (0);
 	}
-	else if (q == '1' || q == '2')
-		return (1);
+	else if (q)
+		return (1); //Dans les quotes on laisse passer
 	return (1);
 }

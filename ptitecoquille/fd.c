@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/12 18:14:44 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/14 04:30:44 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	heredoc_init(char *hname)
 		printf("No such file or directory : %s\n", hname);
 		return (fdhere);
 	}
-	// unlink(hname);
+	unlink(hname);
 	while (1)
 	{
 		str = get_next_line(STDIN_FILENO);

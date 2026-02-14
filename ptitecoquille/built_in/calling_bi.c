@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 04:21:02 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/14 04:24:19 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	exec_single_bi(int mod, t_data *data, t_cmd *cmd)
 	if (mod == 5)
 		bi_unset(data, cmd);
 	if (mod == 6)
-		bi_exit(data);
+		bi_exit(data, cmd);
 	return ;
 }
 

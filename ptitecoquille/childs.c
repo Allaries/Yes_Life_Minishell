@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/12 17:52:53 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/14 05:23:16 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,14 @@ void	dup2_child_hack(t_data *data, t_cmd *cmd, int i)
 	return ;
 }
 
+void	print_stderr(char *toprint, int mod)
+{
+	if (mod == 1)
+		write (2, "command not found : ", 21);
+	write (2, toprint, (ft_strlen(toprint) + 1));
+	write (2, "\n", 1);
+}
+
 int	execute_child(t_data *data, t_cmd *cmd, int i)
 {
 	cmd->pid = fork();
@@ -93,13 +101,15 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	def_path(data, cmd);
 	if (cmd->built_in != 0)
 	{
+		dup2_child_hack(data, cmd, i);
 		exec_single_bi(cmd->built_in, data, cmd);
+		close_all(data, cmd);
 		thanos_snap_process(data);
 		exit(0);
 	}
-	if (cmd->path == NULL && cmd->built_in == 0)
+	if (cmd->path == NULL)
 	{
-		fprintf (stderr, "command not found: %s\n", cmd->args[0]);
+		print_stderr (cmd->args[0], 1);
 		close_all(data, cmd);
 		thanos_snap_process(data);
 		exit(127);

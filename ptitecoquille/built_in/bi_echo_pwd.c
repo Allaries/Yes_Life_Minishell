@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:36 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 04:21:25 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/14 02:32:00 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,43 @@ void	bi_pwd(void)
 	free (pwd);
 }
 
+int	echo_flag_test(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (cmd[i] == '-')
+	{
+		i++;
+		while (cmd[i])
+		{
+			if (cmd[i] != 'n')
+				return (0);
+			i++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
 void	bi_echo(char **cmd)
 {
-	//a ajuster apres que je sache comment les token ca marche
-	if (strncmp(cmd[1], "-n", 3) == 0)
-		printf("%s%%", cmd[2]);
-	else
-		printf("%s\n", cmd[1]);
+	int	i;
+	int	n;
+
+	i = 1;
+	if (cmd[1])
+		n = echo_flag_test(cmd[i]);
+	if (n == 1)
+		i++;
+	while (cmd[i])
+	{
+		printf("%s", cmd[i]);
+		i++;
+		if (cmd[i])
+			printf(" ");
+	}
+	if (n == 1)
+		return ;
+	printf ("\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/13 04:12:21 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/14 04:28:31 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int		execute_child(t_data *data, t_cmd *herecmd, int i);
 int		get_fd(t_cmd *cmd);
 void	check_bi(t_cmd *cmd);
 void	exec_single_bi(int mod, t_data *data, t_cmd *cmd);
-void	bi_exit(t_data *data);
+void	bi_exit(t_data *data, t_cmd *cmd);
 void	bi_env(char **envp);
 void	bi_cd(char **cmd, char **envp);
 void	bi_pwd(void);

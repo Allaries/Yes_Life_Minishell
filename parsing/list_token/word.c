@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/14 03:56:43 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/14 05:28:23 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,20 @@ int	skip_quote(char *input, t_word *word, int *i)
 		if (char_is_a_quote(input, *i))
 		{
 			//creer une fonction quote_void
-			
-		}
-		if ((which_quote(word) == 1 && input[*i] == '\'')
-				|| (which_quote(word) == 2 && input[*i] == '"')) // Pour gerer ""''""uf
-		{
-			(*i)++;
-			word->in_squote = 0;
-			word->in_dquote = 0;
-			printf("RECURSIV\n");
-			skip_quote(input, word, i);
+			if (!which_quote(word))
+			{
+				printf("RECURSIV1\n");
+				skip_quote(input, word, i);
+			}
+			else if ((which_quote(word) == 1 && input[*i] == '\'')
+					|| (which_quote(word) == 2 && input[*i] == '"')) // Pour gerer ""''""uf
+			{
+				(*i)++;
+				word->in_squote = 0;
+				word->in_dquote = 0;
+				printf("RECURSIV2\n");
+				skip_quote(input, word, i);
+			}
 		}
 	}
 	printf("QUIT\n");

@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 13:19:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/13 04:12:47 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/14 02:50:58 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	realloc_word(t_word *word)
 
 int	char_is_a_quote(char *input, int i)
 {
-	if ((input[i] == '\'') || (input[i] == '"'))
+	if (input[i] && (input[i] == '\'') || (input[i] == '"'))
 		return (1);
 	return (0);
 }
@@ -47,5 +47,6 @@ void	toggle_quote(char *input, t_word *word, int *i)
 		word->in_squote = !word->in_squote;
 	else if (input[*i] == '"')
 		word->in_dquote = !word->in_dquote;
+	printf("sq = %d dq = %d\n", word->in_squote, word->in_dquote);
 	(*i)++;
 }

@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/13 04:12:21 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/14 00:56:59 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			add_tok_in_list(t_token **tok_list, t_word **word);
 t_token		*create_token(char *buf, enum e_tok type);
 // token_utils
 int			is_tok(char *input, int start, int len);
-enum e_tok	which_type(char *buf);
+enum e_tok	which_type(char *buf, int was_quote);
 ///////////////////////////////////////////////
 // utils
 int			is_space(char c);

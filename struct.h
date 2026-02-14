@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/13 23:23:48 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/14 02:11:32 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 enum e_tok {
-	VOID,
 	PIPE,
 	REDIR_IN,
 	REDIR_OUT,
@@ -29,6 +28,7 @@ typedef struct s_word
 	char	*buf;
 	int		in_squote;
 	int		in_dquote;
+	int		was_quote;
 	int		expand;
 	int		size;
 	int		len;

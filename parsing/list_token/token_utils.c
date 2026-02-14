@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/10 15:16:26 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/14 02:09:46 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,38 +37,20 @@ int	is_tok(char *input, int i, int len)
 	return (0);
 }
 
-// int	is_tok(char *input, int start, int len)
-// {
-// 	if (!len)
-// 		return (0);
-// 	if ((len == 1) && (input[start + len - 1] == '>'))
-// 		if (input[start + len] == '>')
-// 			return (0);
-// 	if ((len == 1) && (input[start + len - 1] == '<'))
-// 		if (input[start + len] == '<')
-// 			return (0);
-// 	if ((input[start + len - 1] == '>') || (input[start + len - 1] == '<')
-// 		|| (input[start + len - 1] == '|'))
-// 		return (1);
-// 	if ((input[start + len] == '>') || (input[start + len] == '<')
-// 		|| (input[start + len] == '|'))
-// 		return (1);
-// 	return (0);
-// }
-
-enum e_tok	which_type(char *buf)
+enum e_tok	which_type(char *buf, int was_quote)
 {
-	if (!buf[0])
-		return (VOID);
-	if (!ft_strcmp_safe(buf, "|"))
-		return (PIPE);
-	if (!ft_strcmp_safe(buf, "<"))
-		return (REDIR_IN);
-	if (!ft_strcmp_safe(buf, ">"))
-		return (REDIR_OUT);
-	if (!ft_strcmp_safe(buf, "<<"))
-		return (HEREDOC);
-	if (!ft_strcmp_safe(buf, ">>"))
-		return (APPEND);
+	if (!was_quote)
+	{
+		if (!ft_strcmp_safe(buf, "|"))
+			return (PIPE);
+		if (!ft_strcmp_safe(buf, "<"))
+			return (REDIR_IN);
+		if (!ft_strcmp_safe(buf, ">"))
+			return (REDIR_OUT);
+		if (!ft_strcmp_safe(buf, "<<"))
+			return (HEREDOC);
+		if (!ft_strcmp_safe(buf, ">>"))
+			return (APPEND);
+	}
 	return (ARG);
 }

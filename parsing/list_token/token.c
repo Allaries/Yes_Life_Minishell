@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/13 02:39:43 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/14 00:52:59 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	add_tok_in_list(t_token **tok_list, t_word **word)
 	t_token		*tok;
 	t_token		*tmp;
 
-	type = which_type((*word)->buf);
+	type = which_type((*word)->buf, (*word)->was_quote);
 	tok = create_token((*word)->buf, type);
 	if (!tok)
 		return (0);

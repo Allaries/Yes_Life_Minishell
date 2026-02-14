@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/13 04:13:57 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/14 03:56:43 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_word	*init_word(int size)
 	word->buf[0] = '\0';
 	word->in_squote = 0;
 	word->in_dquote = 0;
+	word->was_quote = 0;
 	word->expand = 0;
 	word->size = size;
 	word->len = 0;
@@ -62,21 +63,47 @@ int	skip_quote(char *input, t_word *word, int *i)
 {
 	int	q;
 
-	// return (1); // Pour l'instant
 	q = which_quote(word);
-	while (input[*i] && char_is_a_quote(input, *i))
+	printf("input = %c\n", input[*i]);
+	if (input[*i] && char_is_a_quote(input, *i))
 	{
 		if (!q)
+		{
+			printf("!q\n");
 			toggle_quote(input, word, i);
+		}
 		else if (q == 1 && input[*i] == '\'')
+		{
+			printf("q1\n");
 			toggle_quote(input, word, i);
+		}
 		else if (q == 2 && input[*i] == '"')
+		{
+			printf("q2\n");
 			toggle_quote(input, word, i);
+		}
 		else
+		{
+			printf("else\n");
 			return (1);
+		}
+		printf("input = %c\n", input[*i]);
+		if (char_is_a_quote(input, *i))
+		{
+			//creer une fonction quote_void
+			
+		}
+		if ((which_quote(word) == 1 && input[*i] == '\'')
+				|| (which_quote(word) == 2 && input[*i] == '"')) // Pour gerer ""''""uf
+		{
+			(*i)++;
+			word->in_squote = 0;
+			word->in_dquote = 0;
+			printf("RECURSIV\n");
+			skip_quote(input, word, i);
+		}
 	}
-	if (char_is_a_quote(input, *i)) // Pour gerer ""''""uf
-		skip_quote(input, word, i);
+	printf("QUIT\n");
 	if (!input[*i])
 		return (0);
 	return (1);
@@ -97,6 +124,10 @@ int	can_extend(char *input, t_word *word, int *i)
 			return (0);
 	}
 	else if (q)
-		return (1); //Dans les quotes on laisse passer
+	{
+		if ((q == 1 && c != '\'') || (q == 2 && c != '"'))
+			word->was_quote = 1;
+		return (1);
+	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/13 02:20:37 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/14 02:12:49 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ char	*ft_realloc(void *ptr, size_t new_size)
 
 char	*type_to_str(enum e_tok type)
 {
-	if (type == VOID)
-		return "VOID";
 	if (type == PIPE)
 		return "PIPE";
 	if (type == REDIR_IN)

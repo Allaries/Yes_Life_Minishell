@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 13:19:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/14 02:50:58 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/15 03:35:43 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ void	toggle_quote(char *input, t_word *word, int *i)
 		word->in_squote = !word->in_squote;
 	else if (input[*i] == '"')
 		word->in_dquote = !word->in_dquote;
-	printf("sq = %d dq = %d\n", word->in_squote, word->in_dquote);
 	(*i)++;
 }

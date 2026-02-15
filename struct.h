@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/14 00:11:14 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/15 17:28:38 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct t_cmd
 	int				outfd;
 	int				pid;
 	int				built_in;
+	int				single_one;
 	struct t_cmd	*next;
 }	t_cmd;
 

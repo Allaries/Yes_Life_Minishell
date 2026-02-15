@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:36 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/14 02:32:00 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/15 15:23:46 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,24 @@ int	echo_flag_test(char *cmd)
 	return (0);
 }
 
-void	bi_echo(char **cmd)
+void	bi_echo(t_cmd *cmd)
 {
 	int	i;
 	int	n;
 
 	i = 1;
-	if (cmd[1])
-		n = echo_flag_test(cmd[i]);
+	if (cmd->args[1])
+		n = echo_flag_test(cmd->args[i]);
 	if (n == 1)
 		i++;
-	while (cmd[i])
+	while (cmd->args[i])
 	{
-		printf("%s", cmd[i]);
+		write(cmd->outfd, cmd->args[i], ft_strlen(cmd->args[i]));
 		i++;
-		if (cmd[i])
-			printf(" ");
+		if (cmd->args[i])
+			write(cmd->outfd, " ", 1);
 	}
-	if (n == 1)
-		return ;
-	printf ("\n");
+	if (n == 0)
+		write(cmd->outfd, "\n", 1);
+	return ;
 }

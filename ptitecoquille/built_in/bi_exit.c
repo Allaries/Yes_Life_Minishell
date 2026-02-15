@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:41 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/14 04:25:23 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/15 16:57:00 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	bi_exit(t_data *data, t_cmd *cmd)
 {
-	printf("exit\n");
-	close_all(data, cmd);
+	write(2, "exit\n", 5);
 	thanos_snap_process(data);
 	exit(0);
 }

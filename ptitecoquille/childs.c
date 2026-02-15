@@ -6,25 +6,30 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/14 05:23:16 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/15 17:30:46 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	close_all(t_data *data, t_cmd *cmd)
+int	close_all(t_data *data, t_cmd *cmd, int i)
 {
-	close(data->oldpipe[0]);
-	close(data->oldpipe[1]);
-	close(data->newpipe[0]);
-	close(data->newpipe[1]);
+	if (cmd->single_one == 0)
+	{
+		if (i != 0)
+		{
+			close(data->oldpipe[0]);
+			close(data->oldpipe[1]);
+		}
+		close(data->newpipe[0]);
+		close(data->newpipe[1]);
+	}
 	if (cmd->infd != 0)
 		close(cmd->infd);
 	if (cmd->outfd != 1)
 		close(cmd->outfd);
 	return (1);
 }
-
 
 void	close_daddy_prime(t_data *data, t_cmd *cmd, int i)
 {
@@ -35,7 +40,7 @@ void	close_daddy_prime(t_data *data, t_cmd *cmd, int i)
 		close (data->newpipe[1]);
 	}
 	else if (cmd->next == NULL)
-		close_all(data, cmd);
+		close_all(data, cmd, i);
 	else
 	{
 		close(data->oldpipe[0]);
@@ -102,20 +107,20 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	if (cmd->built_in != 0)
 	{
 		dup2_child_hack(data, cmd, i);
+		close_all(data, cmd, i);
 		exec_single_bi(cmd->built_in, data, cmd);
-		close_all(data, cmd);
 		thanos_snap_process(data);
 		exit(0);
 	}
 	if (cmd->path == NULL)
 	{
 		print_stderr (cmd->args[0], 1);
-		close_all(data, cmd);
+		close_all(data, cmd, i);
 		thanos_snap_process(data);
 		exit(127);
 	}
 	dup2_child_hack(data, cmd, i);
-	if (i != 0 && close_all(data, cmd) == 0)
+	if (close_all(data, cmd, i) == 0)
 	{
 		fprintf(stderr, "close error at i = %i\n", i);
 		exit(127);
@@ -138,8 +143,10 @@ void	exec_only_one(t_cmd *cmd, t_data *data)
 	if (cmd->built_in != 0)
 		exec_single_bi(cmd->built_in, data, cmd);
 	else
+	{
 		execute_child(data, cmd, 0);
-	waitpid(cmd->pid, &status, 0);
+		waitpid(cmd->pid, &status, 0);
+	}
 	free_cmd_struct(data->cmd);
 	return ;
 }
@@ -155,6 +162,7 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 	// init_heredoc(cmd);
 	if (here_cmd->next == NULL)
 	{
+		here_cmd->single_one = 1;
 		if (get_fd(here_cmd) == 0)
 		{
 			free_cmd_struct(data->cmd);
@@ -164,6 +172,7 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 		exec_only_one(here_cmd, data);
 		return (1);
 	}
+	here_cmd->single_one = 0;
 	while (here_cmd)
 	{
 		get_fd(here_cmd);

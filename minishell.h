@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/14 00:56:59 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/15 09:11:32 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_cmd		*create_cmd(t_token *tok_list);
 // args
 char		**fill_args(t_token *tok_list);
 int			argslen(t_token *tok_list);
-
 // redir
 int			fill_list_redir(t_redir **redir_list, t_token *tok_list);
 int			add_redir_in_list(t_redir **redir_list, t_token *tok_list);
@@ -64,23 +63,22 @@ void		modify_type_tok(t_token *tmp);
 // word
 t_word		*init_word(int size);
 int			parse_word(char *input, t_word **word, int *i);
-int			add_char_in_word(t_word *word, char char_buf);
 int			skip_quote(char *input, t_word *word, int *i);
 int			can_extend(char *input, t_word *word, int *i);
+int			is_tok(char *input, t_word *word, int i);
+
 // word_utils
 int			which_quote(t_word *word);
+int			add_char_in_word(t_word *word, char char_buf);
 int			realloc_word(t_word *word);
 int			char_is_a_quote(char *input, int i);
 void		toggle_quote(char *input, t_word *word, int *i);
-
-
 // token
 int			fill_list_token(char *input, t_token **tok_list);
 int			add_tok_in_list(t_token **tok_list, t_word **word);
 t_token		*create_token(char *buf, enum e_tok type);
-// token_utils
-int			is_tok(char *input, int start, int len);
 enum e_tok	which_type(char *buf, int was_quote);
+int			char_is_a_token(char c);
 ///////////////////////////////////////////////
 // utils
 int			is_space(char c);

@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/14 00:52:59 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/15 08:34:49 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,29 @@ t_token	*create_token(char *buf, enum e_tok type)
 	tok->type_tok = type;
 	tok->next = NULL;
 	return (tok);
+}
+
+enum e_tok	which_type(char *buf, int was_quote)
+{
+	if (!was_quote)
+	{
+		if (!ft_strcmp_safe(buf, "|"))
+			return (PIPE);
+		if (!ft_strcmp_safe(buf, "<"))
+			return (REDIR_IN);
+		if (!ft_strcmp_safe(buf, ">"))
+			return (REDIR_OUT);
+		if (!ft_strcmp_safe(buf, "<<"))
+			return (HEREDOC);
+		if (!ft_strcmp_safe(buf, ">>"))
+			return (APPEND);
+	}
+	return (ARG);
+}
+
+int	char_is_a_token(char c)
+{
+	if (c && (c == '<') || (c == '>') || (c == '|'))
+		return (1);
+	return (0);
 }

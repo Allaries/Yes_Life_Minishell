@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/14 02:11:32 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/15 09:02:38 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_word
 	int		in_squote;
 	int		in_dquote;
 	int		was_quote;
-	int		expand;
+	int		was_token;
 	int		size;
 	int		len;
 }	t_word;

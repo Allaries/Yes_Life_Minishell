@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/14 05:31:39 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/15 09:44:54 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_word	*init_word(int size)
 	word->in_squote = 0;
 	word->in_dquote = 0;
 	word->was_quote = 0;
-	word->expand = 0;
+	word->was_token = 0;
 	word->size = size;
 	word->len = 0;
 	return (word);
@@ -48,45 +48,24 @@ int	parse_word(char *input, t_word **word, int *i)
 	return (1);
 }
 
-int	add_char_in_word(t_word *word, char char_buf)
-{
-	if (word->len + 1 >= word->size)
-		if (!realloc_word(word))
-			return (0);
-	word->buf[word->len] = char_buf;
-	(word->len)++;
-	word->buf[word->len] = '\0';
-	return (1);
-}
-
 int	skip_quote(char *input, t_word *word, int *i)
 {
 	int	q;
 
 	q = which_quote(word);
-	if (input[*i] && char_is_a_quote(input, *i))
+	if (char_is_a_quote(input, *i))
 	{
+		if (word->was_token) // Pour le cas token dans le mot et une quote juste apres, s'arreter :  <<" "  >>''""u
+			return (0);
+		word->was_quote = 1;
 		if (!q)
 			toggle_quote(input, word, i);
-		else if (q == 1 && input[*i] == '\'')
-			toggle_quote(input, word, i);
-		else if (q == 2 && input[*i] == '"')
+		else if ((q == 1 && input[*i] == '\'') || (q == 2 && input[*i] == '"'))
 			toggle_quote(input, word, i);
 		else
 			return (1);
-		if (char_is_a_quote(input, *i))//creer une fonction quote_void
-		{
-			if (!which_quote(word))
-				skip_quote(input, word, i);
-			else if ((which_quote(word) == 1 && input[*i] == '\'')
-					|| (which_quote(word) == 2 && input[*i] == '"')) // Pour gerer ""''""uf
-			{
-				(*i)++;
-				word->in_squote = 0;
-				word->in_dquote = 0;
-				skip_quote(input, word, i);
-			}
-		}
+		if (char_is_a_quote(input, *i))
+			skip_quote(input, word, i); // Pour gerer les successions de mots vides : ""''""""a
 	}
 	if (!input[*i])
 		return (0);
@@ -104,14 +83,39 @@ int	can_extend(char *input, t_word *word, int *i)
 	{
 		if (is_space(c))
 			return (0);
-		if (is_tok(input, *i, word->len))
+		if (word->was_quote && char_is_a_token(c)) // Pour s'arreter a un mot vide, juste avant un token : ""<
+			return(0);
+		if (is_tok(input, word, *i))
 			return (0);
 	}
-	else if (q)
-	{
-		if ((q == 1 && c != '\'') || (q == 2 && c != '"'))
-			word->was_quote = 1;
-		return (1);
-	}
 	return (1);
+}
+
+int	is_tok(char *input, t_word *word, int i)
+{
+	char	c;
+	char	c_prev;
+
+	c = '\0';
+	c_prev = '\0';
+	c = input[i];
+	if (!word->len)
+	{
+		if (char_is_a_token(c)) // Pour signaler un vrai token dans word
+			word->was_token = 1;
+		return (0);
+	}
+	c_prev = input[i - 1];
+	if (word->len == 1)
+	{
+		if ((c_prev == '>') && (c == '>'))
+			return (0);
+		if ((c_prev == '<') && (c == '<'))
+			return (0);
+	}
+	if ((c_prev == '>') || (c_prev == '<') || (c_prev == '|'))
+		return (1);
+	if ((c == '>') || (c == '<') || (c == '|'))
+		return (1);
+	return (0);
 }

@@ -14,17 +14,20 @@
 
 int	parsing(char *input, t_data *data)
 {
+	t_input	*new_input; // Apres (new_input -> input) et (input -> raw_input)
 	t_token	*tok_list;
 	t_cmd	*cmd_list;
 
+	new_input = init_input(200);
 	tok_list = NULL;
 	cmd_list = NULL;
-	if (!expend_input(input)) // expend_input -> malloc new input
-		return (0);
+	if (!expend_input(input, &new_input)) // expend_input -> malloc input
+		return (0); // Free input
+	free_input(&new_input); // Pour l'instant
 	if (!build_list_token(input, &tok_list))
-		return (0);
+		return (0); // Free input
 	if (!build_list_cmd(&cmd_list, &tok_list))
-		return (0);
+		return (0); // Free input
 	free_list_token(&tok_list);
 	data->cmd = &cmd_list;
 
@@ -77,3 +80,22 @@ int	parsing(char *input, t_data *data)
 	exec_pipex(data, data->cmd);
 	return (1);
 }
+
+t_input *init_input(int size)
+{
+	t_input *input;
+
+	input = ft_calloc(sizeof(t_input), 1);
+	if (!input)
+		return (NULL);
+	input->str = ft_calloc(size + 1, sizeof(char));
+	if (!input->str)
+		return (free(input), NULL);
+	input->str[0] = '\0';
+	input->in_squote = 0;
+	input->in_dquote = 0;
+	input->size = size;
+	input->len = 0;
+	return (input);
+}
+

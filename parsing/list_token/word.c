@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/15 09:44:54 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/16 06:32:16 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_word	*init_word(int size)
 		return (NULL);
 	word->buf = ft_calloc(sizeof(char) * (size + 1), 1);
 	if (!(word->buf))
-		return (free_all(NULL, &word), NULL);
+		return (free_word(&word), NULL);
 	word->buf[0] = '\0';
 	word->in_squote = 0;
 	word->in_dquote = 0;
@@ -35,13 +35,13 @@ t_word	*init_word(int size)
 
 int	parse_word(char *input, t_word **word, int *i)
 {
-	char	char_buf;
+	char	c;
 
-	char_buf = 0;
+	c = 0;
 	while (input[*i] && skip_quote(input, *word, i) && can_extend(input, *word, i))
 	{
-		char_buf = input[*i];
-		if (!add_char_in_word(*word, char_buf))
+		c = input[*i];
+		if (!add_char_in_word(*word, c))
 			return (0);
 		(*i)++;
 	}

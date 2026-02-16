@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/16 05:37:35 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/16 06:42:21 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 ///////////////////////////////////////////////
 // parsing
 int			parsing(char *input, t_data *data);
+t_input		*init_input(int size);
 // build_list_cmd
 int			build_list_cmd(t_cmd **cmd_list, t_token **tok_list);
 int			fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list);
@@ -47,7 +48,7 @@ int			add_redir_in_list(t_redir **redir_list, t_token *tok_list);
 t_redir		*create_redir(t_token *tok_list);
 ///////////////////////////////////////////////
 // expend_input
-int			expend_input(char *input);
+int			expend_input(char *input, t_input **new_input);
 // check_quote
 int			check_quote(char *input);
 int			is_pair(char *input);
@@ -69,7 +70,7 @@ int			is_tok(char *input, t_word *word, int i);
 
 // word_utils
 int			which_quote(t_word *word);
-int			add_char_in_word(t_word *word, char char_buf);
+int			add_char_in_word(t_word *word, char c);
 int			realloc_word(t_word *word);
 int			char_is_a_quote(char *input, int i);
 void		toggle_quote(char *input, t_word *word, int *i);
@@ -94,6 +95,7 @@ void		free_list_redir(t_redir **list);
 // free_node
 void		free_token(t_token *tok);
 void		free_word(t_word **word);
+void		free_input(t_input **new_input);
 void		free_cmd(t_cmd *cmd);
 void		free_redir(t_redir *redir);
 ///////////////////////////////////////////////

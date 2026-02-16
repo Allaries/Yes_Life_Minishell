@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/15 09:02:38 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/16 06:03:14 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ enum e_tok {
 	APPEND_F,
 	ARG
 };
+
+typedef struct s_input
+{
+	char	*str;
+	int		in_squote;
+	int		in_dquote;
+	int		size;
+	int		len;
+}	t_input;
 
 typedef struct s_word
 {

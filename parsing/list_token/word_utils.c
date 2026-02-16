@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 13:19:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/15 09:41:46 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/16 06:32:42 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int	which_quote(t_word *word)
 	return (0);
 }
 
-int	add_char_in_word(t_word *word, char char_buf)
+int	add_char_in_word(t_word *word, char c)
 {
 	if (word->len + 1 >= word->size)
 		if (!realloc_word(word))
 			return (0);
-	word->buf[word->len] = char_buf;
+	word->buf[word->len] = c;
 	(word->len)++;
 	word->buf[word->len] = '\0';
 	return (1);

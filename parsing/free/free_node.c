@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 05:05:38 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/10 18:52:08 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/16 06:39:13 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ void	free_word(t_word **word)
 	free((*word)->buf);
 	free(*word);
 	*word = NULL;
+}
+
+void	free_input(t_input **new_input)
+{
+	if (!new_input || !*new_input)
+		return ;
+	free((*new_input)->str);
+	free(*new_input);
+	*new_input = NULL;
 }
 
 void	free_cmd(t_cmd *cmd)

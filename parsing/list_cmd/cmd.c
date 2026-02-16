@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:33:17 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/10 16:59:07 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/16 05:38:46 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ t_cmd	*create_cmd(t_token *tok_list)
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	if (!cmd)
 		return (NULL);
-	cmd->args = fill_args(tok_list);
-	if (!cmd->args)
+	if (!fill_args(&args, tok_list))
 		return (free_cmd(cmd), NULL);
 	if (!fill_list_redir(&redir_list, tok_list))
 		return (free_cmd(cmd), NULL);
+	cmd->args = args;
 	cmd->redirs = redir_list;
 	cmd->path = NULL;
 	cmd->infd = 0;

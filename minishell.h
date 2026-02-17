@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/15 15:47:57 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/17 15:36:57 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int		close_all(t_data *data, t_cmd *cmd, int i);
 int		exec_pipex(t_data *data, t_cmd **cmd);
 int		execute_child(t_data *data, t_cmd *herecmd, int i);
 int		get_fd(t_cmd *cmd);
+int		first_h_init(t_cmd **cmd);
 void	check_bi(t_cmd *cmd);
 void	exec_single_bi(int mod, t_data *data, t_cmd *cmd);
 void	bi_exit(t_data *data, t_cmd *cmd);

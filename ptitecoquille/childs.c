@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/15 17:30:46 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/17 15:37:19 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 		exit(127);
 	}
 	dup2_child_hack(data, cmd, i);
-	if (close_all(data, cmd, i) == 0)
-	{
-		fprintf(stderr, "close error at i = %i\n", i);
-		exit(127);
-	}
+	close_all(data, cmd, i);
 	if (execve(cmd->path, cmd->args, data->envp) == -1)
 		perror("Error ");
 	exit(127);
@@ -159,15 +155,12 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 
 	i = 0;
 	here_cmd = *cmd;
-	// init_heredoc(cmd);
+	first_h_init(cmd);
 	if (here_cmd->next == NULL)
 	{
 		here_cmd->single_one = 1;
 		if (get_fd(here_cmd) == 0)
-		{
-			free_cmd_struct(data->cmd);
-			return (0);
-		}
+			return (free_cmd_struct(data->cmd), 0);
 		check_bi(here_cmd);
 		exec_only_one(here_cmd, data);
 		return (1);
@@ -175,6 +168,7 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 	here_cmd->single_one = 0;
 	while (here_cmd)
 	{
+		here_cmd->single_one = 0;
 		get_fd(here_cmd);
 		check_bi(here_cmd);
 		if (here_cmd->next != NULL)

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/14 04:30:44 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:56:41 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ int	heredoc_init(char *hname)
 	char	*str;
 
 	fdhere = open(hname, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	printf ("fdhere == %i\n", fdhere);
 	if (fdhere == -1)
 	{
 		printf("No such file or directory : %s\n", hname);
 		return (fdhere);
 	}
-	unlink(hname);
 	while (1)
 	{
 		str = get_next_line(STDIN_FILENO);
@@ -103,12 +101,11 @@ int get_infd(t_redir *filelist)
     {
         if (temp->type == HEREDOC_F)
         {
-            tmp = heredoc_init(temp->name);
+			printf ("%i\n", temp->fd);
+            tmp = temp->fd;
             if (tmp < 0)
             	return (-1);
-			close(tmp);
-            tmp = open(temp->name, O_RDONLY);
-			unlink(temp->name);
+
         }
         if (temp->type == INFILE)
             tmp = infile_init(temp->name);
@@ -151,6 +148,30 @@ int	get_outfd(t_redir *filelist)
 		temp = temp->next;
 	}
 	return (fd);
+}
+
+int	first_h_init(t_cmd **cmd)
+{
+	t_cmd *tmp;
+	t_redir *redir;
+
+	tmp = *cmd;
+	while (tmp)
+	{
+		redir = tmp->redirs;
+		while (redir)
+		{
+			if (redir->type == HEREDOC_F)
+			{
+				redir->fd = heredoc_init(redir->name);
+				close (redir->fd);
+				open (redir->name, O_RDONLY);
+			}
+			redir = redir->next;
+		}
+		tmp = tmp->next;
+	}
+	return (0);
 }
 
 int	get_fd(t_cmd *cmd)

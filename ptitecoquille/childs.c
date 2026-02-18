@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/17 15:37:19 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/18 19:07:25 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ void	exec_only_one(t_cmd *cmd, t_data *data)
 	{
 		execute_child(data, cmd, 0);
 		waitpid(cmd->pid, &status, 0);
+		data->exit_code = WEXITSTATUS(status);
+		printf ("exit code : %d\n" ,data->exit_code);
 	}
 	free_cmd_struct(data->cmd);
 	return ;
@@ -183,6 +185,8 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 	while (here_cmd)
 	{
 		waitpid(here_cmd->pid, &status, 0);
+		data->exit_code = WEXITSTATUS(status);
+		printf ("exit code : %d\n" ,data->exit_code);
 		here_cmd = here_cmd ->next;
 	}
 	free_cmd_struct(data->cmd);

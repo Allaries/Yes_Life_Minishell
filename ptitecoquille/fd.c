@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/17 19:56:41 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/18 18:30:10 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,46 +17,40 @@ int	here_strncmp(const char *s1, const char *s2, size_t n)
 	size_t	i;
 
 	i = 0;
-	while ((s1[i] || s2[i]) && n > i)
+	while (i < n && s1[i] && s2[i] && s1[i] != '\n')
 	{
-		if ((unsigned char)s1[i] != (unsigned char)s2[i])
-		{
-			if (s1[i] == '\n' && s2[i] == '\0')
-				return (0);
-			else
-				return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		}
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
+	if ((s1[i] == '\n' || s1[i] == '\0') && s2[i] == '\0')
+		return (0);
+	if (i < n)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	return (0);
 }
 
-int	heredoc_init(char *hname)
+int heredoc_init(char *delimiter)
 {
-	int		fdhere;
-	char	*str;
+    int pipefd[2];
+    char *line;
 
-	fdhere = open(hname, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (fdhere == -1)
-	{
-		printf("No such file or directory : %s\n", hname);
-		return (fdhere);
-	}
-	while (1)
-	{
-		str = get_next_line(STDIN_FILENO);
-		if (here_strncmp(str, hname, ft_strlen(hname) + 1) != 0)
-		{
-			write(fdhere, str, ft_strlen(str));
-			free(str);
-		}
-		else
-			return (free(str), fdhere);
-	}
-	if (str)
-		free(str);
-	return (fdhere);
+    pipe(pipefd);
+
+    while ((line = get_next_line(STDIN_FILENO)))
+    {
+        if (here_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+        {
+            free(line);
+            break;
+        }
+        write(pipefd[1], line, strlen(line));
+        free(line);
+    }
+    close(pipefd[1]);
+    return pipefd[0];
 }
+
 
 int	append_init(char *rname)
 {
@@ -101,11 +95,9 @@ int get_infd(t_redir *filelist)
     {
         if (temp->type == HEREDOC_F)
         {
-			printf ("%i\n", temp->fd);
             tmp = temp->fd;
             if (tmp < 0)
             	return (-1);
-
         }
         if (temp->type == INFILE)
             tmp = infile_init(temp->name);
@@ -117,7 +109,6 @@ int get_infd(t_redir *filelist)
 		}
         fd = tmp;
         temp = temp->next;
-		
     }
     return (fd);
 }
@@ -162,11 +153,7 @@ int	first_h_init(t_cmd **cmd)
 		while (redir)
 		{
 			if (redir->type == HEREDOC_F)
-			{
 				redir->fd = heredoc_init(redir->name);
-				close (redir->fd);
-				open (redir->name, O_RDONLY);
-			}
 			redir = redir->next;
 		}
 		tmp = tmp->next;

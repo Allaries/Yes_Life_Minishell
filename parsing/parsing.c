@@ -21,8 +21,21 @@ int	parsing(char *input, t_data *data)
 	new_input = init_input(200);
 	tok_list = NULL;
 	cmd_list = NULL;
+	if (!check_quote(input))
+		return (free_input(&new_input), 0);
 	if (!expend_input(input, &new_input)) // expend_input -> malloc input
-		return (0); // Free input
+		return (free_input(&new_input), 0); // Free input
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+	// printf("_______________INPUT EXPEND_________________\n\n");
+	// printf("input = %s\n", input ? input : "(null)");
+	// printf("new input = %s\n", new_input && new_input->str ? new_input->str : "(null)");
+	// free_input(&new_input);
+	// return (1);
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
 	free_input(&new_input); // Pour l'instant
 	if (!build_list_token(input, &tok_list))
 		return (0); // Free input
@@ -31,6 +44,8 @@ int	parsing(char *input, t_data *data)
 	free_list_token(&tok_list);
 	data->cmd = &cmd_list;
 
+
+//////////////////////////////////////////////////////////////////////////////////////////
 	// t_cmd	*tmp_c;
 	// tmp_c = *data->cmd;
 	// int y = 0;
@@ -76,6 +91,8 @@ int	parsing(char *input, t_data *data)
 	// }
 	// free_list_cmd(&cmd_list);
 	// return(1);
+//////////////////////////////////////////////////////////////////////////////////////////
+
 
 	exec_pipex(data, data->cmd);
 	return (1);

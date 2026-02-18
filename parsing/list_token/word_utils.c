@@ -6,13 +6,13 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 13:19:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/16 06:32:42 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/18 04:17:22 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	which_quote(t_word *word)
+int	which_quote_w(t_word *word)
 {
 	if (word->in_dquote)
 		return (2);
@@ -45,14 +45,13 @@ int	realloc_word(t_word *word)
 	return (1);
 }
 
-int	char_is_a_quote(char *input, int i)
+int char_is_a_quote(char *input, int i)
 {
-	if (input[i] && ((input[i] == '\'') || (input[i] == '"')))
-		return (1);
-	return (0);
+	return (input[i] == '\'' || input[i] == '"');
 }
 
-void	toggle_quote(char *input, t_word *word, int *i)
+
+void	toggle_quote_w(char *input, t_word *word, int *i)
 {
 	if (input[*i] == '\'')
 		word->in_squote = !word->in_squote;

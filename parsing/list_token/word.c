@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/16 06:32:16 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/18 04:17:30 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	parse_word(char *input, t_word **word, int *i)
 	char	c;
 
 	c = 0;
-	while (input[*i] && skip_quote(input, *word, i) && can_extend(input, *word, i))
+	while (skip_quote(input, *word, i) && continue_word(input, *word, i))
 	{
 		c = input[*i];
 		if (!add_char_in_word(*word, c))
@@ -52,16 +52,16 @@ int	skip_quote(char *input, t_word *word, int *i)
 {
 	int	q;
 
-	q = which_quote(word);
+	q = which_quote_w(word);
 	if (char_is_a_quote(input, *i))
 	{
 		if (word->was_token) // Pour le cas token dans le mot et une quote juste apres, s'arreter :  <<" "  >>''""u
 			return (0);
 		word->was_quote = 1;
 		if (!q)
-			toggle_quote(input, word, i);
+			toggle_quote_w(input, word, i);
 		else if ((q == 1 && input[*i] == '\'') || (q == 2 && input[*i] == '"'))
-			toggle_quote(input, word, i);
+			toggle_quote_w(input, word, i);
 		else
 			return (1);
 		if (char_is_a_quote(input, *i))
@@ -72,12 +72,12 @@ int	skip_quote(char *input, t_word *word, int *i)
 	return (1);
 }
 
-int	can_extend(char *input, t_word *word, int *i)
+int	continue_word(char *input, t_word *word, int *i)
 {
 	char	c;
 	int		q;
 
-	q = which_quote(word);
+	q = which_quote_w(word);
 	c = input[*i];
 	if (!q)
 	{
@@ -96,8 +96,6 @@ int	is_tok(char *input, t_word *word, int i)
 	char	c;
 	char	c_prev;
 
-	c = '\0';
-	c_prev = '\0';
 	c = input[i];
 	if (!word->len)
 	{
@@ -113,9 +111,9 @@ int	is_tok(char *input, t_word *word, int i)
 		if ((c_prev == '<') && (c == '<'))
 			return (0);
 	}
-	if ((c_prev == '>') || (c_prev == '<') || (c_prev == '|'))
+	if (char_is_a_token(c_prev))
 		return (1);
-	if ((c == '>') || (c == '<') || (c == '|'))
+	if (char_is_a_token(c))
 		return (1);
 	return (0);
 }

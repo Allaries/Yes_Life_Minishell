@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/10 15:16:00 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/18 04:00:41 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	check_quote(char *input)
 {
+	if (!input || !*input)
+		return (0);
 	if (!is_pair(input))
 		return (0);
 	return (1);

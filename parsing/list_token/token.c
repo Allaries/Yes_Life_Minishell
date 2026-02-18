@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/15 08:34:49 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/18 02:27:13 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,8 @@ enum e_tok	which_type(char *buf, int was_quote)
 	return (ARG);
 }
 
-int	char_is_a_token(char c)
+int char_is_a_token(char c)
 {
-	if (c && (c == '<') || (c == '>') || (c == '|'))
-		return (1);
-	return (0);
+	return (c == '<' || c == '>' || c == '|');
 }
+

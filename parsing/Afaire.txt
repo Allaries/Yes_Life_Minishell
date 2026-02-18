@@ -4,7 +4,7 @@ Gerer le cas juste "" et transformer ca "'hello'" en ca : 'hello' pour l'exec
 Les quotes ne séparent jamais les mots
 et "" compte comme un vrai mot mais vide
 
-Comment je fais avec /$HOME , pour les detecter a chaque fois ?
+Comment je fais avec \$HOME , pour les detecter a chaque fois ?
 Parce que -> $HOME = $HOME  ;  $HOME = home/smedenec
 
 au moment de creer le word, bien verifier qu'il ne sort pas NULL.

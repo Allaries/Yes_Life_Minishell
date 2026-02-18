@@ -7,7 +7,7 @@ SRC =   ptitecoquille/pipex.c ptitecoquille/childs.c \
 		ptitecoquille/environment.c ptitecoquille/built_in/*c \
 		parsing/parsing.c parsing/expend/*c parsing/free/*c \
 		parsing/list_cmd/*c parsing/list_token/*c parsing/utils.c \
-		main.c \
+		parsing/check_quote/*c main.c \
 
 OBJDIR = obj
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)

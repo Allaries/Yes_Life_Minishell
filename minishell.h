@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/16 06:42:21 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/18 04:39:33 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 // parsing
 int			parsing(char *input, t_data *data);
 t_input		*init_input(int size);
-// build_list_cmd
+// list_cmd
 int			build_list_cmd(t_cmd **cmd_list, t_token **tok_list);
 int			fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list);
-// build_list_token
+// list_token
 int			build_list_token(char *input, t_token **tok_list);
 ///////////////////////////////////////////////
 // cmd
@@ -47,12 +47,22 @@ int			fill_list_redir(t_redir **redir_list, t_token *tok_list);
 int			add_redir_in_list(t_redir **redir_list, t_token *tok_list);
 t_redir		*create_redir(t_token *tok_list);
 ///////////////////////////////////////////////
-// expend_input
-int			expend_input(char *input, t_input **new_input);
 // check_quote
 int			check_quote(char *input);
 int			is_pair(char *input);
 int			find_second_quote(char *input, char q, int *i);
+///////////////////////////////////////////////
+// expend
+int			expend_input(char *input, t_input **new_input);
+int			is_quote(char *input, t_input *new_input, int *i);
+int			is_expend(char *input, t_input *new_input, int *i);
+void		go_expend(char *input, t_input *new_input, int *i);
+// expend_utils
+int			which_quote_inp(t_input *new_input);
+int			add_char_in_input(t_input *new_input, char c);
+int			realloc_input(t_input *new_input);
+void		toggle_quote_inp(char *input, t_input *new_input, int *i);
+///////////////////////////////////////////////
 // verify_list_token
 int			verify_list_token(t_token **tok_list);
 int			is_good_pipe(t_token *tok);
@@ -65,15 +75,14 @@ void		modify_type_tok(t_token *tmp);
 t_word		*init_word(int size);
 int			parse_word(char *input, t_word **word, int *i);
 int			skip_quote(char *input, t_word *word, int *i);
-int			can_extend(char *input, t_word *word, int *i);
+int			continue_word(char *input, t_word *word, int *i);
 int			is_tok(char *input, t_word *word, int i);
-
 // word_utils
-int			which_quote(t_word *word);
+int			which_quote_w(t_word *word);
 int			add_char_in_word(t_word *word, char c);
 int			realloc_word(t_word *word);
 int			char_is_a_quote(char *input, int i);
-void		toggle_quote(char *input, t_word *word, int *i);
+void		toggle_quote_w(char *input, t_word *word, int *i);
 // token
 int			fill_list_token(char *input, t_token **tok_list);
 int			add_tok_in_list(t_token **tok_list, t_word **word);

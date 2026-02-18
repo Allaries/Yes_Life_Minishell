@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/18 04:39:33 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/18 23:13:46 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,17 +118,18 @@ char	*slashcmd(char *cmd, char *path);
 void	free_tab(char **tab);
 int		check_fd(char **argv, t_data *data);
 void	free_struct(t_data *data);
-int		close_all(t_data *data, t_cmd *cmd);
+int		close_all(t_data *data, t_cmd *cmd, int i);
 int		exec_pipex(t_data *data, t_cmd **cmd);
 int		execute_child(t_data *data, t_cmd *herecmd, int i);
 int		get_fd(t_cmd *cmd);
+int		first_h_init(t_cmd **cmd);
 void	check_bi(t_cmd *cmd);
 void	exec_single_bi(int mod, t_data *data, t_cmd *cmd);
-void	bi_exit(t_data *data);
+void	bi_exit(t_data *data, t_cmd *cmd);
 void	bi_env(char **envp);
 void	bi_cd(char **cmd, char **envp);
 void	bi_pwd(void);
-void	bi_echo(char **cmd);
+void	bi_echo(t_cmd *cmd);
 void	bi_export(t_data *data, t_cmd *cmd);
 void	export_one(t_data *data, char *export);
 void	bi_unset(t_data *data, t_cmd *cmd);

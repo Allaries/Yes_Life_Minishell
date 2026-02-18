@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:36 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 04:21:25 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/15 15:23:46 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,43 @@ void	bi_pwd(void)
 	free (pwd);
 }
 
-void	bi_echo(char **cmd)
+int	echo_flag_test(char *cmd)
 {
-	//a ajuster apres que je sache comment les token ca marche
-	if (strncmp(cmd[1], "-n", 3) == 0)
-		printf("%s%%", cmd[2]);
-	else
-		printf("%s\n", cmd[1]);
+	int	i;
+
+	i = 0;
+	if (cmd[i] == '-')
+	{
+		i++;
+		while (cmd[i])
+		{
+			if (cmd[i] != 'n')
+				return (0);
+			i++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+void	bi_echo(t_cmd *cmd)
+{
+	int	i;
+	int	n;
+
+	i = 1;
+	if (cmd->args[1])
+		n = echo_flag_test(cmd->args[i]);
+	if (n == 1)
+		i++;
+	while (cmd->args[i])
+	{
+		write(cmd->outfd, cmd->args[i], ft_strlen(cmd->args[i]));
+		i++;
+		if (cmd->args[i])
+			write(cmd->outfd, " ", 1);
+	}
+	if (n == 0)
+		write(cmd->outfd, "\n", 1);
+	return ;
 }

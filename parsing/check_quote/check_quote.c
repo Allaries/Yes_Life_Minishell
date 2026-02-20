@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/18 04:00:41 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/20 19:45:45 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,49 @@ int	is_pair(char *input)
 		else
 			i++;
 	}
-	if (!pair)
-		return (0);
-	return (1);
+	return (pair);
 }
 
 int	find_second_quote(char *input, char q, int *i)
 {
-	int	find;
+	int find;
+	int backslash;
 
 	find = 0;
-	if (input[*i] == q)
+	(*i)++;
+	while (input[*i])
 	{
-		find = 0;
-		(*i)++;
-		while (input[*i])
+		if ((q == '"') && (input[*i] == '"'))
 		{
-			if (input[*i] == q)
+			backslash = count_slash(input, *i);
+			if (backslash % 2 == 1)
 			{
-				find = 1;
 				(*i)++;
-				break ;
+				continue;
 			}
-			(*i)++;
 		}
+		if (input[*i] == q)
+		{
+			find = 1;
+			(*i)++;
+			break;
+		}
+		(*i)++;
 	}
 	return (find);
+}
+
+int	count_slash(char *input, int i)
+{
+	int	backslash;
+	int	j;
+
+	j = i - 1;
+	backslash = 0;
+	while (j >= 0 && input[j] == '\\')
+	{
+		backslash++;
+		j--;
+	}
+	return (backslash);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/18 23:13:46 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/20 19:34:50 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_redir		*create_redir(t_token *tok_list);
 int			check_quote(char *input);
 int			is_pair(char *input);
 int			find_second_quote(char *input, char q, int *i);
+int			count_slash(char *input, int i);
 ///////////////////////////////////////////////
 // expend
 int			expend_input(char *input, t_input **new_input);

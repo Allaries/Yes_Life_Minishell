@@ -6,23 +6,25 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:36 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/15 15:23:46 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/21 16:54:40 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	bi_pwd(void)
+int	bi_pwd(void)
 {
 	char	*pwd;
 	
 	pwd = getcwd(NULL, 0);
-	if (pwd == NULL)
+	if (!pwd || pwd == NULL)
 	{
-		exit(1);
+		printf("welcome to the shadow realm\n");
+		return (1);
 	}
 	printf("%s\n", pwd);
 	free (pwd);
+	return (0);
 }
 
 int	echo_flag_test(char *cmd)

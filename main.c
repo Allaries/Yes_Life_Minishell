@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/19 22:31:53 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/21 16:25:12 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	main(int argc, char **argv, char **envp)
 	if (argc && argv) // Pour aucun warning
 		argc = 1;
 	data.envp = dupe_env(envp);
-	// pour tester valgrind tu peux exit, ya techniquement pas de leak de mon cote
+	//SARAH
+	//JE VAIS ETRE CLAIR
+	//TU RAJOUTE UN -- A CE I, IL VA Y AVOIR DES BRICOLES
+	//cordialement, ton mate minishell
 	while (i)
 	{
 		input = readline("mini-0.1$ ");

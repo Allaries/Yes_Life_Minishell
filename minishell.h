@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/20 19:34:50 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/21 17:20:16 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ void	check_bi(t_cmd *cmd);
 void	exec_single_bi(int mod, t_data *data, t_cmd *cmd);
 void	bi_exit(t_data *data, t_cmd *cmd);
 void	bi_env(char **envp);
-void	bi_cd(char **cmd, char **envp);
-void	bi_pwd(void);
+int		bi_cd(char **cmd, char **envp);
+int		bi_pwd(void);
 void	bi_echo(t_cmd *cmd);
 void	bi_export(t_data *data, t_cmd *cmd);
 void	export_one(t_data *data, char *export);

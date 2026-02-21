@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/21 18:30:21 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/21 21:41:31 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int	chdir_nopwd(char **cmd, int mod, char **envp)
 		if (!path || path == NULL)
 			return (printf("cd : HOME not set\n"), 1);
 		if (chdir(path) != 0)
-			return (free (path), 1);
-		free (path);
+			return (1);
 		return (0);
 	}
 	if (mod == 1)

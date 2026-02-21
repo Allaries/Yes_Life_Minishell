@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/21 16:29:20 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/21 21:35:38 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ void	exec_only_one(t_cmd *cmd, t_data *data)
 		execute_child(data, cmd, 0);
 		waitpid(cmd->pid, &status, 0);
 		data->exit_code = WEXITSTATUS(status);
-		printf ("exit code : %d\n" ,data->exit_code);
 	}
 	free_cmd_struct(data->cmd);
 	return ;

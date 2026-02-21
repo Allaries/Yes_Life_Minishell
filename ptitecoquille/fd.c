@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/19 23:55:35 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/21 22:32:24 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,24 @@ int	here_strncmp(const char *s1, const char *s2, size_t n)
 
 int heredoc_init(char *delimiter)
 {
-    int pipefd[2];
-    char *line;
+	int pipefd[2];
+	char *line;
 
-    pipe(pipefd);
+	pipe(pipefd);
 
-    while ((line = get_next_line(STDIN_FILENO)))
-    {
-        if (here_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
-        {
-            free(line);
-            break;
-        }
-        write(pipefd[1], line, strlen(line));
-        free(line);
-    }
-    close(pipefd[1]);
-    return pipefd[0];
+	while ((line = get_next_line(STDIN_FILENO)))
+	{
+		if (here_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+		{
+			free(line);
+			break;
+		}
+		write(pipefd[1], line, strlen(line));
+		free(line);
+		line = NULL;
+	}
+	close(pipefd[1]);
+	return pipefd[0];
 }
 
 
@@ -84,33 +85,31 @@ int	outfile_init(char *rname)
 
 int get_infd(t_redir *filelist)
 {
-    t_redir  *temp;
-    int     fd;
-    int     tmp;
+	t_redir  *temp;
+	int     fd;
+	int     tmp;
 
 	temp = filelist;
 	fd = 0;
 	tmp = 0;
-    while (temp)
-    {
-        if (temp->type == HEREDOC_F)
-        {
-            tmp = temp->fd;
-            if (tmp < 0)
-            	return (-1);
-        }
-        if (temp->type == INFILE)
-            tmp = infile_init(temp->name);
+	while (temp)
+	{
+		if (temp->type == HEREDOC_F)
+			tmp = temp->fd;
+		if (temp->type == INFILE)
+			tmp = infile_init(temp->name);
 		if (tmp < 0)
 		{
 			if (fd != 0)
 				close(fd);
 			return (-1);
 		}
-        fd = tmp;
-        temp = temp->next;
-    }
-    return (fd);
+		if (fd != 0)
+			close(fd);
+		fd = tmp;
+		temp = temp->next;
+	}
+	return (fd);
 }
 
 
@@ -135,6 +134,8 @@ int	get_outfd(t_redir *filelist)
 				close(fd);
 			return (-1);
 		}
+		if (fd != 1)
+			close(fd);
 		fd = tmp;
 		temp = temp->next;
 	}
@@ -163,6 +164,20 @@ int	first_h_init(t_cmd **cmd)
 	return (0);
 }
 
+void	close_useless(int infd, int outfd, t_redir *redir)
+{
+	t_redir	*tmp;
+
+	tmp = redir;
+	while (tmp)
+	{
+		if (tmp->fd != -1 && tmp->fd != infd && tmp->fd != outfd)
+			close (tmp->fd);
+		tmp = tmp->next;
+	}
+	
+}
+
 int	get_fd(t_cmd *cmd)
 {
 	if (cmd->redirs == NULL)
@@ -173,6 +188,7 @@ int	get_fd(t_cmd *cmd)
 	}
 	cmd->infd = get_infd(cmd->redirs);
 	cmd->outfd = get_outfd(cmd->redirs);
+	// close_useless(cmd->infd, cmd->outfd, cmd->redirs);
 	if (cmd->infd == -1 || cmd->outfd == -1)
 	{
 		if (cmd->infd != -1 && cmd->infd != 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/14 02:21:59 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/02/19 22:31:53 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 		argc = 1;
 	data.envp = dupe_env(envp);
 	// pour tester valgrind tu peux exit, ya techniquement pas de leak de mon cote
-	while (i--)
+	while (i)
 	{
 		input = readline("mini-0.1$ ");
 		if (!input)

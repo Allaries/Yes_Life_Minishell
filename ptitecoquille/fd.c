@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/18 18:30:10 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/19 23:55:35 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,9 @@ int	first_h_init(t_cmd **cmd)
 		while (redir)
 		{
 			if (redir->type == HEREDOC_F)
+			{
 				redir->fd = heredoc_init(redir->name);
+			}
 			redir = redir->next;
 		}
 		tmp = tmp->next;

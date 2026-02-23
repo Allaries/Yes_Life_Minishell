@@ -15,20 +15,14 @@ OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-GNL_DIR = ./gnl
-GNL = $(GNL_DIR)/gnl.a
-
-all: $(LIBFT) $(GNL) $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) $(LIBFT) $(GNL) $(LDFLAGS) -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) $(LDFLAGS) -o $(NAME)
 	@echo "All done !"
 
 $(LIBFT):
 	@$(MAKE) -s -C $(LIBFT_DIR)
-
-$(GNL):
-	@$(MAKE) -s -C $(GNL_DIR)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
@@ -37,13 +31,11 @@ $(OBJDIR)/%.o: %.c
 clean:
 	@rm -rf $(OBJDIR)
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
-	@$(MAKE) -s -C $(GNL_DIR) clean
 	@echo "All clean !"
 
 fclean: clean
 	@rm -rf $(NAME)
 	@$(MAKE) -s -C $(LIBFT_DIR) fclean
-	@$(MAKE) -s -C $(GNL_DIR) fclean
 	@echo "All clean ++!"
 
 re: fclean all

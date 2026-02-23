@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/23 20:19:58 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/23 23:22:18 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,8 @@ int get_infd(t_redir *filelist)
 				close(fd);
 			return (-1);
 		}
-		if (fd != 0)
-			close(fd);
+		// if (fd != 0)
+		// 	close(fd);
 		fd = tmp;
 		temp = temp->next;
 	}
@@ -184,8 +184,7 @@ int	get_outfd(t_redir *filelist)
 				close(fd);
 			return (-1);
 		}
-		if (fd != 1)
-			close(fd);
+		temp->fd = tmp;
 		fd = tmp;
 		temp = temp->next;
 	}
@@ -221,7 +220,7 @@ void	close_useless(int infd, int outfd, t_redir *redir)
 	tmp = redir;
 	while (tmp)
 	{
-		if (tmp->fd != -1 && tmp->fd != infd && tmp->fd != outfd)
+		if (tmp->fd != -1 && tmp->fd != infd && tmp->fd != outfd && tmp->fd != 0 && tmp->fd != 1)
 			close (tmp->fd);
 		tmp = tmp->next;
 	}
@@ -237,7 +236,8 @@ int	get_fd(t_cmd *cmd)
 	}
 	cmd->infd = get_infd(cmd->redirs);
 	cmd->outfd = get_outfd(cmd->redirs);
-	// close_useless(cmd->infd, cmd->outfd, cmd->redirs);
+	fprintf (stderr, "infd : %d, outfd : %d\n", cmd->infd, cmd->outfd);
+	close_useless(cmd->infd, cmd->outfd, cmd->redirs);
 	if (cmd->infd == -1 || cmd->outfd == -1)
 	{
 		if (cmd->infd != -1 && cmd->infd != 0)

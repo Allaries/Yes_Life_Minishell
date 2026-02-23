@@ -6,15 +6,14 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/21 17:20:16 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/23 23:25:01 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// # include "../libft/libft.h"
-# include "gnl/get_next_line.h"
+# include "libft/libft.h"
 # include "struct.h"
 # include <unistd.h>
 # include <stdio.h>

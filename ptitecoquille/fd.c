@@ -6,11 +6,61 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/21 22:32:24 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/23 20:19:58 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+#include <unistd.h>
+#include <stdlib.h>
+
+static char *ft_realloc_gnl(char *old, char c, int len)
+{
+    char    *new;
+    int     i;
+
+    new = malloc(len + 2);
+    if (!new)
+        return (NULL);
+    i = 0;
+    while (i < len)
+    {
+        new[i] = old[i];
+        i++;
+    }
+    new[len] = c;
+    new[len + 1] = '\0';
+    free(old);
+    return (new);
+}
+
+char    *get_next_line_omega(int fd)
+{
+    char    *line;
+    char    buf;
+    int     r;
+    int     len;
+
+    line = NULL;
+    len = 0;
+    r = read(fd, &buf, 1);
+    while (r > 0)
+    {
+        line = ft_realloc_gnl(line, buf, len);
+        if (!line)
+            return (NULL);
+        len++;
+        if (buf == '\n')
+            return (line);
+        r = read(fd, &buf, 1);
+    }
+    if (len > 0)
+        return (line);
+    free(line);
+    return (NULL);
+}
+
 
 int	here_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -37,7 +87,7 @@ int heredoc_init(char *delimiter)
 
 	pipe(pipefd);
 
-	while ((line = get_next_line(STDIN_FILENO)))
+	while ((line = get_next_line_omega(STDIN_FILENO)))
 	{
 		if (here_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
 		{
@@ -175,7 +225,6 @@ void	close_useless(int infd, int outfd, t_redir *redir)
 			close (tmp->fd);
 		tmp = tmp->next;
 	}
-	
 }
 
 int	get_fd(t_cmd *cmd)

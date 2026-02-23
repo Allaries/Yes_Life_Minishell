@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/21 21:41:31 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:13:29 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,18 @@ int	chdir_pwd(char **cmd, int mod)
 	char	*path;
 	
 	pwd = getcwd(NULL, 0);
-	if (!pwd || pwd == NULL)
-	{
-		printf("you are stuck in this reality\n");
-		return (1);
-	}
+	// if (!pwd || pwd == NULL)
+	// {
+	// 	printf("you are stuck in this reality\n");
+	// 	return (1);
+	// }
 	if (mod == 0)
 		path = slashcmd(cmd[1], pwd);
 	if (mod == 1)
-		path = cut_path(pwd);
+	{
+		chdir("..bvvhgvghcgfc");
+		return (0);
+	}
 	if (chdir(path) != 0)
 	{
 		free(pwd);

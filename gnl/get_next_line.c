@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:04:55 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/21 22:49:24 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:32:37 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*get_next_line(int fd)
 	buff = NULL;
 	ligne = take_line(past);
 	past = save_rest(past);
+	free(past);
+	past = NULL;
 	return (ligne);
 }
 

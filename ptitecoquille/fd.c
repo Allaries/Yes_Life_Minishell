@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/23 23:22:18 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:25:53 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,60 +135,60 @@ int	outfile_init(char *rname)
 
 int get_infd(t_redir *filelist)
 {
-	t_redir  *temp;
-	int     fd;
-	int     tmp;
+    t_redir *temp = filelist;
+    int fd = -1;
+    int tmp;
 
-	temp = filelist;
-	fd = 0;
-	tmp = 0;
-	while (temp)
-	{
-		if (temp->type == HEREDOC_F)
-			tmp = temp->fd;
-		if (temp->type == INFILE)
-			tmp = infile_init(temp->name);
-		if (tmp < 0)
-		{
-			if (fd != 0)
-				close(fd);
-			return (-1);
-		}
-		// if (fd != 0)
-		// 	close(fd);
-		fd = tmp;
-		temp = temp->next;
-	}
-	return (fd);
+    while (temp)
+    {
+        if (temp->type == HEREDOC_F)
+            tmp = temp->fd;
+        else if (temp->type == INFILE)
+            tmp = infile_init(temp->name);
+        else
+        {
+            temp = temp->next;
+            continue;
+        }
+        if (tmp < 0)
+            return (-1);
+        if (fd >= 0 && fd != tmp)
+            close(fd);
+        fd = tmp;
+        temp = temp->next;
+    }
+	if (fd == -1)
+		return (0);
+    return (fd);
 }
 
-
-int	get_outfd(t_redir *filelist)
+int get_outfd(t_redir *filelist)
 {
-	t_redir	*temp;
-	int		fd;
-	int		tmp;
+    t_redir *temp = filelist;
+    int fd = -1;
+    int tmp;
 
-	fd = 1;
-	tmp = 1;
-	temp = filelist;
-	while (temp)
-	{
-		if (temp->type == OUTFILE)
+    while (temp)
+    {
+        if (temp->type == OUTFILE)
 			tmp = outfile_init(temp->name);
-		if (temp->type == APPEND_F)
+		else if (temp->type == APPEND_F)
 			tmp = append_init(temp->name);
-		if (tmp < 0)
-		{
-			if (fd != 1)
-				close(fd);
-			return (-1);
-		}
-		temp->fd = tmp;
-		fd = tmp;
-		temp = temp->next;
-	}
-	return (fd);
+        else
+        {
+            temp = temp->next;
+            continue;
+        }
+        if (tmp < 0)
+            return (-1);
+        if (fd >= 0 && fd != tmp)
+            close(fd);
+        fd = tmp;
+        temp = temp->next;
+    }
+	if (fd == -1)
+		return (1);
+    return (fd);
 }
 
 int	first_h_init(t_cmd **cmd)
@@ -236,8 +236,7 @@ int	get_fd(t_cmd *cmd)
 	}
 	cmd->infd = get_infd(cmd->redirs);
 	cmd->outfd = get_outfd(cmd->redirs);
-	fprintf (stderr, "infd : %d, outfd : %d\n", cmd->infd, cmd->outfd);
-	close_useless(cmd->infd, cmd->outfd, cmd->redirs);
+	// close_useless(cmd->infd, cmd->outfd, cmd->redirs);
 	if (cmd->infd == -1 || cmd->outfd == -1)
 	{
 		if (cmd->infd != -1 && cmd->infd != 0)

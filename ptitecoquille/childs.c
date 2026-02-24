@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/21 21:35:38 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:27:14 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	close_all(t_data *data, t_cmd *cmd, int i)
 		close(data->newpipe[0]);
 		close(data->newpipe[1]);
 	}
-	if (cmd->infd != 0)
+	if (cmd->infd > 1)
 		close(cmd->infd);
-	if (cmd->outfd != 1)
+	if (cmd->outfd > 1)
 		close(cmd->outfd);
 	return (1);
 }
@@ -35,7 +35,7 @@ void	close_daddy_prime(t_data *data, t_cmd *cmd, int i)
 {
 	if (i == 0)
 	{
-		if (cmd->infd != 0)
+		if (cmd->infd > 1)
 			close (cmd->infd);
 		close (data->newpipe[1]);
 	}

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/23 23:25:01 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/25 23:19:25 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,19 +112,32 @@ void		free_redir(t_redir *redir);
 void	ft_strcat(char *dest, const char *src);
 int		*env_already_exist(char **envp, char *var);
 char	**dupe_env(char **envp);
+//fd
+/////////////////////////////////////
+
+int		check_fd(char **argv, t_data *data);
+int		get_fd(t_cmd *cmd);
+int		first_h_init(t_cmd **cmd);
+
+//exec utils
+/////////////////////////////////////
+
+void	print_stderr(char *toprint, int mod);
 int		def_path(t_data *data, t_cmd *cmd);
 void	def_arg(char *cmd, t_data *data);
 char	*slashcmd(char *cmd, char *path);
-void	free_tab(char **tab);
-int		check_fd(char **argv, t_data *data);
-void	free_struct(t_data *data);
-int		close_all(t_data *data, t_cmd *cmd, int i);
+
+//exec
+/////////////////////////////////////////////////////
+
 int		exec_pipex(t_data *data, t_cmd **cmd);
-int		execute_child(t_data *data, t_cmd *herecmd, int i);
-int		get_fd(t_cmd *cmd);
-int		first_h_init(t_cmd **cmd);
-void	check_bi(t_cmd *cmd);
 void	exec_single_bi(int mod, t_data *data, t_cmd *cmd);
+int		execute_child(t_data *data, t_cmd *herecmd, int i);
+void	check_bi(t_cmd *cmd);
+
+//built-in
+/////////////////////////////////////////////////////
+
 void	bi_exit(t_data *data, t_cmd *cmd);
 void	bi_env(char **envp);
 int		bi_cd(char **cmd, char **envp);
@@ -133,6 +146,12 @@ void	bi_echo(t_cmd *cmd);
 void	bi_export(t_data *data, t_cmd *cmd);
 void	export_one(t_data *data, char *export);
 void	bi_unset(t_data *data, t_cmd *cmd);
+
+//free
+/////////////////////////////////////
+void	free_struct(t_data *data);
+int		close_all(t_data *data, t_cmd *cmd, int i);
+void	free_tab(char **tab);
 void	thanos_snap_process(t_data *data);
 void	free_cmd_struct(t_cmd **cmd);
 

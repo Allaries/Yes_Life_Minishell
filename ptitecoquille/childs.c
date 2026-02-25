@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/24 16:27:14 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/25 23:20:59 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	print_stderr(char *toprint, int mod)
 {
 	if (mod == 1)
 		write (2, "command not found : ", 21);
+	if (mod == 2)
+		write (2, "cd : no such file or directory : ", 33);
 	write (2, toprint, (ft_strlen(toprint) + 1));
 	write (2, "\n", 1);
 }

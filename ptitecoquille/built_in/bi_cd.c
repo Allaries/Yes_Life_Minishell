@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/23 17:13:29 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/25 23:22:44 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	chdir_nopwd(char **cmd, int mod, char **envp)
 	{
 		path = gethome(envp);
 		if (!path || path == NULL)
-			return (printf("cd : HOME not set\n"), 1);
+			return (print_stderr("cd : HOME not set", 2), 1);
 		if (chdir(path) != 0)
 			return (1);
 		return (0);
@@ -56,7 +56,10 @@ int	chdir_nopwd(char **cmd, int mod, char **envp)
 	{
 		path = cmd[1];
 		if (chdir(path) != 0)
-			return (1);
+		{
+			print_stderr(cmd[1], 2);
+			return (1);	
+		}
 		return (0);
 	}
 	return (0);
@@ -67,21 +70,17 @@ int	chdir_pwd(char **cmd, int mod)
 	char	*pwd;
 	char	*path;
 	
-	pwd = getcwd(NULL, 0);
-	// if (!pwd || pwd == NULL)
-	// {
-	// 	printf("you are stuck in this reality\n");
-	// 	return (1);
-	// }
-	if (mod == 0)
-		path = slashcmd(cmd[1], pwd);
 	if (mod == 1)
 	{
-		chdir("..bvvhgvghcgfc");
+		chdir("..");
 		return (0);
 	}
+	pwd = getcwd(NULL, 0);
+	if (mod == 0)
+		path = slashcmd(cmd[1], pwd);
 	if (chdir(path) != 0)
 	{
+		print_stderr(cmd[1], 2);
 		free(pwd);
 		free(path);
 		return (1);

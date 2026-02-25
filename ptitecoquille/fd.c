@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/24 16:25:53 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/02/25 23:30:15 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char    *get_next_line_omega(int fd)
 
     line = NULL;
     len = 0;
+	write (0, "> ", 2);
     r = read(fd, &buf, 1);
     while (r > 0)
     {
@@ -213,18 +214,18 @@ int	first_h_init(t_cmd **cmd)
 	return (0);
 }
 
-void	close_useless(int infd, int outfd, t_redir *redir)
-{
-	t_redir	*tmp;
+// void	close_useless(int infd, int outfd, t_redir *redir)
+// {
+// 	t_redir	*tmp;
 
-	tmp = redir;
-	while (tmp)
-	{
-		if (tmp->fd != -1 && tmp->fd != infd && tmp->fd != outfd && tmp->fd != 0 && tmp->fd != 1)
-			close (tmp->fd);
-		tmp = tmp->next;
-	}
-}
+// 	tmp = redir;
+// 	while (tmp)
+// 	{
+// 		if (tmp->fd != -1 && tmp->fd != infd && tmp->fd != outfd && tmp->fd != 0 && tmp->fd != 1)
+// 			close (tmp->fd);
+// 		tmp = tmp->next;
+// 	}
+// }
 
 int	get_fd(t_cmd *cmd)
 {
@@ -236,7 +237,6 @@ int	get_fd(t_cmd *cmd)
 	}
 	cmd->infd = get_infd(cmd->redirs);
 	cmd->outfd = get_outfd(cmd->redirs);
-	// close_useless(cmd->infd, cmd->outfd, cmd->redirs);
 	if (cmd->infd == -1 || cmd->outfd == -1)
 	{
 		if (cmd->infd != -1 && cmd->infd != 0)

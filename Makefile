@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -g3 -fsanitize=address,undefined,signed-integer-overflow,null,leak,bounds -fno-omit-frame-pointer
 LDFLAGS = -lreadline -lhistory -lncurses
 NAME = minishell
 SRC =   ptitecoquille/pipex.c ptitecoquille/childs.c \
@@ -18,7 +18,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) $(LIBFT) $(LDFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LDFLAGS) -o $(NAME)
 	@echo "All done !"
 
 $(LIBFT):

@@ -74,7 +74,7 @@ void	bi_unset(t_data *data, t_cmd *cmd)
 	while (cmd->args[++i])
 	{
 		if (check_unset_arg(cmd->args[i]) == 1)
-			printf("unset: '%s': not a valid identifier", cmd->args[i]);
+			printf("unset: '%s': not a valid identifier\n", cmd->args[i]);
 		else
 			unset_one(data, cmd->args[i]);
 	}

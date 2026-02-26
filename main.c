@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	//SARAH
 	//JE VAIS ETRE CLAIR
 	//TU RAJOUTE UN -- A CE I, IL VA Y AVOIR DES BRICOLES
-	//cordialement, ton mate minishell
+	//cordialement, le R
 	while (i)
 	{
 		input = readline("mini-0.1$ ");

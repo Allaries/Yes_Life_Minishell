@@ -12,17 +12,18 @@
 
 #include "../../minishell.h"
 
-int	bi_pwd(void)
+int	bi_pwd(t_cmd *cmd)
 {
 	char	*pwd;
 	
 	pwd = getcwd(NULL, 0);
 	if (!pwd || pwd == NULL)
 	{
-		printf("welcome to the shadow realm\n");
+		write(cmd->infd, "welcome to the shadow realm\n", 28);
 		return (1);
 	}
-	printf("%s\n", pwd);
+	write(cmd->infd, pwd, ft_strlen(pwd));
+	write(cmd->infd, "\n", 1);
 	free (pwd);
 	return (0);
 }

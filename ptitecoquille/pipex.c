@@ -51,11 +51,6 @@ int	find_path(t_cmd *cmd, char **path)
 	int		i;
 
 	i = 0;
-	if (abs_path_check(cmd->args[0]) == 1)
-	{
-		cmd->path = ft_strdup(cmd->args[0]);
-		return (free_tab(path), 1);
-	}
 	while (path[i])
 	{
 		cm2d = ft_strdup(cmd->args[0]);
@@ -83,8 +78,15 @@ int	def_path(t_data *data, t_cmd *cmd)
 	char	*temp;
 
 	i = 0;
-	while (ft_strncmp(data->envp[i], "PATH=", 5) != 0)
+	if (abs_path_check(cmd->args[0]) == 1)
+	{
+		cmd->path = ft_strdup(cmd->args[0]);
+		return (1);
+	}
+	while (data->envp[i] && ft_strncmp(data->envp[i], "PATH=", 5) != 0)
 		i++;
+	if (!data->envp[i])
+		return (0);
 	path = ft_split(data->envp[i], ':');
 	if (!path || !path[0])
 		return (0);

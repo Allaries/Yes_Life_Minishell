@@ -18,9 +18,17 @@ char	**dupe_env(char **envp)
 	char	**new_env;
 
 	i = 0;
+	if (!envp || envp == NULL)
+	{
+		new_env = ft_calloc(sizeof(char *) * 1, 1);
+		if (!new_env)
+			return (NULL);
+		new_env[0] = NULL;
+		return (new_env);
+	}
 	while(envp[i])
 		i++;
-	new_env = calloc((i + 1) * sizeof(char *), 1);
+	new_env = ft_calloc((i + 1) * sizeof(char *), 1);
 	if (!new_env)
 		return (NULL);
 	i = 0;

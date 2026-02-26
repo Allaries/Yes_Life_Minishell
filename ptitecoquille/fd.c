@@ -204,9 +204,7 @@ int	first_h_init(t_cmd **cmd)
 		while (redir)
 		{
 			if (redir->type == HEREDOC_F)
-			{
 				redir->fd = heredoc_init(redir->name);
-			}
 			redir = redir->next;
 		}
 		tmp = tmp->next;

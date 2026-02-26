@@ -87,5 +87,5 @@ void	bi_export(t_data *data, t_cmd *cmd)
 			export_one(data, cmd->args[i]);
 	}
 	if (i == 1)
-		bi_env(data->envp);
+		bi_env(data, cmd);
 }

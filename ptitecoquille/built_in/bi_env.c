@@ -12,14 +12,15 @@
 
 #include "../../minishell.h"
 
-void	bi_env(char **envp)
+void	bi_env(t_data *data, t_cmd *cmd)
 {
 	int	i;
 	
 	i = 0;
-	while (envp[i])
+	while (data->envp[i])
 	{
-		printf("%s\n", envp[i]);
+		write(cmd->infd, data->envp[i], ft_strlen(data->envp[i]));
+		write(cmd->infd, "\n", 1);
 		i++;
 	}
 	return ;

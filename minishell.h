@@ -139,9 +139,9 @@ void	check_bi(t_cmd *cmd);
 /////////////////////////////////////////////////////
 
 void	bi_exit(t_data *data, t_cmd *cmd);
-void	bi_env(char **envp);
+void	bi_env(t_data *data, t_cmd *cmd);
 int		bi_cd(char **cmd, char **envp);
-int		bi_pwd(void);
+int		bi_pwd(t_cmd *cmd);
 void	bi_echo(t_cmd *cmd);
 void	bi_export(t_data *data, t_cmd *cmd);
 void	export_one(t_data *data, char *export);

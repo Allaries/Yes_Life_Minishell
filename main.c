@@ -33,6 +33,8 @@ int	main(int argc, char **argv, char **envp)
 			perror("Error");
 			return (1);
 		}
+		if (input && *input) 
+			add_history(input);
 		parsing(input, &data);
 		free(input);
 		input = NULL;

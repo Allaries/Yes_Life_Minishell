@@ -76,6 +76,7 @@ typedef struct s_data {
 	t_cmd	**cmd;
 	int		exit_code;
 	int		*pid;
+	struct	sigaction sa;
 	int		oldpipe[2];
 	int		newpipe[2];
 }	t_data;

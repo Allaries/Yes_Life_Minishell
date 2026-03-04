@@ -47,14 +47,20 @@ int	build_list_token(char *input, t_token **tok_list)
 	// printf("--- END TOKEN LIST ---\n\n");
 
 
-
+	//yo ma soeur c'est le R
+	//ca leakais ici pasque ca free pas si les check sont mauvais
+	//(c'est pour ca que la commande a Yanis leakais)
+	//+ faudrais rajouter un check pour quand t'as des double/quotes pas fermees
+	//+ des messages d'erreurs plus explicites que "verify_list_token, Non"
 	if (!verify_list_token(tok_list))
 	{
+		free_list_token(tok_list);
 		printf("verify_list_token, Non\n");
 		return (0);
 	}
 	if (!define_file_token(tok_list))
 	{
+		free_list_token(tok_list);
 		printf("define_file_token, Non\n");
 		return (0);
 	}

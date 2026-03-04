@@ -12,29 +12,31 @@
 
 #include "minishell.h"
 
-// static void sigint_handler(int sig)
-// {
-//     (void)sig;
-//     write(1, "\n", 1);
-//     rl_on_new_line();
-//     rl_replace_line("", 0);
-//     rl_redisplay();
-// }
+static void sigint_handler_readline(int sig)
+{
+    (void)sig;
+    write(1, "\n", 1);
+    rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
+}
+
+// static void sigint_handler_child(int sig)
+
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
-	// struct	sigaction sa;
 	t_data	data;
 	int i = 2;
 
 	if (argc && argv) // Pour aucun warning
 		argc = 1;
 	data.envp = dupe_env(envp);
-    // sa.sa_handler = sigint_handler;
-    // sigemptyset(&sa.sa_mask);
-    // sa.sa_flags = 0;
-    // sigaction(SIGINT, &sa, NULL);
+    data.sa.sa_handler = sigint_handler_readline;
+    sigemptyset(&data.sa.sa_mask);
+    data.sa.sa_flags = 0;
+    sigaction(SIGINT, &data.sa, NULL);
 	//SARAH
 	//JE VAIS ETRE CLAIR
 	//TU RAJOUTE UN -- A CE I, IL VA Y AVOIR DES BRICOLES

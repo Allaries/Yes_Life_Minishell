@@ -105,6 +105,8 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	cmd->pid = fork();
 	if (cmd->pid != 0)
 		return (1);
+	data->sa.sa_handler = SIG_DFL;
+	sigaction(SIGINT, &data->sa, NULL);
 	if (def_path(data, cmd) == 0)
 		cmd->path = NULL;
 	if (cmd->built_in != 0)

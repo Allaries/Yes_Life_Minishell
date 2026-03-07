@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/25 23:19:25 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/07 17:30:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			verify_list_token(t_token **tok_list);
 int			is_good_pipe(t_token *tok);
 int			is_there_file(t_token *tok);
 // define_file_token
-int			define_file_token(t_token **tok_list);
+void		define_file_token(t_token **tok_list);
 void		modify_type_tok(t_token *tmp);
 ///////////////////////////////////////////////
 // word

@@ -15,7 +15,10 @@
 int	build_list_cmd(t_cmd **cmd_list, t_token **tok_list)
 {
 	if (!fill_list_cmd(cmd_list, tok_list))
+	{
+		printf("Memory error: cmd list allocation failed");
 		return (0);
+	}
 	return (1);
 }
 

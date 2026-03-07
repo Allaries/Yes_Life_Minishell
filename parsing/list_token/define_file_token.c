@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   define_file_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 20:18:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/10 15:16:20 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/07 17:30:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	define_file_token(t_token **tok_list)
+void	define_file_token(t_token **tok_list)
 {
 	int		i;
 	t_token	*tmp;
@@ -31,7 +31,6 @@ int	define_file_token(t_token **tok_list)
 		else
 			tmp = tmp->next;
 	}
-	return (1);
 }
 
 void	modify_type_tok(t_token *tok_list)

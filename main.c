@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/21 16:25:12 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/07 16:48:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	//JE VAIS ETRE CLAIR
 	//TU RAJOUTE UN -- A CE I, IL VA Y AVOIR DES BRICOLES
 	//cordialement, le R
+	//hahhaha ok vu que le ctrl-C est geré je le fait pas t'as de la chance, la S
 	while (i)
 	{
 		input = readline("mini-0.1$ ");

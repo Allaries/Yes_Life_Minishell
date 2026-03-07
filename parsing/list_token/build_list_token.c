@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_list_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/18 04:01:22 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/07 17:35:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	build_list_token(char *input, t_token **tok_list)
 		return (0);
 	if (!fill_list_token(input, tok_list))
 	{
-		printf("fill_list_token, Non\n");
+		printf("Memory error: token list allocation failed");
 		return (0);
 	}
 
@@ -51,18 +51,14 @@ int	build_list_token(char *input, t_token **tok_list)
 	//ca leakais ici pasque ca free pas si les check sont mauvais
 	//(c'est pour ca que la commande a Yanis leakais)
 	//+ faudrais rajouter un check pour quand t'as des double/quotes pas fermees
+	// deja fais ce check la d'ailleur je vais rajouter un message d'erreur, la S
 	//+ des messages d'erreurs plus explicites que "verify_list_token, Non"
+	// ok ok je vais modif ca, la S
 	if (!verify_list_token(tok_list))
 	{
-		free_list_token(tok_list);
-		printf("verify_list_token, Non\n");
+		free_list_token(tok_list); // bien vu
 		return (0);
 	}
-	if (!define_file_token(tok_list))
-	{
-		free_list_token(tok_list);
-		printf("define_file_token, Non\n");
-		return (0);
-	}
+	define_file_token(tok_list); // y'aura jamais d'erreurs ici donc ca devient un void
 	return (1);
 }

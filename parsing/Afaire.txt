@@ -7,7 +7,7 @@ et "" compte comme un vrai mot mais vide
 Comment je fais avec \$HOME , pour les detecter a chaque fois ?
 Parce que -> $HOME = $HOME  ;  $HOME = home/smedenec
 EXPEND caracteres acceptees : lettres, chiffres et underscore (Peut pas commencer par un chiffre)
-Expend while (new_input[i]) if  new_input[i] == $
+Expend while (word[i]) if  word[i] == $
 A=$B
 B=$A
 echo $A Attemtion a la recursion infinie, Si la chaine ne change pas stop.
@@ -19,13 +19,11 @@ verify_token pour les list sans arguments :  < iinfile > outfile
 Filtrer toutes les erreurs de la liste t_token : (<, <<, arg) -> error
 return chaque erreurs speciales
 
-Comment ajouter l'env ?
+Comment ajouter l'env ? REMI VA LE FAIRE (c'est surement 2 lignes)
 
 ______________________________________________________________________________________________________
 
 A Faire
 
--Backslash dans check_quote
--Backslash dans word
-
+- Faut gerer aussi le retour a la ligne simple
 -Expend Token

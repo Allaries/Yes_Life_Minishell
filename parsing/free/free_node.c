@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 05:05:38 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/16 06:39:13 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/07 17:06:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,6 @@ void	free_word(t_word **word)
 	*word = NULL;
 }
 
-void	free_input(t_input **new_input)
-{
-	if (!new_input || !*new_input)
-		return ;
-	free((*new_input)->str);
-	free(*new_input);
-	*new_input = NULL;
-}
-
 void	free_cmd(t_cmd *cmd)
 {
 	int	i;
@@ -55,7 +46,6 @@ void	free_cmd(t_cmd *cmd)
 	free_list_redir(&cmd->redirs);
 	free(cmd);
 }
-
 
 void	free_redir(t_redir *redir)
 {

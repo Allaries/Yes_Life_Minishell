@@ -74,18 +74,25 @@ int	check_export_arg(char *arg)
 	return (0);
 } 
 
-void	bi_export(t_data *data, t_cmd *cmd)
+int	bi_export(t_data *data, t_cmd *cmd)
 {
 	int	i;
+	int error;
 
+	error = 0;
 	i = 0;
 	while (cmd->args[++i])
 	{
 		if (check_export_arg(cmd->args[i]) == 1)
+		{
 			printf("export: `%s': not a valid identifier", cmd->args[i]);
+			if (error == 0)
+				error++;
+		}
 		else
 			export_one(data, cmd->args[i]);
 	}
 	if (i == 1)
 		bi_env(data, cmd);
+	return (error);
 }

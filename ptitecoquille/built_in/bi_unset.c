@@ -66,9 +66,10 @@ void	unset_one(t_data *data, char *unset)
 	return ;
 }
 
-void	bi_unset(t_data *data, t_cmd *cmd)
+int	bi_unset(t_data *data, t_cmd *cmd)
 {
 	int	i;
+	int error;
 
 	i = 0;
 	while (cmd->args[++i])

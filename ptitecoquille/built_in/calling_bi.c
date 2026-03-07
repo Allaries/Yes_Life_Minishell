@@ -19,11 +19,11 @@ void	exec_single_bi(int mod, t_data *data, t_cmd *cmd)
 	if (mod == 2)
 		data->exit_code = bi_cd(cmd->args, data->envp);
 	if (mod == 3)
-		bi_pwd(cmd);
+		data->exit_code = bi_pwd(cmd);
 	if (mod == 4)
-		bi_export(data, cmd);
+		data->exit_code = bi_export(data, cmd);
 	if (mod == 5)
-		bi_unset(data, cmd);
+		data->exit_code = bi_unset(data, cmd);
 	if (mod == 6)
 		bi_exit(data, cmd);
 	if (mod == 7)

@@ -115,7 +115,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 		close_all(data, cmd, i);
 		exec_single_bi(cmd->built_in, data, cmd);
 		thanos_snap_process(data);
-		exit(0);
+		exit(data->exit_code);
 	}
 	if (cmd->path == NULL)
 	{
@@ -150,6 +150,7 @@ void	exec_only_one(t_cmd *cmd, t_data *data)
 		data->exit_code = WEXITSTATUS(status);
 	}
 	free_cmd_struct(data->cmd);
+	printf ("exit code : %d\n", data->exit_code);
 	return ;
 }
 
@@ -161,7 +162,8 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 
 	i = 0;
 	here_cmd = *cmd;
-	first_h_init(cmd);
+	if (!first_h_init(data, cmd))
+		return(free_cmd_struct(data->cmd), 1);
 	if (here_cmd->next == NULL)
 	{
 		here_cmd->single_one = 1;
@@ -200,6 +202,7 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 		data->exit_code = WEXITSTATUS(status);
 		here_cmd = here_cmd ->next;
 	}
+	printf ("exit code : %d\n", data->exit_code);
 	free_cmd_struct(data->cmd);
 	return (1);
 }

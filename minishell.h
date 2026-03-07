@@ -113,12 +113,13 @@ void		free_redir(t_redir *redir);
 void	ft_strcat(char *dest, const char *src);
 int		*env_already_exist(char **envp, char *var);
 char	**dupe_env(char **envp);
+
 //fd
 /////////////////////////////////////
 
 int		check_fd(char **argv, t_data *data);
 int		get_fd(t_cmd *cmd);
-int		first_h_init(t_cmd **cmd);
+int		first_h_init(t_data *data, t_cmd **cmd);
 
 //exec utils
 /////////////////////////////////////
@@ -140,15 +141,15 @@ void	check_bi(t_cmd *cmd);
 /////////////////////////////////////////////////////
 
 void	bi_exit(t_data *data, t_cmd *cmd);
-void	bi_env(t_data *data, t_cmd *cmd);
+void 	bi_env(t_data *data, t_cmd *cmd);
 int		bi_cd(char **cmd, char **envp);
 int		bi_pwd(t_cmd *cmd);
-void	bi_echo(t_cmd *cmd);
-void	bi_export(t_data *data, t_cmd *cmd);
-void	export_one(t_data *data, char *export);
-void	bi_unset(t_data *data, t_cmd *cmd);
+void 	bi_echo(t_cmd *cmd);
+int     bi_export(t_data *data, t_cmd *cmd);
+int 	bi_unset(t_data *data, t_cmd *cmd);
+void 	export_one(t_data *data, char *export);
 
-//free
+//free ou close
 /////////////////////////////////////
 void	free_struct(t_data *data);
 int		close_all(t_data *data, t_cmd *cmd, int i);

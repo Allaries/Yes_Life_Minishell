@@ -75,7 +75,7 @@ typedef struct s_data {
 	char	**envp;
 	t_cmd	**cmd;
 	int		exit_code;
-	int		*pid;
+	int		pid;
 	struct	sigaction sa;
 	int		oldpipe[2];
 	int		newpipe[2];

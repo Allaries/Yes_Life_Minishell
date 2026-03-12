@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:45 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 04:21:08 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/12 19:22:10 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	unset_one(t_data *data, char *unset)
 int	bi_unset(t_data *data, t_cmd *cmd)
 {
 	int	i;
-	int error;
 
 	i = 0;
 	while (cmd->args[++i])
@@ -79,4 +78,5 @@ int	bi_unset(t_data *data, t_cmd *cmd)
 		else
 			unset_one(data, cmd->args[i]);
 	}
+	return (0);
 }

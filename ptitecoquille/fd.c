@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/25 23:30:15 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/12 17:41:58 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,10 @@ void	heredoc_child(t_data *data, char *delimiter, int *pipefd)
 		line = NULL;
 	}
 	if (!line)
-		write(1, "\n", 1);
+		write(1, "\nwarning: here-document delimited by end-of-file (wanted `EOF')\n", 65);
+	close(pipefd[0]);
+	close(pipefd[1]);
+	thanos_snap_process(data);
 	exit(0);
 }
 

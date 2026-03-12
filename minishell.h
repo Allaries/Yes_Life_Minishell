@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/25 23:19:25 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/12 22:47:18 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+extern int	g_sig_status;
 
 ///////////////////////////////////////////////
 // parsing
@@ -110,51 +112,51 @@ void		free_cmd(t_cmd *cmd);
 void		free_redir(t_redir *redir);
 ///////////////////////////////////////////////
 
-void	ft_strcat(char *dest, const char *src);
-int		*env_already_exist(char **envp, char *var);
-char	**dupe_env(char **envp);
+void		ft_strcat(char *dest, const char *src);
+int			*env_already_exist(char **envp, char *var);
+char		**dupe_env(char **envp);
 
 //fd
 /////////////////////////////////////
 
-int		check_fd(char **argv, t_data *data);
-int		get_fd(t_cmd *cmd);
-int		first_h_init(t_data *data, t_cmd **cmd);
+int			check_fd(char **argv, t_data *data);
+int			get_fd(t_cmd *cmd);
+int			first_h_init(t_data *data, t_cmd **cmd);
 
 //exec utils
 /////////////////////////////////////
 
-void	print_stderr(char *toprint, int mod);
-int		def_path(t_data *data, t_cmd *cmd);
-void	def_arg(char *cmd, t_data *data);
-char	*slashcmd(char *cmd, char *path);
+void		print_stderr(char *toprint, int mod);
+int			def_path(t_data *data, t_cmd *cmd);
+void		def_arg(char *cmd, t_data *data);
+char		*slashcmd(char *cmd, char *path);
 
 //exec
 /////////////////////////////////////////////////////
 
-int		exec_pipex(t_data *data, t_cmd **cmd);
-void	exec_single_bi(int mod, t_data *data, t_cmd *cmd);
-int		execute_child(t_data *data, t_cmd *herecmd, int i);
-void	check_bi(t_cmd *cmd);
+int			exec_pipex(t_data *data, t_cmd **cmd);
+void		exec_single_bi(int mod, t_data *data, t_cmd *cmd);
+int			execute_child(t_data *data, t_cmd *herecmd, int i);
+void		check_bi(t_cmd *cmd);
 
 //built-in
 /////////////////////////////////////////////////////
 
-void	bi_exit(t_data *data, t_cmd *cmd);
-void 	bi_env(t_data *data, t_cmd *cmd);
-int		bi_cd(char **cmd, char **envp);
-int		bi_pwd(t_cmd *cmd);
-void 	bi_echo(t_cmd *cmd);
-int     bi_export(t_data *data, t_cmd *cmd);
-int 	bi_unset(t_data *data, t_cmd *cmd);
-void 	export_one(t_data *data, char *export);
+void		bi_exit(t_data *data);
+void		bi_env(t_data *data, t_cmd *cmd);
+int			bi_cd(char **cmd, char **envp);
+int			bi_pwd(t_cmd *cmd);
+void		bi_echo(t_cmd *cmd);
+int			bi_export(t_data *data, t_cmd *cmd);
+int			bi_unset(t_data *data, t_cmd *cmd);
+void		export_one(t_data *data, char *export);
 
 //free ou close
 /////////////////////////////////////
-void	free_struct(t_data *data);
-int		close_all(t_data *data, t_cmd *cmd, int i);
-void	free_tab(char **tab);
-void	thanos_snap_process(t_data *data);
-void	free_cmd_struct(t_cmd **cmd);
+void		free_struct(t_data *data);
+int			close_all(t_data *data, t_cmd *cmd, int i);
+void		free_tab(char **tab);
+void		thanos_snap_process(t_data *data);
+void		free_cmd_struct(t_cmd **cmd);
 
 #endif

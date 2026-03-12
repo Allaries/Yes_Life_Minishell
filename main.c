@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/21 16:25:12 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/12 22:47:09 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	int i = 2;
 
+	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
+		exit (0);
+	g_sig_status = 0;
 	if (argc && argv) // Pour aucun warning
 		argc = 1;
 	data.envp = dupe_env(envp);
+	data.exit_code = 0;
 	set_signal(&data);
 	while (i)
 	{

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/25 23:22:44 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/12 19:22:45 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ int	chdir_pwd(char **cmd, int mod)
 int	bi_cd(char **cmd, char **envp)
 {
 	int		i;
-	char	*pwd;
-	char	*path;
 	
 	i = 0;
 	while (cmd[i])

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/25 23:20:59 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/12 19:21:42 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void	exec_only_one(t_cmd *cmd, t_data *data)
 		data->exit_code = WEXITSTATUS(status);
 	}
 	free_cmd_struct(data->cmd);
-	printf ("exit code : %d\n", data->exit_code);
 	return ;
 }
 
@@ -202,7 +201,6 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 		data->exit_code = WEXITSTATUS(status);
 		here_cmd = here_cmd ->next;
 	}
-	printf ("exit code : %d\n", data->exit_code);
 	free_cmd_struct(data->cmd);
 	return (1);
 }

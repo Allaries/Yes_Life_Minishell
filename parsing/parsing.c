@@ -24,7 +24,7 @@ int	parsing(char *input, t_data *data)
 		printf("Syntax error: a quote was opened but not closed");
 		return (0);
 	}
-	if (!build_list_token(input, &tok_list))
+	if (!build_list_token(input, data, &tok_list))
 		return (0);
 	if (!build_list_cmd(&cmd_list, &tok_list))
 		return (0);

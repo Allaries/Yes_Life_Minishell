@@ -6,19 +6,19 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/07 17:35:21 by marvin           ###   ########.fr       */
+/*   Updated: 2026/03/13 03:00:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	build_list_token(char *input, t_token **tok_list)
+int	build_list_token(char *input, t_data *data, t_token **tok_list)
 {
 	if (!input || !*input)
 		return (0);
 	if (!check_quote(input))
 		return (0);
-	if (!fill_list_token(input, tok_list))
+	if (!fill_list_token(input, data, tok_list))
 	{
 		printf("Memory error: token list allocation failed");
 		return (0);

@@ -24,10 +24,8 @@ int	build_list_cmd(t_cmd **cmd_list, t_token **tok_list)
 
 int	fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list)
 {
-	int		i;
 	t_token	*tmp;
 
-	i = 0;
 	tmp = *tok_list;
 	while (tmp)
 	{

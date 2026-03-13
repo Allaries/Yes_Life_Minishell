@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/07 17:30:59 by marvin           ###   ########.fr       */
+/*   Updated: 2026/03/13 06:35:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_input		*init_input(int size);
 int			build_list_cmd(t_cmd **cmd_list, t_token **tok_list);
 int			fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list);
 // list_token
-int			build_list_token(char *input, t_token **tok_list);
+int			build_list_token(char *input, t_data *data, t_token **tok_list);
 ///////////////////////////////////////////////
 // cmd
 int			add_cmd_in_list(t_cmd **cmd_list, t_token *tok_list);
@@ -54,10 +54,9 @@ int			find_second_quote(char *input, char q, int *i);
 int			count_slash(char *input, int i);
 ///////////////////////////////////////////////
 // expend
-int			expend_input(char *input, t_input **new_input);
-int			is_quote(char *input, t_input *new_input, int *i);
-int			is_expend(char *input, t_input *new_input, int *i);
-void		go_expend(char *input, t_input *new_input, int *i);
+int			expend_in_word(char *input, t_data *data, t_word *word, int *i);
+int			special_question(t_data *data, t_word *word, int *i);
+char		*get_env(t_data *data, char *var);
 // expend_utils
 int			which_quote_inp(t_input *new_input);
 int			add_char_in_input(t_input *new_input, char c);
@@ -74,7 +73,7 @@ void		modify_type_tok(t_token *tmp);
 ///////////////////////////////////////////////
 // word
 t_word		*init_word(int size);
-int			parse_word(char *input, t_word **word, int *i);
+int			parse_word(char *input, t_data *data, t_word **word, int *i);
 int			skip_quote(char *input, t_word *word, int *i);
 int			continue_word(char *input, t_word *word, int *i);
 int			is_tok(char *input, t_word *word, int i);
@@ -85,7 +84,7 @@ int			realloc_word(t_word *word);
 int			char_is_a_quote(char *input, int i);
 void		toggle_quote_w(char *input, t_word *word, int *i);
 // token
-int			fill_list_token(char *input, t_token **tok_list);
+int			fill_list_token(char *input, t_data *data, t_token **tok_list);
 int			add_tok_in_list(t_token **tok_list, t_word **word);
 t_token		*create_token(char *buf, enum e_tok type);
 enum e_tok	which_type(char *buf, int was_quote);

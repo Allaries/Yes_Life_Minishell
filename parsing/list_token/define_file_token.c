@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 20:18:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/07 17:30:32 by marvin           ###   ########.fr       */
+/*   Updated: 2026/03/13 06:42:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	define_file_token(t_token **tok_list)
 {
-	int		i;
 	t_token	*tmp;
 
-	i = 0;
 	tmp = NULL;
 	tmp = *tok_list;
 	while (tmp)

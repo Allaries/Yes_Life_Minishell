@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_list_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/13 03:00:04 by marvin           ###   ########.fr       */
+/*   Updated: 2026/03/14 05:46:22 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	build_list_token(char *input, t_data *data, t_token **tok_list)
 	if (!input || !*input)
 		return (0);
 	if (!check_quote(input))
+	{
+		printf("Syntax error: a quote was opened but not closed");
 		return (0);
+	}
 	if (!fill_list_token(input, data, tok_list))
 	{
 		printf("Memory error: token list allocation failed");

@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/14 02:12:49 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/14 05:58:44 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,25 +81,25 @@ char	*ft_realloc(void *ptr, size_t new_size)
 char	*type_to_str(enum e_tok type)
 {
 	if (type == PIPE)
-		return "PIPE";
+		return ("PIPE");
 	if (type == REDIR_IN)
-		return "REDIR_IN";
+		return ("REDIR_IN");
 	if (type == REDIR_OUT)
-		return "REDIR_OUT";
+		return ("REDIR_OUT");
 	if (type == HEREDOC)
-		return "HEREDOC";
+		return ("HEREDOC");
 	if (type == APPEND)
-		return "APPEND";
+		return ("APPEND");
 	if (type == INFILE)
-		return "INFILE";
+		return ("INFILE");
 	if (type == OUTFILE)
-		return "OUTFILE";
+		return ("OUTFILE");
 	if (type == HEREDOC_F)
-		return "HEREDOC_F";
+		return ("HEREDOC_F");
 	if (type == APPEND_F)
-		return "APPEND_F";
+		return ("APPEND_F");
 	if (type == ARG)
-		return "ARG";
+		return ("ARG");
 	return ("NONE");
 }
 

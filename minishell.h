@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/12 22:47:18 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/14 03:58:11 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,10 @@ int			close_all(t_data *data, t_cmd *cmd, int i);
 void		free_tab(char **tab);
 void		thanos_snap_process(t_data *data);
 void		free_cmd_struct(t_cmd **cmd);
+
+//signaux
+///////////////////////////////////////////////////////////
+void		change_signal(t_data *data);
+
 
 #endif

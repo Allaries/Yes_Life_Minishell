@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/12 21:28:24 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/14 05:49:39 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exec_single_bi(int mod, t_data *data, t_cmd *cmd)
 {
+	data->exit_code = 0;
 	if (mod == 1)
 		bi_echo(cmd);
 	if (mod == 2)

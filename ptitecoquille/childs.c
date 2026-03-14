@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/12 19:21:42 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/14 05:01:28 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,9 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 {
 	cmd->pid = fork();
 	if (cmd->pid != 0)
-		return (1);	
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+		return (1);
+	g_sig_status = 2;
+	change_signal(data);	
 	if (def_path(data, cmd) == 0)
 		cmd->path = NULL;
 	if (cmd->built_in != 0)
@@ -163,6 +163,8 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 	here_cmd = *cmd;
 	if (!first_h_init(data, cmd))
 		return(free_cmd_struct(data->cmd), 1);
+	g_sig_status = 3;
+	change_signal(data);
 	if (here_cmd->next == NULL)
 	{
 		here_cmd->single_one = 1;

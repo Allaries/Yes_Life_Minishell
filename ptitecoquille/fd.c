@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/12 17:41:58 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/14 05:06:28 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,9 @@ int	here_strncmp(const char *s1, const char *s2, size_t n)
 void	heredoc_child(t_data *data, char *delimiter, int *pipefd)
 {
 	char *line;
-	struct sigaction sa_child;
-
-	sa_child.sa_handler = SIG_DFL;
-	sigemptyset(&sa_child.sa_mask);
-	sa_child.sa_flags = 0;
-	sigaction(SIGINT, &sa_child, NULL);
+	
+	g_sig_status = 1;
+	change_signal(data);
 	while ((line = get_next_line_omega(STDIN_FILENO)))
 	{
 		if (here_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
@@ -116,11 +113,11 @@ int heredoc_init(t_data *data, char *delimiter)
 
 	pipe(pipefd);
 	data->pid = fork();
-	signal(SIGINT, SIG_IGN);
+	g_sig_status = 3;
+	change_signal(data);
 	if (data->pid == 0)
 		heredoc_child(data, delimiter, pipefd);
 	waitpid(data->pid, &status, 0);
-	sigaction(SIGINT, &data->sa, NULL);
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -130,7 +127,7 @@ int heredoc_init(t_data *data, char *delimiter)
 		return (-1);
 	}
 	close(pipefd[1]);
-	return pipefd[0];
+	return (pipefd[0]);
 }
 
 

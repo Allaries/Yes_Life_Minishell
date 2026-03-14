@@ -6,6 +6,7 @@ NAME = minishell
 SRC =   ptitecoquille/pipex.c ptitecoquille/childs.c \
 		ptitecoquille/for_free.c ptitecoquille/fd.c \
 		ptitecoquille/environment.c ptitecoquille/built_in/*c \
+		ptitecoquille/signal.c \
 		parsing/parsing.c parsing/expend/*c parsing/free/*c \
 		parsing/list_cmd/*c parsing/list_token/*c parsing/utils.c \
 		parsing/check_quote/*c main.c \

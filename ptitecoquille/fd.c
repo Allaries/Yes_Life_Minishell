@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/14 05:06:28 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 21:21:12 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-static char *ft_realloc_gnl(char *old, char c, int len)
+static char	*ft_realloc_gnl(char *old, char c, int len)
 {
-	char    *new;
-	int     i;
+	char	*new;
+	int		i;
 
 	new = malloc(len + 2);
 	if (!new)
@@ -35,12 +35,12 @@ static char *ft_realloc_gnl(char *old, char c, int len)
 	return (new);
 }
 
-char    *get_next_line_omega(int fd)
+char	*get_next_line_omega(int fd)
 {
-	char    *line;
-	char    buf;
-	int     r;
-	int     len;
+	char	*line;
+	char	buf;
+	int		r;
+	int		len;
 
 	line = NULL;
 	len = 0;
@@ -62,12 +62,13 @@ char    *get_next_line_omega(int fd)
 	return (NULL);
 }
 
-
 int	here_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (0);
 	while (i < n && s1[i] && s2[i] && s1[i] != '\n')
 	{
 		if (s1[i] != s2[i])
@@ -83,33 +84,34 @@ int	here_strncmp(const char *s1, const char *s2, size_t n)
 
 void	heredoc_child(t_data *data, char *delimiter, int *pipefd)
 {
-	char *line;
-	
+	char	*line;
+
+	line = "inoxtag";
 	g_sig_status = 1;
 	change_signal(data);
-	while ((line = get_next_line_omega(STDIN_FILENO)))
+	while (line)
 	{
+		line = get_next_line_omega(STDIN_FILENO);
 		if (here_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		write(pipefd[1], line, strlen(line));
 		free(line);
-		line = NULL;
 	}
 	if (!line)
-		write(1, "\nwarning: here-document delimited by end-of-file (wanted `EOF')\n", 65);
+		write(1, "\nwarning: delimited by end-of-file (wanted `EOF')\n", 51);
 	close(pipefd[0]);
 	close(pipefd[1]);
 	thanos_snap_process(data);
 	exit(0);
 }
 
-int heredoc_init(t_data *data, char *delimiter)
+int	heredoc_init(t_data *data, char *delimiter)
 {
-	int pipefd[2];
-	int status;
+	int	pipefd[2];
+	int	status;
 
 	pipe(pipefd);
 	data->pid = fork();
@@ -123,13 +125,12 @@ int heredoc_init(t_data *data, char *delimiter)
 		write(1, "\n", 1);
 		data->exit_code = 130;
 		close(pipefd[0]);
-   		close(pipefd[1]);
+		close(pipefd[1]);
 		return (-1);
 	}
 	close(pipefd[1]);
 	return (pipefd[0]);
 }
-
 
 int	append_init(char *rname)
 {
@@ -161,12 +162,14 @@ int	outfile_init(char *rname)
 	return (fdred);
 }
 
-int get_infd(t_redir *filelist)
+int	get_infd(t_redir *filelist)
 {
-	t_redir *temp = filelist;
-	int fd = -1;
-	int tmp;
+	t_redir	*temp;
+	int		fd;
+	int		tmp;
 
+	fd = -1;
+	temp = filelist;
 	while (temp)
 	{
 		if (temp->type == HEREDOC_F)
@@ -176,7 +179,7 @@ int get_infd(t_redir *filelist)
 		else
 		{
 			temp = temp->next;
-			continue;
+			continue ;
 		}
 		if (tmp < 0)
 			return (-1);
@@ -190,22 +193,23 @@ int get_infd(t_redir *filelist)
 	return (fd);
 }
 
-int get_outfd(t_redir *filelist)
+int	get_outfd(t_redir *filelist)
 {
-	t_redir *temp = filelist;
-	int fd = -1;
-	int tmp;
+	t_redir	*temp;
+	int		fd;
+	int		tmp;
 
+	fd = -1;
+	temp = filelist;
 	while (temp)
 	{
 		if (temp->type == OUTFILE)
 			tmp = outfile_init(temp->name);
 		else if (temp->type == APPEND_F)
 			tmp = append_init(temp->name);
-		else
-		{
+		else {
 			temp = temp->next;
-			continue;
+			continue ;
 		}
 		if (tmp < 0)
 			return (-1);
@@ -221,8 +225,8 @@ int get_outfd(t_redir *filelist)
 
 int	first_h_init(t_data *data, t_cmd **cmd)
 {
-	t_cmd *tmp;
-	t_redir *redir;
+	t_cmd	*tmp;
+	t_redir	*redir;
 
 	tmp = *cmd;
 	while (tmp)
@@ -257,7 +261,7 @@ int	get_fd(t_cmd *cmd)
 	{
 		if (cmd->infd != -1 && cmd->infd != 0)
 			close (cmd->infd);
-		if (cmd->outfd != -1 && cmd->outfd != 1)	
+		if (cmd->outfd != -1 && cmd->outfd != 1)
 			close (cmd->outfd);
 		return (0);
 	}

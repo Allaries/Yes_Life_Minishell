@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/21 16:30:22 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 22:05:48 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,3 @@ int	def_path(t_data *data, t_cmd *cmd)
 	find_path(cmd, path);
 	return (1);
 }
-
-

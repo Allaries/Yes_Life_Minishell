@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:36 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/12 19:03:04 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 22:04:50 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	bi_pwd(t_cmd *cmd)
 {
 	char	*pwd;
-	
+
 	pwd = getcwd(NULL, 0);
 	if (!pwd || pwd == NULL)
 	{

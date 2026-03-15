@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:16:03 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 04:37:22 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 22:04:32 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**dupe_env(char **envp)
 		new_env[0] = NULL;
 		return (new_env);
 	}
-	while(envp[i])
+	while (envp[i])
 		i++;
 	new_env = ft_calloc((i + 1) * sizeof(char *), 1);
 	if (!new_env)

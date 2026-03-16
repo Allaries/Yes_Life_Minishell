@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/16 17:52:46 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/16 23:18:26 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void		check_bi(t_cmd *cmd);
 //built-in
 /////////////////////////////////////////////////////
 
-void		bi_exit(t_data *data);
+void		bi_exit(t_data *data, t_cmd *cmd);
 void		bi_env(t_data *data, t_cmd *cmd);
 int			bi_cd(char **cmd, char **envp);
 int			bi_pwd(t_cmd *cmd);
@@ -154,7 +154,7 @@ void		free_cmd_struct(t_cmd **cmd);
 
 //signaux
 ///////////////////////////////////////////////////////////
-void		change_signal(t_data *data);
+void		change_signal(t_data *data, int type);
 
 
 #endif

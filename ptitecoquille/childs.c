@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/15 22:13:25 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/16 23:19:19 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,16 @@ void	wait_cmd(t_data *data, t_cmd *cmd)
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 		{
 			if (good == 0)
-			{
 				write(1, "\n", 1);
-				good++;
-			}
+			good++;
 			data->exit_code = 130;
+		}
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+		{
+			if (good == 0)
+				write(1, "Core dumped\n", 1);
+			good++;
+			data->exit_code = 131;
 		}
 	}
 }
@@ -128,15 +133,15 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	cmd->pid = fork();
 	if (cmd->pid != 0)
 		return (1);
-	g_sig_status = 2;
-	change_signal(data);
+	change_signal(data, 2);
 	if (def_path(data, cmd) == 0)
 		cmd->path = NULL;
 	if (cmd->built_in != 0)
 	{
+		cmd->poubelle = i;
 		dup2_child_hack(data, cmd, i);
-		close_all(data, cmd, i);
 		exec_single_bi(cmd->built_in, data, cmd);
+		close_all(data, cmd, i);
 		thanos_snap_process(data);
 		exit(data->exit_code);
 	}
@@ -208,8 +213,7 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 	here_cmd = *cmd;
 	if (!first_h_init(data, cmd))
 		return(free_cmd_struct(data->cmd), 1);
-	g_sig_status = 3;
-	change_signal(data);
+	change_signal(data, 3);
 	if (here_cmd->next == NULL)
 		return (one_cmd(data, here_cmd), 1);
 	here_cmd->single_one = 0;

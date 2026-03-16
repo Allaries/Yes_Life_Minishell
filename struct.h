@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/18 23:13:50 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/16 23:16:21 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct t_cmd
 	char			**args;
 	t_redir			*redirs;
 	char			*path;
+	int				poubelle;
 	int				infd;
 	int				outfd;
 	int				pid;

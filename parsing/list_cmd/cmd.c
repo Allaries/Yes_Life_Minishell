@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:33:17 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/16 05:38:46 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/16 23:19:39 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_cmd	*create_cmd(t_token *tok_list)
 	cmd->outfd = 1;
 	cmd->pid = 0;
 	cmd->built_in = 0;
+	cmd->poubelle = -1;
 	cmd->next = NULL;
 	return (cmd);
 }

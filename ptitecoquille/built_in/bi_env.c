@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:15:46 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/15 22:02:42 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/16 18:55:02 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	bi_env(t_data *data, t_cmd *cmd)
 	i = 0;
 	while (data->envp[i])
 	{
-		write(cmd->infd, data->envp[i], ft_strlen(data->envp[i]));
-		write(cmd->infd, "\n", 1);
+		write(cmd->outfd, data->envp[i], ft_strlen(data->envp[i]));
+		write(cmd->outfd, "\n", 1);
 		i++;
 	}
 	return ;

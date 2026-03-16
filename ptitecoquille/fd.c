@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/15 21:21:12 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:13:06 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,27 +85,34 @@ int	here_strncmp(const char *s1, const char *s2, size_t n)
 void	heredoc_child(t_data *data, char *delimiter, int *pipefd)
 {
 	char	*line;
+	int		i;
 
-	line = "inoxtag";
-	g_sig_status = 1;
-	change_signal(data);
-	while (line)
+	i = 0;
+	change_signal(data, 1);
+	while (1)
 	{
-		line = get_next_line_omega(STDIN_FILENO);
-		if (here_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
-		{
-			free(line);
+		line = readline("> ");
+		if (!line)
 			break ;
-		}
+		if (here_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+			break ;
 		write(pipefd[1], line, strlen(line));
+		write(pipefd[1], "\n", 1);
 		free(line);
 	}
-	if (!line)
-		write(1, "\nwarning: delimited by end-of-file (wanted `EOF')\n", 51);
+	if (!line || line[0] == '\0')
+	{
+		if (g_sig_status == SIGINT)
+			i = 130;
+		else
+			write(1, "warning: delimited by end-of-file (wanted `EOF')\n", 50);
+	}
+	if (line)
+		free(line);
 	close(pipefd[0]);
 	close(pipefd[1]);
 	thanos_snap_process(data);
-	exit(0);
+	exit(i);
 }
 
 int	heredoc_init(t_data *data, char *delimiter)
@@ -115,14 +122,13 @@ int	heredoc_init(t_data *data, char *delimiter)
 
 	pipe(pipefd);
 	data->pid = fork();
-	g_sig_status = 3;
-	change_signal(data);
+	change_signal(data, 3);
 	if (data->pid == 0)
 		heredoc_child(data, delimiter, pipefd);
 	waitpid(data->pid, &status, 0);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 	{
-		write(1, "\n", 1);
+		g_sig_status = 0;
 		data->exit_code = 130;
 		close(pipefd[0]);
 		close(pipefd[1]);

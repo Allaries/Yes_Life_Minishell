@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/16 17:53:01 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/16 18:00:35 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_realloc(void *ptr, size_t new_size)
 		return (NULL);
 	src = ptr;
 	i = 0;
-	while (i < new_size)
+	while (src[i])
 	{
 		new_ptr[i] = src[i];
 		i++;

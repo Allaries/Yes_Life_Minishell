@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:49:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/15 22:05:12 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:46:50 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**export_new_var(char **envp, char *export)
 	i = 0;
 	while (envp[i])
 		i++;
-	new_env = ft_calloc(sizeof(char *) * (i + 2), 1);
+	new_env = ft_calloc(sizeof(char *) * (i + 3), 1);
 	if (!new_env)
 		return (printf("malloc error\n"), envp);
 	i = 0;
@@ -44,7 +44,7 @@ void	export_one(t_data *data, char *export)
 	while (data->envp[i])
 	{	
 		j = 0;
-		while (data->envp[i][j] != '=')
+		while (data->envp[i][j] != '=' && data->envp[i][j])
 			j++;
 		if (strncmp(export, data->envp[i], j + 1) == 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/16 17:52:37 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/16 21:56:03 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,23 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_data	data;
-	int i = 2;
 
+	(void)argc;
+	(void)argv;
 	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
 		exit (0);
-	
-	if (argc && argv) // Pour aucun warning
-		argc = 1;
 	data.envp = dupe_env(envp);
 	data.exit_code = 0;
-	change_signal(&data);
-	while (i)
+	change_signal(&data, 0);
+	while (1)
 	{
-		g_sig_status = 0;
-		change_signal(&data);
+		change_signal(&data, 0);
 		input = readline("mini-0.7.10$ ");
 		if (!input) //Ctrl-D
 		{
 			free_tab(data.envp);
 			printf("exit\n");
-			return (1);
+			exit(data.exit_code);
 		}
 		if (input && *input)
 			add_history(input);
@@ -46,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 		input = NULL;
 	}
 	free_tab(data.envp);
-	return (0);
+	exit(data.exit_code);
 }
 
 // to compile : valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell

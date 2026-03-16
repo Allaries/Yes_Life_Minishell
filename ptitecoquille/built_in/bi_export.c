@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:49:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/07 04:21:12 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 22:05:12 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,27 @@ int	check_export_arg(char *arg)
 		i++;
 	}
 	return (0);
-} 
+}
 
-void	bi_export(t_data *data, t_cmd *cmd)
+int	bi_export(t_data *data, t_cmd *cmd)
 {
 	int	i;
+	int	error;
 
+	error = 0;
 	i = 0;
 	while (cmd->args[++i])
 	{
 		if (check_export_arg(cmd->args[i]) == 1)
+		{
 			printf("export: `%s': not a valid identifier", cmd->args[i]);
+			if (error == 0)
+				error++;
+		}
 		else
 			export_one(data, cmd->args[i]);
 	}
 	if (i == 1)
 		bi_env(data, cmd);
+	return (error);
 }

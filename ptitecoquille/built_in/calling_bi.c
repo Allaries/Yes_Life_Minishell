@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/21 21:36:36 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 22:06:05 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 void	exec_single_bi(int mod, t_data *data, t_cmd *cmd)
 {
+	data->exit_code = 0;
 	if (mod == 1)
 		bi_echo(cmd);
 	if (mod == 2)
 		data->exit_code = bi_cd(cmd->args, data->envp);
 	if (mod == 3)
-		bi_pwd(cmd);
+		data->exit_code = bi_pwd(cmd);
 	if (mod == 4)
-		bi_export(data, cmd);
+		data->exit_code = bi_export(data, cmd);
 	if (mod == 5)
-		bi_unset(data, cmd);
+		data->exit_code = bi_unset(data, cmd);
 	if (mod == 6)
-		bi_exit(data, cmd);
+		bi_exit(data);
 	if (mod == 7)
 		bi_env(data, cmd);
 	return ;

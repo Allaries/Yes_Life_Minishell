@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/25 23:30:15 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 21:21:12 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,59 +15,60 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-static char *ft_realloc_gnl(char *old, char c, int len)
+static char	*ft_realloc_gnl(char *old, char c, int len)
 {
-    char    *new;
-    int     i;
+	char	*new;
+	int		i;
 
-    new = malloc(len + 2);
-    if (!new)
-        return (NULL);
-    i = 0;
-    while (i < len)
-    {
-        new[i] = old[i];
-        i++;
-    }
-    new[len] = c;
-    new[len + 1] = '\0';
-    free(old);
-    return (new);
+	new = malloc(len + 2);
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		new[i] = old[i];
+		i++;
+	}
+	new[len] = c;
+	new[len + 1] = '\0';
+	free(old);
+	return (new);
 }
 
-char    *get_next_line_omega(int fd)
+char	*get_next_line_omega(int fd)
 {
-    char    *line;
-    char    buf;
-    int     r;
-    int     len;
+	char	*line;
+	char	buf;
+	int		r;
+	int		len;
 
-    line = NULL;
-    len = 0;
+	line = NULL;
+	len = 0;
 	write (0, "> ", 2);
-    r = read(fd, &buf, 1);
-    while (r > 0)
-    {
-        line = ft_realloc_gnl(line, buf, len);
-        if (!line)
-            return (NULL);
-        len++;
-        if (buf == '\n')
-            return (line);
-        r = read(fd, &buf, 1);
-    }
-    if (len > 0)
-        return (line);
-    free(line);
-    return (NULL);
+	r = read(fd, &buf, 1);
+	while (r > 0)
+	{
+		line = ft_realloc_gnl(line, buf, len);
+		if (!line)
+			return (NULL);
+		len++;
+		if (buf == '\n')
+			return (line);
+		r = read(fd, &buf, 1);
+	}
+	if (len > 0)
+		return (line);
+	free(line);
+	return (NULL);
 }
-
 
 int	here_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (0);
 	while (i < n && s1[i] && s2[i] && s1[i] != '\n')
 	{
 		if (s1[i] != s2[i])
@@ -81,28 +82,55 @@ int	here_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-int heredoc_init(char *delimiter)
+void	heredoc_child(t_data *data, char *delimiter, int *pipefd)
 {
-	int pipefd[2];
-	char *line;
+	char	*line;
 
-	pipe(pipefd);
-
-	while ((line = get_next_line_omega(STDIN_FILENO)))
+	line = "inoxtag";
+	g_sig_status = 1;
+	change_signal(data);
+	while (line)
 	{
+		line = get_next_line_omega(STDIN_FILENO);
 		if (here_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		write(pipefd[1], line, strlen(line));
 		free(line);
-		line = NULL;
 	}
+	if (!line)
+		write(1, "\nwarning: delimited by end-of-file (wanted `EOF')\n", 51);
+	close(pipefd[0]);
 	close(pipefd[1]);
-	return pipefd[0];
+	thanos_snap_process(data);
+	exit(0);
 }
 
+int	heredoc_init(t_data *data, char *delimiter)
+{
+	int	pipefd[2];
+	int	status;
+
+	pipe(pipefd);
+	data->pid = fork();
+	g_sig_status = 3;
+	change_signal(data);
+	if (data->pid == 0)
+		heredoc_child(data, delimiter, pipefd);
+	waitpid(data->pid, &status, 0);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	{
+		write(1, "\n", 1);
+		data->exit_code = 130;
+		close(pipefd[0]);
+		close(pipefd[1]);
+		return (-1);
+	}
+	close(pipefd[1]);
+	return (pipefd[0]);
+}
 
 int	append_init(char *rname)
 {
@@ -134,68 +162,71 @@ int	outfile_init(char *rname)
 	return (fdred);
 }
 
-int get_infd(t_redir *filelist)
+int	get_infd(t_redir *filelist)
 {
-    t_redir *temp = filelist;
-    int fd = -1;
-    int tmp;
+	t_redir	*temp;
+	int		fd;
+	int		tmp;
 
-    while (temp)
-    {
-        if (temp->type == HEREDOC_F)
-            tmp = temp->fd;
-        else if (temp->type == INFILE)
-            tmp = infile_init(temp->name);
-        else
-        {
-            temp = temp->next;
-            continue;
-        }
-        if (tmp < 0)
-            return (-1);
-        if (fd >= 0 && fd != tmp)
-            close(fd);
-        fd = tmp;
-        temp = temp->next;
-    }
+	fd = -1;
+	temp = filelist;
+	while (temp)
+	{
+		if (temp->type == HEREDOC_F)
+			tmp = temp->fd;
+		else if (temp->type == INFILE)
+			tmp = infile_init(temp->name);
+		else
+		{
+			temp = temp->next;
+			continue ;
+		}
+		if (tmp < 0)
+			return (-1);
+		if (fd >= 0 && fd != tmp)
+			close(fd);
+		fd = tmp;
+		temp = temp->next;
+	}
 	if (fd == -1)
 		return (0);
-    return (fd);
+	return (fd);
 }
 
-int get_outfd(t_redir *filelist)
+int	get_outfd(t_redir *filelist)
 {
-    t_redir *temp = filelist;
-    int fd = -1;
-    int tmp;
+	t_redir	*temp;
+	int		fd;
+	int		tmp;
 
-    while (temp)
-    {
-        if (temp->type == OUTFILE)
+	fd = -1;
+	temp = filelist;
+	while (temp)
+	{
+		if (temp->type == OUTFILE)
 			tmp = outfile_init(temp->name);
 		else if (temp->type == APPEND_F)
 			tmp = append_init(temp->name);
-        else
-        {
-            temp = temp->next;
-            continue;
-        }
-        if (tmp < 0)
-            return (-1);
-        if (fd >= 0 && fd != tmp)
-            close(fd);
-        fd = tmp;
-        temp = temp->next;
-    }
+		else {
+			temp = temp->next;
+			continue ;
+		}
+		if (tmp < 0)
+			return (-1);
+		if (fd >= 0 && fd != tmp)
+			close(fd);
+		fd = tmp;
+		temp = temp->next;
+	}
 	if (fd == -1)
 		return (1);
-    return (fd);
+	return (fd);
 }
 
-int	first_h_init(t_cmd **cmd)
+int	first_h_init(t_data *data, t_cmd **cmd)
 {
-	t_cmd *tmp;
-	t_redir *redir;
+	t_cmd	*tmp;
+	t_redir	*redir;
 
 	tmp = *cmd;
 	while (tmp)
@@ -204,26 +235,17 @@ int	first_h_init(t_cmd **cmd)
 		while (redir)
 		{
 			if (redir->type == HEREDOC_F)
-				redir->fd = heredoc_init(redir->name);
+			{
+				redir->fd = heredoc_init(data, redir->name);
+				if (redir->fd == -1)
+					return (0);
+			}
 			redir = redir->next;
 		}
 		tmp = tmp->next;
 	}
-	return (0);
+	return (1);
 }
-
-// void	close_useless(int infd, int outfd, t_redir *redir)
-// {
-// 	t_redir	*tmp;
-
-// 	tmp = redir;
-// 	while (tmp)
-// 	{
-// 		if (tmp->fd != -1 && tmp->fd != infd && tmp->fd != outfd && tmp->fd != 0 && tmp->fd != 1)
-// 			close (tmp->fd);
-// 		tmp = tmp->next;
-// 	}
-// }
 
 int	get_fd(t_cmd *cmd)
 {
@@ -239,7 +261,7 @@ int	get_fd(t_cmd *cmd)
 	{
 		if (cmd->infd != -1 && cmd->infd != 0)
 			close (cmd->infd);
-		if (cmd->outfd != -1 && cmd->outfd != 1)	
+		if (cmd->outfd != -1 && cmd->outfd != 1)
 			close (cmd->outfd);
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:36 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/21 16:54:40 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 22:04:50 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	bi_pwd(t_cmd *cmd)
 {
 	char	*pwd;
-	
+
 	pwd = getcwd(NULL, 0);
 	if (!pwd || pwd == NULL)
 	{
@@ -53,6 +53,7 @@ void	bi_echo(t_cmd *cmd)
 	int	n;
 
 	i = 1;
+	n = 0;
 	if (cmd->args[1])
 		n = echo_flag_test(cmd->args[i]);
 	if (n == 1)

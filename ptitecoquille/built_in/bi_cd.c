@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/25 23:22:44 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 22:03:56 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ char	*cut_path(char *unc_path)
 char	*gethome(char **envp)
 {
 	int	i;
-	
+
 	i = -1;
-	while(envp[++i])
+	while (envp[++i])
 	{
-		if(strncmp(envp[i], "HOME=", 5) == 0)
+		if (strncmp(envp[i], "HOME=", 5) == 0)
 			return (ft_strchr(envp[i], '/'));
 	}
 	return (NULL);
@@ -41,7 +41,7 @@ char	*gethome(char **envp)
 
 int	chdir_nopwd(char **cmd, int mod, char **envp)
 {
-	char *path;
+	char	*path;
 
 	if (mod == 0)
 	{
@@ -58,7 +58,7 @@ int	chdir_nopwd(char **cmd, int mod, char **envp)
 		if (chdir(path) != 0)
 		{
 			print_stderr(cmd[1], 2);
-			return (1);	
+			return (1);
 		}
 		return (0);
 	}
@@ -69,7 +69,7 @@ int	chdir_pwd(char **cmd, int mod)
 {
 	char	*pwd;
 	char	*path;
-	
+
 	if (mod == 1)
 	{
 		chdir("..");
@@ -90,13 +90,10 @@ int	chdir_pwd(char **cmd, int mod)
 	return (0);
 }
 
-
 int	bi_cd(char **cmd, char **envp)
 {
-	int		i;
-	char	*pwd;
-	char	*path;
-	
+	int	i;
+
 	i = 0;
 	while (cmd[i])
 		i++;

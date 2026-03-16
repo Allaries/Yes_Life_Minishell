@@ -6,11 +6,34 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/25 23:20:59 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 22:13:25 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	wait_cmd(t_data *data, t_cmd *cmd)
+{
+	int		status;
+	int		good;
+
+	good = 0;
+	while (cmd)
+	{
+		waitpid(cmd->pid, &status, 0);
+		data->exit_code = WEXITSTATUS(status);
+		cmd = cmd ->next;
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			if (good == 0)
+			{
+				write(1, "\n", 1);
+				good++;
+			}
+			data->exit_code = 130;
+		}
+	}
+}
 
 int	close_all(t_data *data, t_cmd *cmd, int i)
 {
@@ -105,8 +128,8 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	cmd->pid = fork();
 	if (cmd->pid != 0)
 		return (1);
-	data->sa.sa_handler = SIG_DFL;
-	sigaction(SIGINT, &data->sa, NULL);
+	g_sig_status = 2;
+	change_signal(data);
 	if (def_path(data, cmd) == 0)
 		cmd->path = NULL;
 	if (cmd->built_in != 0)
@@ -115,7 +138,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 		close_all(data, cmd, i);
 		exec_single_bi(cmd->built_in, data, cmd);
 		thanos_snap_process(data);
-		exit(0);
+		exit(data->exit_code);
 	}
 	if (cmd->path == NULL)
 	{
@@ -137,69 +160,68 @@ void	adv_pipe(t_data *data)
 	data->oldpipe[1] = data->newpipe[1];
 }
 
-void	exec_only_one(t_cmd *cmd, t_data *data)
+int	one_cmd(t_data *data, t_cmd *cmd)
 {
-	int	status;
-	
+	cmd->single_one = 1;
+	if (get_fd(cmd) == 0)
+		return (free_cmd_struct(data->cmd), 0);
+	if (!cmd->args)
+		return (free_cmd_struct(data->cmd), 1);
+	check_bi(cmd);
 	if (cmd->built_in != 0)
-		exec_single_bi(cmd->built_in, data, cmd);
+	exec_single_bi(cmd->built_in, data, cmd);
 	else
 	{
 		execute_child(data, cmd, 0);
-		waitpid(cmd->pid, &status, 0);
-		data->exit_code = WEXITSTATUS(status);
+		wait_cmd(data, cmd);
 	}
 	free_cmd_struct(data->cmd);
-	return ;
+	return (1);
+}
+
+int	pipeline(t_data *data, t_cmd *cmd, int i)
+{
+	cmd->single_one = 0;
+	if (get_fd(cmd) == 0)
+		return (free_cmd_struct(data->cmd), -1);
+	if (cmd->args == NULL)
+	{
+		cmd->single_one = 1;
+		free_cmd_struct(data->cmd);
+		return (-1);
+	}
+	check_bi(cmd);
+	if (cmd->next != NULL)
+		pipe(data->newpipe);
+	execute_child(data, cmd, i);
+	close_daddy_prime(data, cmd, i);
+	adv_pipe(data);
+	return (1);
 }
 
 int	exec_pipex(t_data *data, t_cmd **cmd)
 {
 	int		i;
-	int		status;
 	t_cmd	*here_cmd;
 
 	i = 0;
 	here_cmd = *cmd;
-	first_h_init(cmd);
+	if (!first_h_init(data, cmd))
+		return(free_cmd_struct(data->cmd), 1);
+	g_sig_status = 3;
+	change_signal(data);
 	if (here_cmd->next == NULL)
-	{
-		here_cmd->single_one = 1;
-		if (get_fd(here_cmd) == 0)
-			return (free_cmd_struct(data->cmd), 0);
-		if (!here_cmd->args)
-			return (free_cmd_struct(data->cmd), 1);
-		check_bi(here_cmd);
-		exec_only_one(here_cmd, data);
-		return (1);
-	}
+		return (one_cmd(data, here_cmd), 1);
 	here_cmd->single_one = 0;
 	while (here_cmd)
 	{
-		here_cmd->single_one = 0;
-		get_fd(here_cmd);
-		if (here_cmd->args == NULL)
-		{
-			here_cmd->single_one = 1;
-			free_cmd_struct(data->cmd);
-			return (1);
-		}
-		check_bi(here_cmd);
-		if (here_cmd->next != NULL)
-			pipe(data->newpipe);
-		execute_child(data, here_cmd, i);
-		close_daddy_prime(data, here_cmd, i);
-		adv_pipe(data);
+		if (pipeline(data, here_cmd, i) == -1)
+			return (0);
 		here_cmd = here_cmd->next;
 		i++;
 	}
 	here_cmd = *cmd;
-	while (here_cmd)
-	{
-		waitpid(here_cmd->pid, &status, 0);
-		data->exit_code = WEXITSTATUS(status);
-		here_cmd = here_cmd ->next;
-	}
+	wait_cmd(data, here_cmd);
 	free_cmd_struct(data->cmd);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/10 18:51:48 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 22:04:21 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	free_cmd_struct(t_cmd **cmd)
 	if (cmd == NULL)
 		return ;
 	temp = *cmd;
-	while(temp)
+	while (temp)
 	{
 		temp_next = temp->next;
 		if (temp->infd != 0 && temp->infd != -1)

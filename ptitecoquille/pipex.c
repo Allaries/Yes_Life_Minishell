@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/02/21 16:30:22 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/15 22:05:48 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,9 @@ int	def_path(t_data *data, t_cmd *cmd)
 
 	i = 0;
 	if (abs_path_check(cmd->args[0]) == 1)
-	{
-		cmd->path = ft_strdup(cmd->args[0]);
+		return (cmd->path = ft_strdup(cmd->args[0]), 1);
+	if (!data->envp)
 		return (1);
-	}
 	while (data->envp[i] && ft_strncmp(data->envp[i], "PATH=", 5) != 0)
 		i++;
 	if (!data->envp[i])
@@ -98,20 +97,3 @@ int	def_path(t_data *data, t_cmd *cmd)
 	find_path(cmd, path);
 	return (1);
 }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	t_data	*data;
-
-// 	if (check_argv(argc, argv, envp) == 0)
-// 		return (error(1), 0);
-// 	data = ft_calloc(sizeof(t_data), 1);
-// 	check_nb_cmd(data, argv, argc);
-// 	if (!data)
-// 		return (0);
-// 	data->envp = envp;
-// 	if (check_fd(argv, data) == 0)
-// 		return (free_struct(data), 0);
-// 	exec_pipex(argv, data);
-// 	free_struct(data);
-// }

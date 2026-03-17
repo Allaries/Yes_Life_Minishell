@@ -43,7 +43,6 @@ int	is_pair(char *input)
 int	find_second_quote(char *input, char q, int *i)
 {
 	int find;
-	int backslash;
 
 	find = 0;
 	(*i)++;

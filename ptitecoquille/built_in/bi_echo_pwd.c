@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_echo_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:36 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/16 22:54:05 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/17 19:26:17 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	bi_echo(t_cmd *cmd)
 
 	i = 1;
 	n = 0;
-	fprintf (stderr, "outfd : %d\n", cmd->outfd);
 	if (cmd->args[1])
 		n = echo_flag_test(cmd->args[i]);
 	if (n == 1)
@@ -62,7 +61,6 @@ void	bi_echo(t_cmd *cmd)
 	while (cmd->args[i])
 	{
 		write(cmd->outfd, cmd->args[i], ft_strlen(cmd->args[i]));
-		fprintf (stderr, "%s\n", cmd->args[i]);
 		i++;
 		if (cmd->args[i])
 			write(cmd->outfd, " ", 1);

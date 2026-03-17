@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/13 06:30:34 by marvin           ###   ########.fr       */
+/*   Updated: 2026/03/17 19:23:29 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,13 @@ int	parse_word(char *input, t_data *data, t_word **word, int *i)
 {
 	char	c;
 
-	c = 0;
 	while (skip_quote(input, *word, i) && continue_word(input, *word, i))
 	{
 		c = input[*i];
 		if (c == '$' && !(*word)->in_squote)
 		{
 			if (!expend_in_word(input, data, *word, i))
-				return(0);
+				return (0);
 			continue;
 		}
 		if (!add_char_in_word(*word, c))

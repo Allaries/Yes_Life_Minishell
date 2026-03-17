@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:49:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/16 22:46:50 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:52:57 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	export_one(t_data *data, char *export)
 
 	i = 0;
 	while (data->envp[i])
-	{	
+	{
 		j = 0;
 		while (data->envp[i][j] != '=' && data->envp[i][j])
 			j++;
@@ -85,7 +85,7 @@ int	bi_export(t_data *data, t_cmd *cmd)
 	{
 		if (check_export_arg(cmd->args[i]) == 1)
 		{
-			printf("export: `%s': not a valid identifier", cmd->args[i]);
+			printf("export: `%s': not a valid identifier\n", cmd->args[i]);
 			if (error == 0)
 				error++;
 		}

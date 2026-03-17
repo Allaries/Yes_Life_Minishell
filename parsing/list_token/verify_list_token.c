@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_list_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 10:32:15 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/07 17:22:51 by marvin           ###   ########.fr       */
+/*   Updated: 2026/03/17 18:52:10 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ int	is_good_pipe(t_token *tok)
 {
 	if ((tok->type_tok) == PIPE)
 	{
-		printf("Syntax error: the command starts with a pipe");
+		printf("Syntax error: the command starts with a pipe\n");
 		return (0);
-	}	
+	}
 	while (tok->next)
 	{
 		if (tok->type_tok == PIPE && tok->next->type_tok == PIPE)
 		{
-			printf("Syntax error: consecutive pipes");
+			printf("Syntax error: consecutive pipes\n");
 			return (0);
 		}
 		tok = tok->next;
 	}
 	if ((tok->type_tok) == PIPE)
 	{
-		printf("Syntax error: the command ends with a pipe");
+		printf("Syntax error: the command ends with a pipe\n");
 		return (0);
 	}
 	return (1);
@@ -63,9 +63,9 @@ int	is_there_file(t_token *tok)
 		{
 			if (!tok->next || tok->next->type_tok != ARG)
 			{
-				printf("Syntax error: expected a file but none was given");
+				printf("Syntax error: expected a file but none was given\n");
 				return (0);
-			}	
+			}
 		}
 		tok = tok->next;
 	}

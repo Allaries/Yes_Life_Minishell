@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:54:58 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/16 05:37:07 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:40:18 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	fill_args(char ***args, t_token *tok_list)
 
 	i = 0;
 	len = argslen(tok_list);
-	if (!len) // au cas ou aucun ARG donc args = NULL
+	if (!len)
 		return (1);
 	*args = ft_calloc(sizeof(char *) * (len + 1), 1);
 	if (!*args)

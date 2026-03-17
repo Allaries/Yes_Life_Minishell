@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/16 23:17:48 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/17 23:15:22 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	exec_single_bi(int mod, t_data *data, t_cmd *cmd)
 
 void	check_bi(t_cmd *cmd)
 {
+	if (!cmd->args)
+		return ;
 	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
 		cmd->built_in = 1;
 	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)

@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/15 22:04:21 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/17 23:32:06 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	free_cmd_struct(t_cmd **cmd)
 			close(temp->infd);
 		if (temp->outfd != 1 && temp->outfd != -1)
 			close(temp->outfd);
-		free_tab(temp->args);
+		if (temp->args)
+			free_tab(temp->args);
 		free_file(temp->redirs);
 		if (temp->path)
 			free(temp->path);

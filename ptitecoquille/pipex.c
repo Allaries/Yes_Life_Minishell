@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/15 22:05:48 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/17 23:29:06 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	def_path(t_data *data, t_cmd *cmd)
 	char	*temp;
 
 	i = 0;
+	if (!cmd->args)
+		return (cmd->poubelle = 1, 0);
 	if (abs_path_check(cmd->args[0]) == 1)
 		return (cmd->path = ft_strdup(cmd->args[0]), 1);
 	if (!data->envp)

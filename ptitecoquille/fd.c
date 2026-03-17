@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/16 22:13:06 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/17 22:51:15 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	heredoc_child(t_data *data, char *delimiter, int *pipefd)
 
 	i = 0;
 	change_signal(data, 1);
-	while (1)
+	while (g_sig_status != SIGINT)
 	{
 		line = readline("> ");
 		if (!line)
@@ -100,7 +100,7 @@ void	heredoc_child(t_data *data, char *delimiter, int *pipefd)
 		write(pipefd[1], "\n", 1);
 		free(line);
 	}
-	if (!line || line[0] == '\0')
+	if (!line)
 	{
 		if (g_sig_status == SIGINT)
 			i = 130;
@@ -144,7 +144,7 @@ int	append_init(char *rname)
 
 	fdred = open(rname, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fdred == -1)
-		printf("No such file or directory : %s\n", rname);
+		perror("open ");
 	return (fdred);
 }
 
@@ -154,7 +154,7 @@ int	infile_init(char *rname)
 
 	fdred = open(rname, O_RDONLY);
 	if (fdred == -1)
-		printf("No such file or directory : %s\n", rname);
+		perror("open ");
 	return (fdred);
 }
 
@@ -164,7 +164,7 @@ int	outfile_init(char *rname)
 
 	fdred = open(rname, O_CREAT | O_TRUNC | O_WRONLY | O_APPEND, 0644);
 	if (fdred == -1)
-		printf("No such file or directory : %s\n", rname);
+		perror("open ");
 	return (fdred);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:54:58 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/17 18:40:18 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/17 23:33:26 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	fill_args(char ***args, t_token *tok_list)
 	{
 		if (tok_list->type_tok == ARG)
 		{
-
 			(*args)[i] = ft_strduplicate(tok_list->word);
 			if (!(*args)[i])
 				return (0);

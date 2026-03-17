@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   childs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/17 18:52:38 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/17 23:38:57 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	wait_cmd(t_data *data, t_cmd *cmd)
 			good++;
 			data->exit_code = 130;
 		}
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+		else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
 		{
 			if (good == 0)
 				write(1, "Core dumped\n", 1);
@@ -134,6 +134,12 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	if (cmd->pid != 0)
 		return (1);
 	change_signal(data, 2);
+	if (cmd->args == NULL)
+	{
+		close_all(data, cmd, i);
+		thanos_snap_process(data);
+		exit(127);
+	}
 	if (def_path(data, cmd) == 0)
 		cmd->path = NULL;
 	if (cmd->built_in != 0)
@@ -189,12 +195,6 @@ int	pipeline(t_data *data, t_cmd *cmd, int i)
 	cmd->single_one = 0;
 	if (get_fd(cmd) == 0)
 		return (free_cmd_struct(data->cmd), -1);
-	if (cmd->args == NULL)
-	{
-		cmd->single_one = 1;
-		free_cmd_struct(data->cmd);
-		return (-1);
-	}
 	check_bi(cmd);
 	if (cmd->next != NULL)
 		pipe(data->newpipe);

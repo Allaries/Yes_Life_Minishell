@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 22:48:06 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/16 21:45:30 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/17 22:56:09 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	sigint_handler_readline(int sig)
 {
 	(void)sig;
+	rl_done = 0;
 	g_sig_status = SIGINT;
 	write(1, "\n", 1);
 	rl_on_new_line();
@@ -24,11 +25,12 @@ static void	sigint_handler_readline(int sig)
 
 void	handler_heredoc(int sig)
 {
-	if (sig == SIGINT)
-	{
-		g_sig_status = SIGINT;
-		write(1, "\n", 1);
-	}
+	(void)sig;
+	g_sig_status = SIGINT;
+	write (1, "\n", 1);
+	close (0);
+	rl_replace_line("", 0);
+	rl_on_new_line();
 }
 
 void	set_term_signal(t_data *data)

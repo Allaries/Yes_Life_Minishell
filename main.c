@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/16 21:56:03 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:26:23 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	change_signal(&data, 0);
 	while (1)
 	{
+		g_sig_status = 0;
 		change_signal(&data, 0);
 		input = readline("mini-0.7.10$ ");
 		if (!input) //Ctrl-D

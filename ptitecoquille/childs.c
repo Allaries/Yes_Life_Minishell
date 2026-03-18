@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/17 23:38:57 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/18 22:11:45 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	change_signal(data, 2);
 	if (cmd->args == NULL)
 	{
+		close_other_here(data);
 		close_all(data, cmd, i);
 		thanos_snap_process(data);
 		exit(127);
@@ -147,12 +148,14 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 		cmd->poubelle = i;
 		dup2_child_hack(data, cmd, i);
 		exec_single_bi(cmd->built_in, data, cmd);
+		close_other_here(data);
 		close_all(data, cmd, i);
 		thanos_snap_process(data);
 		exit(data->exit_code);
 	}
 	if (cmd->path == NULL)
 	{
+		close_other_here(data);
 		print_stderr (cmd->args[0], 1);
 		close_all(data, cmd, i);
 		thanos_snap_process(data);
@@ -160,8 +163,10 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	}
 	dup2_child_hack(data, cmd, i);
 	close_all(data, cmd, i);
+	close_other_here(data);
 	if (execve(cmd->path, cmd->args, data->envp) == -1)
 		perror("Error ");
+	thanos_snap_process(data);
 	exit(127);
 }
 

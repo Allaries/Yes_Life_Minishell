@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 14:43:16 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/17 19:23:29 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/20 18:56:23 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	parse_word(char *input, t_data *data, t_word **word, int *i)
 		c = input[*i];
 		if (c == '$' && !(*word)->in_squote)
 		{
-			if (!expend_in_word(input, data, *word, i))
+			if (!expend_word(input, data, *word, i))
 				return (0);
-			continue;
+			continue ;
 		}
 		if (!add_char_in_word(*word, c))
 			return (0);
@@ -60,7 +60,7 @@ int	skip_quote(char *input, t_word *word, int *i)
 	q = which_quote_w(word);
 	if (char_is_a_quote(input, *i))
 	{
-		if (word->was_token) // Pour le cas token dans le mot et une quote juste apres, s'arreter :  <<" "  >>''""u
+		if (word->was_token)
 			return (0);
 		word->was_quote = 1;
 		if (!q)
@@ -70,7 +70,7 @@ int	skip_quote(char *input, t_word *word, int *i)
 		else
 			return (1);
 		if (char_is_a_quote(input, *i))
-			skip_quote(input, word, i); // Pour gerer les successions de mots vides : ""''""""a
+			skip_quote(input, word, i);
 	}
 	if (!input[*i])
 		return (0);
@@ -88,8 +88,8 @@ int	continue_word(char *input, t_word *word, int *i)
 	{
 		if (is_space(c))
 			return (0);
-		if (word->was_quote && char_is_a_token(c)) // Pour s'arreter a un mot vide, juste avant un token : ""<
-			return(0);
+		if (word->was_quote && char_is_a_token(c))
+			return (0);
 		if (is_tok(input, word, *i))
 			return (0);
 	}
@@ -104,7 +104,7 @@ int	is_tok(char *input, t_word *word, int i)
 	c = input[i];
 	if (!word->len)
 	{
-		if (char_is_a_token(c)) // Pour signaler un vrai token dans word
+		if (char_is_a_token(c))
 			word->was_token = 1;
 		return (0);
 	}

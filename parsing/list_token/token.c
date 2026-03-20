@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:57:03 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/13 03:00:44 by marvin           ###   ########.fr       */
+/*   Updated: 2026/03/20 18:55:40 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,7 @@ enum e_tok	which_type(char *buf, int was_quote)
 	return (ARG);
 }
 
-int char_is_a_token(char c)
+int	char_is_a_token(char c)
 {
 	return (c == '<' || c == '>' || c == '|');
 }
-

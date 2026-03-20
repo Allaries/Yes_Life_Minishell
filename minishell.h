@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/18 21:54:27 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/20 19:01:32 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ extern int	g_sig_status;
 // parsing
 int			parsing(char *input, t_data *data);
 // list_cmd
-int			build_list_cmd(t_cmd **cmd_list, t_token **tok_list);
+int			build_list_cmd(t_data *data, t_cmd **cmd_list, t_token **tok_list);
 int			fill_list_cmd(t_cmd	**cmd_list, t_token **tok_list);
 // list_token
 int			build_list_token(char *input, t_data *data, t_token **tok_list);
@@ -54,11 +54,10 @@ int			is_pair(char *input);
 int			find_second_quote(char *input, char q, int *i);
 ///////////////////////////////////////////////
 // expend
-int			expend_in_word(char *input, t_data *data, t_word *word, int *i);
+int			expend_word(char *input, t_data *data, t_word *word, int *i);
+int			add_expend_in_word(t_word *word, char *expend);
 int			special_question(t_data *data, t_word *word, int *i);
 char		*get_env(t_data *data, char *var);
-// expend_utils
-///////////////////////////////////////////////
 // verify_list_token
 int			verify_list_token(t_token **tok_list);
 int			is_good_pipe(t_token *tok);

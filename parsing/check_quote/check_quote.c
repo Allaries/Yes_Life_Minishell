@@ -42,7 +42,7 @@ int	is_pair(char *input)
 
 int	find_second_quote(char *input, char q, int *i)
 {
-	int find;
+	int	find;
 
 	find = 0;
 	(*i)++;
@@ -52,7 +52,7 @@ int	find_second_quote(char *input, char q, int *i)
 		{
 			find = 1;
 			(*i)++;
-			break;
+			break ;
 		}
 		(*i)++;
 	}

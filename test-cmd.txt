@@ -1,3 +1,5 @@
+// to compile : valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+
 // t_cmd	*tmp_c;
 // 	tmp_c = *data->cmd;
 // 	int y = 0;

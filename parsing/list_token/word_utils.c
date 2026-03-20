@@ -6,7 +6,7 @@
 /*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 13:19:56 by smedenec          #+#    #+#             */
-/*   Updated: 2026/02/18 04:17:22 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/20 18:56:04 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ int	realloc_word(t_word *word)
 	return (1);
 }
 
-int char_is_a_quote(char *input, int i)
+int	char_is_a_quote(char *input, int i)
 {
 	return (input[i] == '\'' || input[i] == '"');
 }
-
 
 void	toggle_quote_w(char *input, t_word *word, int *i)
 {

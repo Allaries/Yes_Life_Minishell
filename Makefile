@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -g3 #-fsanitize=address,undefined,signed-integer-overflow,null,leak,bounds -fno-omit-frame-pointer
+CFLAGS = -Wall -Wextra -g3 -fsanitize=address,undefined,signed-integer-overflow,null,leak,bounds -fno-omit-frame-pointer
 
 LDFLAGS = -lreadline -lhistory -lncurses
 NAME = minishell

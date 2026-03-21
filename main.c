@@ -6,13 +6,13 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 17:40:46 by smedenec          #+#    #+#             */
-/*   Updated: 2026/03/18 17:26:23 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/20 19:49:33 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int g_sig_status;
-
 #include "minishell.h"
+
+int	g_sig_status;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -21,8 +21,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
-		exit (0);
 	data.envp = dupe_env(envp);
 	data.exit_code = 0;
 	change_signal(&data, 0);
@@ -30,11 +28,13 @@ int	main(int argc, char **argv, char **envp)
 	{
 		g_sig_status = 0;
 		change_signal(&data, 0);
-		input = readline("mini-0.7.10$ ");
-		if (!input) //Ctrl-D
+		if (isatty(STDIN_FILENO))
+			input = readline("mini-0.7.10$ ");
+		else
+			input = readline("");
+		if (!input)
 		{
 			free_tab(data.envp);
-			printf("exit\n");
 			exit(data.exit_code);
 		}
 		if (input && *input)
@@ -46,5 +46,3 @@ int	main(int argc, char **argv, char **envp)
 	free_tab(data.envp);
 	exit(data.exit_code);
 }
-
-// to compile : valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell

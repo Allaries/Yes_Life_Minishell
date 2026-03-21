@@ -6,25 +6,11 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:51:39 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/15 22:03:56 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/20 19:58:38 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-char	*cut_path(char *unc_path)
-{
-	int		i;
-	char	*path;
-
-	i = 0;
-	while (unc_path[i])
-		i++;
-	while (unc_path[i] != '/')
-		i--;
-	path = ft_substr(unc_path, 0, i);
-	return (path);
-}
 
 char	*gethome(char **envp)
 {
@@ -39,11 +25,40 @@ char	*gethome(char **envp)
 	return (NULL);
 }
 
-int	chdir_nopwd(char **cmd, int mod, char **envp)
+void	change_pwd(t_data *data)
 {
+	char	*pwd;
+	char	*get;
+	int		nofree;
+
+	nofree = 0;
+	pwd = getcwd(NULL, 0);
+	if (!pwd || pwd == NULL)
+	{
+		pwd = "void";
+		nofree = 1;
+	}
+	get = ft_strjoin("OLDPWD=", get_env(data, "PWD"));
+	export_one(data, get);
+	free (get);
+	get = ft_strjoin("PWD=", pwd);
+	export_one(data, get);
+	free (get);
+	if (!nofree)
+		free (pwd);
+}
+
+int	bi_cd(char **cmd, char **envp)
+{
+	int		i;
 	char	*path;
 
-	if (mod == 0)
+	i = 0;
+	while (cmd[i])
+		i++;
+	if (i > 2)
+		return (write(2, "cd : too many argument\n", 24), 1);
+	if (i == 1)
 	{
 		path = gethome(envp);
 		if (!path || path == NULL)
@@ -52,62 +67,9 @@ int	chdir_nopwd(char **cmd, int mod, char **envp)
 			return (1);
 		return (0);
 	}
-	if (mod == 1)
-	{
-		path = cmd[1];
-		if (chdir(path) != 0)
-		{
-			print_stderr(cmd[1], 2);
-			return (1);
-		}
-		return (0);
-	}
-	return (0);
-}
-
-int	chdir_pwd(char **cmd, int mod)
-{
-	char	*pwd;
-	char	*path;
-
-	if (mod == 1)
-	{
-		chdir("..");
-		return (0);
-	}
-	pwd = getcwd(NULL, 0);
-	if (mod == 0)
-		path = slashcmd(cmd[1], pwd);
-	if (chdir(path) != 0)
-	{
-		print_stderr(cmd[1], 2);
-		free(pwd);
-		free(path);
-		return (1);
-	}
-	free(pwd);
-	free(path);
-	return (0);
-}
-
-int	bi_cd(char **cmd, char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-		i++;
-	if (i > 2)
-		return (printf("cd : too many argument\n"), 1);
-	if (i == 1)
-		return (chdir_nopwd(cmd, 0, envp));
 	if (strncmp(cmd[1], ".", 2) == 0)
 		return (0);
-	if (cmd[1][0] == '/')
-		return (chdir_nopwd(cmd, 1, envp));
-	else if (strncmp(cmd[1], "..", 3) == 0)
-		return (chdir_pwd(cmd, 1));
-	else
-		return (chdir_pwd(cmd, 0));
+	if (chdir(cmd[1]) != 0)
+		return (print_stderr(cmd[1], 2), 1);
 	return (0);
 }

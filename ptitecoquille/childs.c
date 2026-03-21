@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/18 22:11:45 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/20 19:43:38 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,9 @@ void	wait_cmd(t_data *data, t_cmd *cmd)
 		cmd = cmd ->next;
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 		{
+			// fprintf(stderr, "gougougaga");
 			if (good == 0)
-				write(1, "\n", 1);
-			good++;
-			data->exit_code = 130;
-		}
-		else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-		{
-			if (good == 0)
-				write(1, "Core dumped\n", 1);
+				write(2, "Core dumped\n", 1);
 			good++;
 			data->exit_code = 131;
 		}
@@ -128,6 +122,17 @@ void	print_stderr(char *toprint, int mod)
 	write (2, "\n", 1);
 }
 
+void	close_exec(t_data *data, t_cmd *cmd, int i, int y)
+{
+	close_other_here(data);
+	close_all(data, cmd, i);
+	thanos_snap_process(data);
+	if (!y)
+		exit(127);
+	if (y)
+		exit(data->exit_code);
+}
+
 int	execute_child(t_data *data, t_cmd *cmd, int i)
 {
 	cmd->pid = fork();
@@ -135,12 +140,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 		return (1);
 	change_signal(data, 2);
 	if (cmd->args == NULL)
-	{
-		close_other_here(data);
-		close_all(data, cmd, i);
-		thanos_snap_process(data);
-		exit(127);
-	}
+		close_exec(data, cmd, i, 0);
 	if (def_path(data, cmd) == 0)
 		cmd->path = NULL;
 	if (cmd->built_in != 0)
@@ -148,18 +148,12 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 		cmd->poubelle = i;
 		dup2_child_hack(data, cmd, i);
 		exec_single_bi(cmd->built_in, data, cmd);
-		close_other_here(data);
-		close_all(data, cmd, i);
-		thanos_snap_process(data);
-		exit(data->exit_code);
+		close_exec(data, cmd, i, 1);
 	}
 	if (cmd->path == NULL)
 	{
-		close_other_here(data);
 		print_stderr (cmd->args[0], 1);
-		close_all(data, cmd, i);
-		thanos_snap_process(data);
-		exit(127);
+		close_exec(data, cmd, i, 0);
 	}
 	dup2_child_hack(data, cmd, i);
 	close_all(data, cmd, i);

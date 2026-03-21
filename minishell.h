@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/20 19:01:32 by smedenec         ###   ########.fr       */
+/*   Updated: 2026/03/20 19:27:56 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void		check_bi(t_cmd *cmd);
 void		bi_exit(t_data *data, t_cmd *cmd);
 void		bi_env(t_data *data, t_cmd *cmd);
 int			bi_cd(char **cmd, char **envp);
+void		change_pwd(t_data *data);
 int			bi_pwd(t_cmd *cmd);
 void		bi_echo(t_cmd *cmd);
 int			bi_export(t_data *data, t_cmd *cmd);
@@ -150,7 +151,7 @@ int			close_all(t_data *data, t_cmd *cmd, int i);
 void		free_tab(char **tab);
 void		thanos_snap_process(t_data *data);
 void		free_cmd_struct(t_cmd **cmd);
-void	close_other_here(t_data *data);
+void		close_other_here(t_data *data);
 
 //signaux
 ///////////////////////////////////////////////////////////

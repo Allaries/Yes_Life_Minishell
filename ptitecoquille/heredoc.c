@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 21:14:18 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/18 22:14:25 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/20 18:45:28 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	close_other_here(t_data *data)
 {
 	t_cmd	*cmd;
 	t_redir	*redir;
-	
+
 	cmd = *data->cmd;
 	while (cmd)
 	{

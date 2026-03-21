@@ -6,7 +6,7 @@
 /*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:36:20 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/18 21:46:09 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/20 17:34:55 by rerichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ int	get_infd(t_redir *filelist)
 			tmp = temp->fd;
 		else if (temp->type == INFILE)
 			tmp = infile_init(temp->name);
-		else
-		{
+		else {
 			temp = temp->next;
 			continue ;
 		}
@@ -171,6 +170,5 @@ int	get_fd(t_cmd *cmd)
 			close (cmd->outfd);
 		return (0);
 	}
-	fprintf (stderr, "infd : %i\n", cmd->infd);
 	return (1);
 }

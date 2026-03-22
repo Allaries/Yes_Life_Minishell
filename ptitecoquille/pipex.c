@@ -87,15 +87,14 @@ int	def_path(t_data *data, t_cmd *cmd)
 	while (data->envp[i] && ft_strncmp(data->envp[i], "PATH=", 5) != 0)
 		i++;
 	if (!data->envp[i])
-		return (0);
+		return (cmd->path = NULL, 0);
 	path = ft_split(data->envp[i], ':');
 	if (!path || !path[0])
-		return (0);
+		return (cmd->path = NULL, 0);
 	i = 0;
 	temp = ft_strdup(ft_strnstr(path[0], "/", 6));
 	free(path[0]);
 	path[0] = ft_strdup(temp);
 	free(temp);
-	find_path(cmd, path);
-	return (1);
+	return (find_path(cmd, path));
 }

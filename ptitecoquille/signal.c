@@ -12,6 +12,27 @@
 
 #include "../minishell.h"
 
+void	wait_cmd(t_data *data, t_cmd *cmd)
+{
+	int		status;
+	int		good;
+
+	good = 0;
+	while (cmd)
+	{
+		waitpid(cmd->pid, &status, 0);
+		data->exit_code = WEXITSTATUS(status);
+		cmd = cmd ->next;
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			if (good == 0)
+				write(2, "Core dumped\n", 1);
+			good++;
+			data->exit_code = 131;
+		}
+	}
+}
+
 static void	sigint_handler_readline(int sig)
 {
 	(void)sig;

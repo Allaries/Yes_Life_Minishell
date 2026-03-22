@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: remi <remi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 21:14:18 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/20 18:45:28 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/22 18:05:03 by remi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ void	heredoc_child(t_data *data, char *delimiter, int *pipefd)
 		else
 			write(1, "warning: delimited by end-of-file (wanted `EOF')\n", 50);
 	}
-	close(pipefd[0]);
-	close(pipefd[1]);
-	close_other_here(data);
-	thanos_snap_process(data);
+	close_heredoc(data, pipefd);
 	exit(i);
 }
 

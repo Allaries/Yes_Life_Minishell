@@ -79,6 +79,25 @@ void	free_cmd_struct(t_cmd **cmd)
 	return ;
 }
 
+int	close_all(t_data *data, t_cmd *cmd, int i)
+{
+	if (cmd->single_one == 0)
+	{
+		if (i != 0)
+		{
+			close(data->oldpipe[0]);
+			close(data->oldpipe[1]);
+		}
+		close(data->newpipe[0]);
+		close(data->newpipe[1]);
+	}
+	if (cmd->infd > 1)
+		close(cmd->infd);
+	if (cmd->outfd > 1)
+		close(cmd->outfd);
+	return (1);
+}
+
 void	thanos_snap_process(t_data *data)
 {
 	free_tab(data->envp);

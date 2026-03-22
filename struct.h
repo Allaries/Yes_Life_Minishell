@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: remi <remi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/16 23:16:21 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/22 18:24:07 by remi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-enum e_tok {
+enum e_tok
+{
 	PIPE,
 	REDIR_IN,
 	REDIR_OUT,
@@ -72,13 +73,14 @@ typedef struct t_cmd
 	struct t_cmd	*next;
 }	t_cmd;
 
-typedef struct s_data {
-	char	**envp;
-	t_cmd	**cmd;
-	int		exit_code;
-	int		pid;
-	struct	sigaction sa;
-	struct	sigaction sq;
-	int		oldpipe[2];
-	int		newpipe[2];
+typedef struct s_data
+{
+	char				**envp;
+	t_cmd				**cmd;
+	int					exit_code;
+	int					pid;
+	struct sigaction	sa;
+	struct sigaction	sq;
+	int					oldpipe[2];
+	int					newpipe[2];
 }	t_data;

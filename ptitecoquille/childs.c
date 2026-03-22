@@ -3,55 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   childs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: remi <remi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 01:36:53 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/20 19:43:38 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/22 18:05:36 by remi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	wait_cmd(t_data *data, t_cmd *cmd)
-{
-	int		status;
-	int		good;
-
-	good = 0;
-	while (cmd)
-	{
-		waitpid(cmd->pid, &status, 0);
-		data->exit_code = WEXITSTATUS(status);
-		cmd = cmd ->next;
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		{
-			// fprintf(stderr, "gougougaga");
-			if (good == 0)
-				write(2, "Core dumped\n", 1);
-			good++;
-			data->exit_code = 131;
-		}
-	}
-}
-
-int	close_all(t_data *data, t_cmd *cmd, int i)
-{
-	if (cmd->single_one == 0)
-	{
-		if (i != 0)
-		{
-			close(data->oldpipe[0]);
-			close(data->oldpipe[1]);
-		}
-		close(data->newpipe[0]);
-		close(data->newpipe[1]);
-	}
-	if (cmd->infd > 1)
-		close(cmd->infd);
-	if (cmd->outfd > 1)
-		close(cmd->outfd);
-	return (1);
-}
 
 void	close_daddy_prime(t_data *data, t_cmd *cmd, int i)
 {
@@ -70,69 +29,6 @@ void	close_daddy_prime(t_data *data, t_cmd *cmd, int i)
 	}
 }
 
-void	dup2_infile_hack(t_data *data, t_cmd *cmd, int i)
-{
-	if (i == 0)
-	{
-		if (cmd->infd != STDIN_FILENO)
-			dup2(cmd->infd, STDIN_FILENO);
-	}
-	else
-	{
-		if (cmd->infd != STDIN_FILENO)
-		{
-			dup2(cmd->infd, STDIN_FILENO);
-		}
-		else
-			dup2(data->oldpipe[0], STDIN_FILENO);
-	}
-	return ;
-}
-
-void	dup2_outfile_hack(t_data *data, t_cmd *cmd)
-{
-	if (cmd->next == NULL)
-	{
-		if (cmd->outfd != 1)
-			dup2(cmd->outfd, 1);
-	}
-	else
-	{
-		if (cmd->outfd != 1)
-			dup2(cmd->outfd, 1);
-		else
-			dup2(data->newpipe[1], 1);
-	}
-}
-
-void	dup2_child_hack(t_data *data, t_cmd *cmd, int i)
-{
-	dup2_infile_hack(data, cmd, i);
-	dup2_outfile_hack(data, cmd);
-	return ;
-}
-
-void	print_stderr(char *toprint, int mod)
-{
-	if (mod == 1)
-		write (2, "command not found : ", 21);
-	if (mod == 2)
-		write (2, "cd : no such file or directory : ", 33);
-	write (2, toprint, (ft_strlen(toprint) + 1));
-	write (2, "\n", 1);
-}
-
-void	close_exec(t_data *data, t_cmd *cmd, int i, int y)
-{
-	close_other_here(data);
-	close_all(data, cmd, i);
-	thanos_snap_process(data);
-	if (!y)
-		exit(127);
-	if (y)
-		exit(data->exit_code);
-}
-
 int	execute_child(t_data *data, t_cmd *cmd, int i)
 {
 	cmd->pid = fork();
@@ -141,8 +37,6 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	change_signal(data, 2);
 	if (cmd->args == NULL)
 		close_exec(data, cmd, i, 0);
-	if (def_path(data, cmd) == 0)
-		cmd->path = NULL;
 	if (cmd->built_in != 0)
 	{
 		cmd->poubelle = i;
@@ -150,7 +44,7 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 		exec_single_bi(cmd->built_in, data, cmd);
 		close_exec(data, cmd, i, 1);
 	}
-	if (cmd->path == NULL)
+	if (def_path(data, cmd) == 0)
 	{
 		print_stderr (cmd->args[0], 1);
 		close_exec(data, cmd, i, 0);
@@ -164,12 +58,6 @@ int	execute_child(t_data *data, t_cmd *cmd, int i)
 	exit(127);
 }
 
-void	adv_pipe(t_data *data)
-{
-	data->oldpipe[0] = data->newpipe[0];
-	data->oldpipe[1] = data->newpipe[1];
-}
-
 int	one_cmd(t_data *data, t_cmd *cmd)
 {
 	cmd->single_one = 1;
@@ -179,7 +67,7 @@ int	one_cmd(t_data *data, t_cmd *cmd)
 		return (free_cmd_struct(data->cmd), 1);
 	check_bi(cmd);
 	if (cmd->built_in != 0)
-	exec_single_bi(cmd->built_in, data, cmd);
+		exec_single_bi(cmd->built_in, data, cmd);
 	else
 	{
 		execute_child(data, cmd, 0);
@@ -211,7 +99,7 @@ int	exec_pipex(t_data *data, t_cmd **cmd)
 	i = 0;
 	here_cmd = *cmd;
 	if (!first_h_init(data, cmd))
-		return(free_cmd_struct(data->cmd), 1);
+		return (free_cmd_struct(data->cmd), 1);
 	change_signal(data, 3);
 	if (here_cmd->next == NULL)
 		return (one_cmd(data, here_cmd), 1);

@@ -1,11 +1,12 @@
 CC = cc
-CFLAGS = -Wall -Wextra -g3 -fsanitize=address,undefined,signed-integer-overflow,null,leak,bounds -fno-omit-frame-pointer
+CFLAGS = -Wall -Wextra -g3
 
 LDFLAGS = -lreadline -lhistory -lncurses
 NAME = minishell
 SRC =   ptitecoquille/pipex.c ptitecoquille/childs.c \
 		ptitecoquille/for_free.c ptitecoquille/fd.c \
 		ptitecoquille/environment.c ptitecoquille/built_in/*c \
+		ptitecoquille/exec_util1.c ptitecoquille/fd_util.c \
 		ptitecoquille/signal.c ptitecoquille/heredoc.c \
 		parsing/parsing.c parsing/expend/*c parsing/free/*c \
 		parsing/list_cmd/*c parsing/list_token/*c parsing/utils.c \

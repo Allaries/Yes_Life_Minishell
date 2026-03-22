@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rerichar <rerichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: remi <remi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:17:47 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/20 19:27:56 by rerichar         ###   ########.fr       */
+/*   Updated: 2026/03/22 18:24:17 by remi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,9 @@ char		**dupe_env(char **envp);
 int			check_fd(char **argv, t_data *data);
 int			get_fd(t_cmd *cmd);
 int			first_h_init(t_data *data, t_cmd **cmd);
+int			append_init(char *rname);
+int			infile_init(char *rname);
+int			outfile_init(char *rname);
 
 //exec utils
 /////////////////////////////////////
@@ -122,10 +125,15 @@ void		print_stderr(char *toprint, int mod);
 int			def_path(t_data *data, t_cmd *cmd);
 void		def_arg(char *cmd, t_data *data);
 char		*slashcmd(char *cmd, char *path);
+void		dup2_child_hack(t_data *data, t_cmd *cmd, int i);
+void		dup2_outfile_hack(t_data *data, t_cmd *cmd);
+void		dup2_infile_hack(t_data *data, t_cmd *cmd, int i);
+void		close_exec(t_data *data, t_cmd *cmd, int i, int y);
 
 //exec
 /////////////////////////////////////////////////////
 
+void		print_stderr(char *toprint, int mod);
 int			exec_pipex(t_data *data, t_cmd **cmd);
 void		exec_single_bi(int mod, t_data *data, t_cmd *cmd);
 int			execute_child(t_data *data, t_cmd *herecmd, int i);
@@ -143,6 +151,7 @@ void		bi_echo(t_cmd *cmd);
 int			bi_export(t_data *data, t_cmd *cmd);
 int			bi_unset(t_data *data, t_cmd *cmd);
 void		export_one(t_data *data, char *export);
+void		adv_pipe(t_data *data);
 
 //free ou close
 /////////////////////////////////////
@@ -152,10 +161,11 @@ void		free_tab(char **tab);
 void		thanos_snap_process(t_data *data);
 void		free_cmd_struct(t_cmd **cmd);
 void		close_other_here(t_data *data);
+void		close_heredoc(t_data *data, int *pipefd);
 
 //signaux
 ///////////////////////////////////////////////////////////
 void		change_signal(t_data *data, int type);
-
+void		wait_cmd(t_data *data, t_cmd *cmd);
 
 #endif

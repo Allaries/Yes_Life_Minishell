@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: remi <remi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smedenec <smedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:41:30 by rerichar          #+#    #+#             */
-/*   Updated: 2026/03/22 18:24:07 by remi             ###   ########.fr       */
+/*   Updated: 2026/03/23 13:21:41 by smedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef STRUCT_H
+# define STRUCT_H
 
 enum e_tok
 {
@@ -84,3 +87,5 @@ typedef struct s_data
 	int					oldpipe[2];
 	int					newpipe[2];
 }	t_data;
+
+#endif

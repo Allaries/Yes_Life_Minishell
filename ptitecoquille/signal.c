@@ -37,7 +37,6 @@ static void	sigint_handler_readline(int sig)
 {
 	(void)sig;
 	rl_done = 0;
-	g_sig_status = SIGINT;
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
